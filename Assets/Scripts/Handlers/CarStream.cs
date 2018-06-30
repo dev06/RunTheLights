@@ -1,0 +1,132 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CarStream : MonoBehaviour {
+
+	public List<Transform> cars = new List<Transform>(); 
+
+	private float timer; 
+
+	private int currentCarIndex; 
+
+	public int direction = 1; 
+
+	private float delay = 1f; 
+
+	private Transform stoppoint; 
+
+	private bool moveCars = true; 
+
+
+	void OnEnable()
+	{
+		EventManager.OnSectionPool+=OnSectionPool; 
+	}
+	void OnDisable()
+	{
+		EventManager.OnSectionPool-=OnSectionPool; 
+	}
+
+	void OnSectionPool(SectionType type)
+	{
+
+	}
+
+	void Start () 
+	{
+		Init(); 	
+	}
+
+	private void CreateCars()
+	{
+		for(int i = 0;i < 15; i++)
+		{
+			GameObject clone = Instantiate(AppResources.Car); 
+
+			clone.transform.SetParent(transform); 
+
+			clone.transform.position = Vector3.zero; 
+
+			clone.SetActive(false); 
+
+			cars.Add(clone.transform); 
+		}
+	}
+
+	private void Init()
+	{
+		stoppoint = transform.GetChild(1); 
+		
+		CreateCars();
+
+		timer = 1f; 
+	}
+	
+	void Update () 
+	{
+		if(moveCars)
+		{
+			timer+=Time.deltaTime; 
+
+			if(timer > delay)
+			{
+				MoveNextCar(); 
+
+				timer = 0; 
+			}			
+		}
+	}
+
+	private void MoveNextCar()
+	{
+		Car car = cars[currentCarIndex].GetComponent<Car>(); 
+
+		if(car.move == false)
+		{
+			car.transform.gameObject.SetActive(true); 
+
+			car.Move(transform.position, transform.GetChild(0).position, direction); 
+
+			delay = Random.Range(.3f, 2.8f); 
+			
+		}
+
+		currentCarIndex++; 
+
+		if(currentCarIndex > cars.Count - 1)
+		{
+			currentCarIndex = 0; 
+		}
+	}
+
+	private void PlaceCarsAtStopPoint()
+	{
+		if(moveCars) return; 
+
+		for(int i = 0;i < cars.Count; i++)
+		{
+
+			cars[i].GetComponent<Car>().SetMove(false); 
+
+			if(i < cars.Count / 3)
+			{
+				Vector3 position = stoppoint.position; 
+
+				cars[i].gameObject.SetActive(true); 
+
+				cars[i].transform.position = position + new Vector3(-direction * i * 40f, transform.position.y, 0); 			
+			}
+		}
+	}
+
+	private void SetMove(bool b)
+	{
+		moveCars = b; 
+
+		for(int i = 0;i < cars.Count; i++)
+		{
+			cars[i].GetComponent<Car>().SetMove(moveCars); 
+		}
+	}
+}
