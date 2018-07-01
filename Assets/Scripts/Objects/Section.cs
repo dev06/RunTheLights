@@ -3,82 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum SectionType
-{	
+{
 	Section_1,
 	Section_2,
 	Section_3,
-}	
+}
 
 public class Section : MonoBehaviour {
 
-	
-	public static float VELOCITY = 0; 
 
-	public Transform StartConnector; 
+	public static float VELOCITY = 0;
 
-	public Transform EndConnector; 
+	public Transform StartConnector;
 
-	public SectionType type; 
+	public Transform EndConnector;
 
-	public bool move = true; 
+	public SectionType type;
 
-	public static bool EnalbedProps = true; 
+	public bool move = true;
 
-	private SectionContainer sectionContainer; 
+	public static bool EnalbedProps = true;
 
-	private Section attachedSection; 
+	private SectionContainer sectionContainer;
 
-	public Section connectedSection; 
+	private Section attachedSection;
 
-	public GameObject Buildings; 
+	public Section connectedSection;
+
+	public GameObject Buildings;
 
 	public void Init()
 	{
-		sectionContainer = FindObjectOfType<SectionContainer>(); 
-		
-		Buildings.SetActive(EnalbedProps); 		
+		sectionContainer = FindObjectOfType<SectionContainer>();
+
+		//Buildings.SetActive(EnalbedProps);
 	}
 
 
 	public void SetType(SectionType type)
 	{
-		this.type = type; 
+		this.type = type;
 	}
 
 	void Update()
 	{
-		if(!move) return; 
+		if (!move) return;
 
-		transform.Translate(-Vector3.forward * Time.deltaTime * VELOCITY, Space.World); 
+		transform.Translate(-Vector3.forward * Time.deltaTime * VELOCITY, Space.World);
 
-		if(attachedSection != null)
+		if (attachedSection != null)
 		{
-			transform.position = attachedSection.EndConnector.position; 
+			transform.position = attachedSection.EndConnector.position;
 		}
 
-		OutSide(); 
+		OutSide();
 	}
 
 	private void OutSide()
 	{
-		if(EndConnector.transform.position.z < -8f)
+		if (EndConnector.transform.position.z < -8f)
 		{
-			move = false; 
+			move = false;
 
-			transform.gameObject.SetActive(false); 
+			transform.gameObject.SetActive(false);
 
-			sectionContainer.PoolSection(this); 
+			sectionContainer.PoolSection(this);
 
-			if(EventManager.OnSectionPool != null)
+			if (EventManager.OnSectionPool != null)
 			{
-				EventManager.OnSectionPool(type); 
+				EventManager.OnSectionPool(type);
 			}
 
-			if(connectedSection != null)
+			if (connectedSection != null)
 			{
-				connectedSection.attachedSection = null; 		
+				connectedSection.attachedSection = null;
 
-				connectedSection = null; 		
+				connectedSection = null;
 			}
 
 		}
@@ -86,21 +86,21 @@ public class Section : MonoBehaviour {
 
 	public void Move(Section s)
 	{
-		this.attachedSection = s; 
+		this.attachedSection = s;
 
-		attachedSection.connectedSection = this; 
+		attachedSection.connectedSection = this;
 
-		transform.position = s.EndConnector.position; 
+		transform.position = s.EndConnector.position;
 
-		move = true; 
+		move = true;
 	}
 
 
 	public void Toggle(bool b)
 	{
-		foreach(Transform t in transform)
+		foreach (Transform t in transform)
 		{
-			t.gameObject.SetActive(b); 
+			t.gameObject.SetActive(b);
 		}
 
 	}

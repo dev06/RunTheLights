@@ -6,43 +6,43 @@ public class Car : MonoBehaviour {
 
 	Vector3 targetPosition;
 
-	public bool move; 
+	public bool move;
 
-	int direction;  
+	int direction;
 
-	public float CarSpeed =100f; 
-	
-	void Start () 
+	public float CarSpeed = 100f;
+
+	void Start ()
 	{
-		CarSpeed =100; 
+		CarSpeed = 10f;
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
-		if(!move) return; 
+		if (!move) return;
 
-		transform.Translate(direction * Vector3.right * Time.deltaTime * CarSpeed, Space.World); 
+		transform.Translate(direction * Vector3.right * Time.deltaTime * CarSpeed, Space.World);
 
-	}	
+	}
 
 	public void Move(Vector3 startingPos, Vector3 target, int direction)
 	{
-		move = true; 
-		transform.position = startingPos + new Vector3(0, 0, Random.Range(-10f, 10f)); 
-		this.direction = direction; 	
+		move = true;
+		transform.position = startingPos + new Vector3(0, 0, Random.Range(-.2f, .2f));
+		this.direction = direction;
 	}
 
 	void OnTriggerEnter(Collider col)
 	{
-		if(col.gameObject.tag == "Trigger/Carpool")
+		if (col.gameObject.tag == "Trigger/Carpool")
 		{
-			move = false; 
+			move = false;
 		}
 	}
 
 	public void SetMove(bool b)
 	{
-		move = b; 
+		move = b;
 	}
 }

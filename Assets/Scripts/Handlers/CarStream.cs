@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class CarStream : MonoBehaviour {
 
-	public List<Transform> cars = new List<Transform>(); 
+	public List<Transform> cars = new List<Transform>();
 
-	private float timer; 
+	private float timer;
 
-	private int currentCarIndex; 
+	private int currentCarIndex;
 
-	public int direction = 1; 
+	public int direction = 1;
 
-	private float delay = 1f; 
+	private float delay = 1f;
 
-	private Transform stoppoint; 
+	private Transform stoppoint;
 
-	private bool moveCars = true; 
+	private bool moveCars = true;
 
 
 	void OnEnable()
 	{
-		EventManager.OnSectionPool+=OnSectionPool; 
+		EventManager.OnSectionPool += OnSectionPool;
 	}
 	void OnDisable()
 	{
-		EventManager.OnSectionPool-=OnSectionPool; 
+		EventManager.OnSectionPool -= OnSectionPool;
 	}
 
 	void OnSectionPool(SectionType type)
@@ -33,100 +33,102 @@ public class CarStream : MonoBehaviour {
 
 	}
 
-	void Start () 
+	void Start ()
 	{
-		Init(); 	
+		Init();
 	}
 
 	private void CreateCars()
 	{
-		for(int i = 0;i < 15; i++)
+		for (int i = 0; i < 15; i++)
 		{
-			GameObject clone = Instantiate(AppResources.Car); 
+			GameObject clone = Instantiate(AppResources.Vehicles[Random.Range(0, 2)]);
 
-			clone.transform.SetParent(transform); 
+			clone.transform.SetParent(transform);
 
-			clone.transform.position = Vector3.zero; 
+			clone.transform.position = Vector3.zero;
 
-			clone.SetActive(false); 
+			clone.SetActive(false);
 
-			cars.Add(clone.transform); 
+			clone.transform.rotation = Quaternion.Euler(new Vector3(0, direction * 90, 0));
+
+			cars.Add(clone.transform);
 		}
 	}
 
 	private void Init()
 	{
-		stoppoint = transform.GetChild(1); 
-		
+		//stoppoint = transform.GetChild(1);
+
 		CreateCars();
 
-		timer = 1f; 
+		timer = 1f;
 	}
-	
-	void Update () 
+
+	void Update ()
 	{
-		if(moveCars)
+		if (moveCars)
 		{
-			timer+=Time.deltaTime; 
+			timer += Time.deltaTime;
 
-			if(timer > delay)
+			if (timer > delay)
 			{
-				MoveNextCar(); 
+				MoveNextCar();
 
-				timer = 0; 
-			}			
+				timer = 0;
+			}
 		}
 	}
 
 	private void MoveNextCar()
 	{
-		Car car = cars[currentCarIndex].GetComponent<Car>(); 
+		Car car = cars[currentCarIndex].GetComponent<Car>();
 
-		if(car.move == false)
+		if (car.move == false)
 		{
-			car.transform.gameObject.SetActive(true); 
+			car.transform.gameObject.SetActive(true);
 
-			car.Move(transform.position, transform.GetChild(0).position, direction); 
+			car.Move(transform.position, transform.GetChild(0).position, direction);
 
-			delay = Random.Range(.3f, 2.8f); 
-			
+			delay = Random.Range(.3f, 2.8f);
+
 		}
 
-		currentCarIndex++; 
+		currentCarIndex++;
 
-		if(currentCarIndex > cars.Count - 1)
+		if (currentCarIndex > cars.Count - 1)
 		{
-			currentCarIndex = 0; 
+			currentCarIndex = 0;
 		}
 	}
 
 	private void PlaceCarsAtStopPoint()
 	{
-		if(moveCars) return; 
+		if (moveCars) return;
 
-		for(int i = 0;i < cars.Count; i++)
+		for (int i = 0; i < cars.Count; i++)
 		{
 
-			cars[i].GetComponent<Car>().SetMove(false); 
+			cars[i].GetComponent<Car>().SetMove(false);
 
-			if(i < cars.Count / 3)
+			if (i < cars.Count / 3)
 			{
-				Vector3 position = stoppoint.position; 
+				Vector3 position = stoppoint.position;
 
-				cars[i].gameObject.SetActive(true); 
+				cars[i].gameObject.SetActive(true);
 
-				cars[i].transform.position = position + new Vector3(-direction * i * 40f, transform.position.y, 0); 			
+				cars[i].transform.position = position + new Vector3(-direction * i * 40f, transform.position.y, 0);
 			}
 		}
 	}
 
 	private void SetMove(bool b)
 	{
-		moveCars = b; 
+		moveCars = b;
 
-		for(int i = 0;i < cars.Count; i++)
+		for (int i = 0; i < cars.Count; i++)
 		{
-			cars[i].GetComponent<Car>().SetMove(moveCars); 
+			cars[i].GetComponent<Car>().SetMove(moveCars);
 		}
 	}
 }

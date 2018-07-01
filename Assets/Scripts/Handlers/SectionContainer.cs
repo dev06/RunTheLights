@@ -4,105 +4,105 @@ using UnityEngine;
 
 public class SectionContainer : MonoBehaviour {
 
-	public static List<Section> sections = new List<Section>(); 
+	public static List<Section> sections = new List<Section>();
 
-	public static List<Section> generated = new List<Section>(); 
+	public static List<Section> generated = new List<Section>();
 
-	public Transform reservedTransform; 
+	public Transform reservedTransform;
 
-	public Section lastReservedSection; 
+	public Section lastReservedSection;
 
-	private int defaultActive = 6; 
+	private int defaultActive = 6;
 
 	void Awake()
 	{
-		sections.Clear(); 
+		sections.Clear();
 	}
 
-	void Start () 
+	void Start ()
 	{
-		SpawnSection(); 
+		SpawnSection();
 	}
-	
+
 
 	public void SpawnSection()
 	{
 
-		for(int i = 0;i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			CreateSection(SectionType.Section_1); 
+			CreateSection(SectionType.Section_1);
 		}
-		for(int i = 0;i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			CreateSection(SectionType.Section_2); 
+			CreateSection(SectionType.Section_2);
 		}
-		// for(int i = 0;i < 4; i++)
-		// {
-		// 	CreateSection(SectionType.Section_3); 
-		// }
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_3);
+		}
 
-		RepositionSections(); 
+		RepositionSections();
 
 	}
 
 	private void RepositionSections()
 	{
 
-		List<Section> queue = new List<Section>(); 
+		List<Section> queue = new List<Section>();
 
-		int r = Random.Range(0, reservedTransform.childCount); 
+		int r = Random.Range(0, reservedTransform.childCount);
 
-		List<int> chosen = new List<int>(); 
+		List<int> chosen = new List<int>();
 
-		int index = 0; 
+		int index = 0;
 
-		Section to = null; 
-		
+		Section to = null;
+
 		do
 		{
 
-			if(index < 2)
+			if (index < 2)
 			{
-				to = GetSectionFromReservedByType(SectionType.Section_1); 
+				to = GetSectionFromReservedByType(SectionType.Section_1);
 			}
 			else
 			{
-				r = Random.Range(0, reservedTransform.childCount); 
-				
-				to = reservedTransform.GetChild(r).GetComponent<Section>(); 
+				r = Random.Range(0, reservedTransform.childCount);
+
+				to = reservedTransform.GetChild(r).GetComponent<Section>();
 			}
 
-			if(!queue.Contains(to))
+			if (!queue.Contains(to))
 			{
-				queue.Add(to); 
+				queue.Add(to);
 
-				index++; 
+				index++;
 			}
 
 
 
 		}
-		while(queue.Count < 4); 
+		while (queue.Count < 4);
 
 
 
-		for(int i = 0;i < queue.Count; i++)
+		for (int i = 0; i < queue.Count; i++)
 		{
 
-			queue[i].transform.SetParent(transform); 
-			queue[i].transform.gameObject.SetActive(true); 
+			queue[i].transform.SetParent(transform);
+			queue[i].transform.gameObject.SetActive(true);
 
 
-			Vector3 position = new Vector3(0, 0, 0); 
+			Vector3 position = new Vector3(0, 0, 0);
 
-			if(i > 0)
+			if (i > 0)
 			{
-				position = queue[i - 1].EndConnector.position; 
+				position = queue[i - 1].EndConnector.position;
 			}
 
-			queue[i].transform.position = position; 
+			queue[i].transform.position = position;
 
-			sections.Add(queue[i]); 
+			sections.Add(queue[i]);
 
 
 		}
@@ -113,112 +113,112 @@ public class SectionContainer : MonoBehaviour {
 	public void CreateSection(SectionType type)
 	{
 
-		GameObject prefab = DeterminePrefab(type); 
+		GameObject prefab = DeterminePrefab(type);
 
-		GameObject clone = Instantiate(prefab) as GameObject; 
+		GameObject clone = Instantiate(prefab) as GameObject;
 
-		clone.transform.SetParent(reservedTransform);  
+		clone.transform.SetParent(reservedTransform);
 
-		clone.SetActive(false); 
+		clone.SetActive(false);
 
-		Section sec = clone.GetComponent<Section>(); 
+		Section sec = clone.GetComponent<Section>();
 
-		generated.Add(clone.GetComponent<Section>()); 
-		
+		generated.Add(clone.GetComponent<Section>());
+
 		sec.SetType(type);
 
-		sec.Init(); 
+		sec.Init();
 
 	}
 
 	private GameObject DeterminePrefab(SectionType type)
 	{
-		switch(type)
+		switch (type)
 		{
-			case SectionType.Section_1: return AppResources.Section_1; 
-			case SectionType.Section_2: return AppResources.Section_2; 
-			case SectionType.Section_3: return AppResources.Section_3; 
-			default: return AppResources.Section_1; 
+			case SectionType.Section_1: return AppResources.Section_1;
+			case SectionType.Section_2: return AppResources.Section_2;
+			case SectionType.Section_3: return AppResources.Section_3;
+			default: return AppResources.Section_1;
 		}
 	}
 
-	private int sectionCount; 
+	private int sectionCount;
 
 	public void PoolSection(Section section)
 	{
-		
-		section.transform.gameObject.SetActive(false); 
-		
-		section.transform.SetParent(reservedTransform); 
 
-		int r = Random.Range(0, reservedTransform.childCount); 
+		section.transform.gameObject.SetActive(false);
 
-		Section s = reservedTransform.GetChild(r).GetComponent<Section>(); 
+		section.transform.SetParent(reservedTransform);
 
-		if(s.type == SectionType.Section_1)
+		int r = Random.Range(0, reservedTransform.childCount);
+
+		Section s = reservedTransform.GetChild(r).GetComponent<Section>();
+
+		if (s.type == SectionType.Section_1)
 		{
-			sectionCount++; 
+			sectionCount++;
 		}
 
-		if(sectionCount > 1)
+		if (sectionCount > 1)
 		{
-			s = GetSectionFromReservedByType(SectionType.Section_2); 
+			s = GetSectionFromReservedByType(SectionType.Section_2);
 
-			sectionCount = 0; 
+			sectionCount = 0;
 		}
 
-		s.transform.SetParent(transform); 
+		s.transform.SetParent(transform);
 
-		s.transform.gameObject.SetActive(true); 
+		s.transform.gameObject.SetActive(true);
 
-		lastReservedSection = lastReservedSection == null ? sections[sections.Count - 1] : lastReservedSection; 
+		lastReservedSection = lastReservedSection == null ? sections[sections.Count - 1] : lastReservedSection;
 
-		s.Move(lastReservedSection); 
+		s.Move(lastReservedSection);
 
-		lastReservedSection = s; 
+		lastReservedSection = s;
 	}
 
 	public Section GetUnactiveSection()
 	{
-		Section s = sections[Random.Range(0, sections.Count)]; 
+		Section s = sections[Random.Range(0, sections.Count)];
 
 		do
 		{
-			s = sections[Random.Range(0, sections.Count)]; 
+			s = sections[Random.Range(0, sections.Count)];
 		}
-		while(s.transform.gameObject.activeSelf); 
+		while (s.transform.gameObject.activeSelf);
 
 
 
-		return s; 
+		return s;
 	}
 
 	Section GetSectionFromReservedByType(SectionType type)
 	{
 
-		int r = Random.Range(0, reservedTransform.childCount); 
+		int r = Random.Range(0, reservedTransform.childCount);
 
-		Section s = reservedTransform.GetChild(r).GetComponent<Section>(); 
+		Section s = reservedTransform.GetChild(r).GetComponent<Section>();
 
-		int breakCount = 0; 
+		int breakCount = 0;
 
 		do
 		{
-			r = Random.Range(0, reservedTransform.childCount); 
+			r = Random.Range(0, reservedTransform.childCount);
 
-			s = reservedTransform.GetChild(r).GetComponent<Section>(); 
+			s = reservedTransform.GetChild(r).GetComponent<Section>();
 
-			breakCount++; 
+			breakCount++;
 
-			if(breakCount > 1000)
+			if (breakCount > 1000)
 			{
-				break; 
+				break;
 			}
 
 		}
-		while(s.type != type); 
+		while (s.type != type);
 
-		return s; 
+		return s;
 	}
 
 }

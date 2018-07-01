@@ -23,6 +23,8 @@ ModelImporter:
     2100018: Material.030
     2100020: Material.033
     2100022: Material.032
+    2100024: Material.006
+    2100026: Material.007
     2300000: //RootNode
     2300002: Cube.000
     2300004: Cube.002
@@ -31,6 +33,7 @@ ModelImporter:
     3300004: Cube.002
     4300000: Cube.002
     4300002: Cube.000
+    4300004: Cube.003
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -86,7 +89,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
