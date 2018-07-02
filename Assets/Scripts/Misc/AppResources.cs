@@ -13,11 +13,13 @@ public class AppResources : MonoBehaviour {
 
 	public static GameObject Car = Resources.Load("Prefabs/Car") as GameObject;
 	public static GameObject Car_2 = Resources.Load("Prefabs/Car_2") as GameObject;
+	public static GameObject Car_3 = Resources.Load("Prefabs/Car_3") as GameObject;
 
 	public static GameObject[] Vehicles =
 	{
 		Car,
 		Car_2,
+		Car_3,
 	};
 
 }
