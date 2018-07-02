@@ -12,7 +12,11 @@ public enum SectionType
 public class Section : MonoBehaviour {
 
 
+	public GameObject prefab;
+
 	public static float VELOCITY = 0;
+
+	public static readonly float MAX_VELOCITY = 15F;
 
 	public Transform StartConnector;
 
@@ -20,21 +24,33 @@ public class Section : MonoBehaviour {
 
 	public SectionType type;
 
-	public bool move = true;
-
 	public static bool EnalbedProps = true;
 
 	private SectionContainer sectionContainer;
 
 	private Section attachedSection;
 
+	[HideInInspector]
 	public Section connectedSection;
 
+	[HideInInspector]
+	public bool move = true;
+
+
 	public GameObject Buildings;
+
+	public ResetGameObject[] resetObjects;
 
 	public void Init()
 	{
 		sectionContainer = FindObjectOfType<SectionContainer>();
+
+		move = true;
+
+		foreach (ResetGameObject rg in resetObjects)
+		{
+			rg.Initalize();
+		}
 
 		//Buildings.SetActive(EnalbedProps);
 	}
@@ -79,6 +95,11 @@ public class Section : MonoBehaviour {
 				connectedSection.attachedSection = null;
 
 				connectedSection = null;
+			}
+
+			foreach (ResetGameObject rg in resetObjects)
+			{
+				rg.Reset();
 			}
 
 		}

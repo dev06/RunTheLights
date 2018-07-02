@@ -119,9 +119,13 @@ public class SectionContainer : MonoBehaviour {
 
 		clone.transform.SetParent(reservedTransform);
 
+		clone.name = prefab.name;
+
 		clone.SetActive(false);
 
 		Section sec = clone.GetComponent<Section>();
+
+		sec.prefab = clone;
 
 		generated.Add(clone.GetComponent<Section>());
 
@@ -146,6 +150,9 @@ public class SectionContainer : MonoBehaviour {
 
 	public void PoolSection(Section section)
 	{
+
+		//Test.T(section);
+		//PrefabUtility.ReplacePrefab(section, section.prefab, ReplacePrefabOptions.ConnectToPrefab);
 
 		section.transform.gameObject.SetActive(false);
 

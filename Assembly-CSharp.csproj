@@ -57,6 +57,8 @@
      <Compile Include="Assets\Scripts\Handlers\SectionContainer.cs" />
      <Compile Include="Assets\Scripts\Misc\AppResources.cs" />
      <Compile Include="Assets\Scripts\Misc\EventManager.cs" />
+     <Compile Include="Assets\Scripts\Misc\HitObject.cs" />
+     <Compile Include="Assets\Scripts\Misc\ResetGameObject.cs" />
      <Compile Include="Assets\Scripts\Objects\Car.cs" />
      <Compile Include="Assets\Scripts\Objects\Section.cs" />
  <Reference Include="UnityEngine.UI">

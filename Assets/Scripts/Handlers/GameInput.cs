@@ -44,7 +44,7 @@ public class GameInput : MonoBehaviour {
 			rate = 80;
 		}
 
-		velocity = Mathf.Clamp(velocity, 0, 15);
+		velocity = Mathf.Clamp(velocity, 0, Section.MAX_VELOCITY);
 
 		Section.VELOCITY = velocity;
 

@@ -38,6 +38,7 @@ public class Car : MonoBehaviour {
 		if (col.gameObject.tag == "Trigger/Carpool")
 		{
 			move = false;
+			transform.gameObject.SetActive(false);
 		}
 	}
 
