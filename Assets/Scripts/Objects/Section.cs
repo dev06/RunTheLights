@@ -96,17 +96,16 @@ public class Section : MonoBehaviour {
 
 				connectedSection = null;
 			}
-
-			foreach (ResetGameObject rg in resetObjects)
-			{
-				rg.Reset();
-			}
-
 		}
 	}
 
 	public void Move(Section s)
 	{
+		foreach (ResetGameObject rg in resetObjects)
+		{
+			rg.Reset();
+		}
+
 		this.attachedSection = s;
 
 		attachedSection.connectedSection = this;

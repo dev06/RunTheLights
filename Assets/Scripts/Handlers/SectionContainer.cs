@@ -67,7 +67,7 @@ public class SectionContainer : MonoBehaviour {
 			}
 			else
 			{
-				r = Random.Range(0, reservedTransform.childCount);
+				r = Random.Range(4, reservedTransform.childCount);
 
 				to = reservedTransform.GetChild(r).GetComponent<Section>();
 			}

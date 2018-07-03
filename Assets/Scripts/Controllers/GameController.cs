@@ -5,12 +5,16 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 
-	public GameObject Dummy; 
+	public GameObject Dummy;
+
+	public static bool GameOver;
 
 	void Awake()
 	{
-		Application.targetFrameRate = 60; 
+		Application.targetFrameRate = 60;
 
-		Dummy.SetActive(false); 
+		Dummy.SetActive(false);
+
+		GameOver = false;
 	}
 }

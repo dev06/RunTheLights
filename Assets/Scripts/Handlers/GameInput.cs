@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour {
 
+	public ParticleSystem explosion;
 
 	private float targetVelocity;
 
@@ -17,13 +18,29 @@ public class GameInput : MonoBehaviour {
 
 	private bool pressed;
 
-	void Start ()
+	void OnEnable()
 	{
+		EventManager.OnHitObject += OnHitObject;
+	}
 
+	void OnDisable()
+	{
+		EventManager.OnHitObject -= OnHitObject;
+	}
+
+	void OnHitObject ()
+	{
 	}
 
 	void Update ()
 	{
+		if (GameController.GameOver)
+		{
+			Section.VELOCITY = 0f;
+			velocity = 0f;
+			return;
+		}
+
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -31,7 +48,7 @@ public class GameInput : MonoBehaviour {
 		}
 		if (Input.GetMouseButton(0))
 		{
-			velocity += Time.deltaTime * 30f;
+			velocity += Time.deltaTime * 20f;
 			targetVelocity = 200;
 
 			Control();
@@ -109,9 +126,32 @@ public class GameInput : MonoBehaviour {
 
 		if (col.gameObject.tag == "Objects/Car")
 		{
+			Death(col);
 #if !UNITY_EDITOR
-			UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+
 #endif
 		}
+	}
+
+	void Death(Collider col)
+	{
+		GameController.GameOver = true;
+		StopCoroutine("IOnDeath");
+		StartCoroutine("IOnDeath");
+		explosion.Play();
+		col.transform.gameObject.SetActive(false);
+		Toggle(false);
+	}
+
+	void Toggle(bool b)
+	{
+		GetComponent<MeshRenderer>().enabled = b;
+		GetComponent<BoxCollider>().enabled = b;
+	}
+
+	IEnumerator IOnDeath()
+	{
+		yield return new WaitForSeconds(2.5f);
+		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 	}
 }

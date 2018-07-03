@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour {
 
-	public delegate void Section(SectionType type); 
+	public delegate void Section(SectionType type);
 
-	public static Section OnSectionPool; 
+	public static Section OnSectionPool;
+
+
+	public delegate void Gameplay();
+	public static Gameplay OnHitObject;
 }

@@ -40,7 +40,7 @@ public class CarStream : MonoBehaviour {
 
 	private void CreateCars()
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			GameObject clone = Instantiate(AppResources.Vehicles[Random.Range(0, AppResources.Vehicles.Length)]);
 
