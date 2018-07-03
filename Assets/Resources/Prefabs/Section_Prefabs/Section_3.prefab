@@ -5700,16 +5700,7 @@ MonoBehaviour:
   connectedSection: {fileID: 0}
   move: 1
   Buildings: {fileID: 0}
-  resetObjects:
-  - {fileID: 114353479154181032}
-  - {fileID: 114388326920755638}
-  - {fileID: 114574528789415216}
-  - {fileID: 114178504985695144}
-  - {fileID: 114686478818699400}
-  - {fileID: 114471921986111630}
-  - {fileID: 114571124252290056}
-  - {fileID: 114086954531238770}
-  - {fileID: 114389350932159556}
+  hitObjects: {fileID: 4477790056671332}
 --- !u!114 &114686478818699400
 MonoBehaviour:
   m_ObjectHideFlags: 1

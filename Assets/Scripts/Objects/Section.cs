@@ -39,7 +39,9 @@ public class Section : MonoBehaviour {
 
 	public GameObject Buildings;
 
-	public ResetGameObject[] resetObjects;
+	public Transform hitObjects;
+
+	private List<ResetGameObject> resetObjects;
 
 	public void Init()
 	{
@@ -47,12 +49,26 @@ public class Section : MonoBehaviour {
 
 		move = true;
 
+		FillHitObjects();
+
+		//Buildings.SetActive(EnalbedProps);
+	}
+
+	private void FillHitObjects()
+	{
+		if (hitObjects == null) return;
+
+		resetObjects = new List<ResetGameObject>();
+
+		for (int i = 0; i < hitObjects.childCount; i++)
+		{
+			resetObjects.Add(hitObjects.GetChild(i).GetComponent<ResetGameObject>());
+		}
+
 		foreach (ResetGameObject rg in resetObjects)
 		{
 			rg.Initalize();
 		}
-
-		//Buildings.SetActive(EnalbedProps);
 	}
 
 
@@ -101,10 +117,17 @@ public class Section : MonoBehaviour {
 
 	public void Move(Section s)
 	{
-		foreach (ResetGameObject rg in resetObjects)
+		if (resetObjects != null)
 		{
-			rg.Reset();
+			if (resetObjects.Count > 0)
+			{
+				foreach (ResetGameObject rg in resetObjects)
+				{
+					rg.Reset();
+				}
+			}
 		}
+
 
 		this.attachedSection = s;
 
