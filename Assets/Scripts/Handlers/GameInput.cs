@@ -126,8 +126,8 @@ public class GameInput : MonoBehaviour {
 
 		if (col.gameObject.tag == "Objects/Car")
 		{
-			Death(col);
 #if !UNITY_EDITOR
+			Death(col);
 
 #endif
 		}

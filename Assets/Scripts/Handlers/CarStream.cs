@@ -40,7 +40,7 @@ public class CarStream : MonoBehaviour {
 
 	private void CreateCars()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 2; i++)
 		{
 			GameObject clone = Instantiate(AppResources.Vehicles[Random.Range(0, AppResources.Vehicles.Length)]);
 
@@ -90,7 +90,7 @@ public class CarStream : MonoBehaviour {
 
 			car.Move(transform.position, transform.GetChild(0).position, direction);
 
-			delay = Random.Range(.3f, 2.8f);
+			delay = Random.Range(.5f, 2.8f);
 
 		}
 

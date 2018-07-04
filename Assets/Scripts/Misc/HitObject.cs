@@ -7,14 +7,10 @@ public class HitObject : MonoBehaviour {
 	Rigidbody rb;
 	public float upwardMultiplier = 1f;
 	public float forwardMultiplier = 1f;
-	void Start () {
+	void Start ()
+	{
 
 		rb = GetComponent<Rigidbody>();
-	}
-
-	// Update is called once per frame
-	void Update () {
-
 	}
 
 	void OnCollisionEnter(Collision col)

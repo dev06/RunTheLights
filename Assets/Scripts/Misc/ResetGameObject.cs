@@ -9,16 +9,38 @@ public class ResetGameObject : MonoBehaviour {
 	Quaternion rotation;
 	Rigidbody rb;
 
+	MeshRenderer mesh;
+	BoxCollider collider;
+
 	public void Initalize()
 	{
 		position = transform.localPosition;
 		scale = transform.localScale;
 		rotation = transform.localRotation;
 
+		mesh = GetComponent<MeshRenderer>();
+
+		if (mesh == null)
+		{
+			mesh = transform.GetChild(0).GetComponent<MeshRenderer>();
+		}
+
+		collider = GetComponent<BoxCollider>();
+
+		if (collider == null)
+		{
+			collider = transform.GetChild(0).GetComponent<BoxCollider>();
+		}
+
 		if (GetComponent<Rigidbody>() != null)
 		{
 			rb = GetComponent<Rigidbody>();
 		}
+	}
+
+	void Toggle(bool b)
+	{
+		mesh.enabled = collider.enabled = b;
 	}
 
 	public void Reset()
@@ -28,5 +50,7 @@ public class ResetGameObject : MonoBehaviour {
 		transform.localRotation = rotation;
 		rb.Sleep();
 		rb.velocity = Vector3.zero;
+
+		Toggle(Random.Range(0f, 1f) < .5f);
 	}
 }

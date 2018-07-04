@@ -323,7 +323,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1335262161513554}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -24.44644}
+  m_LocalPosition: {x: 0, y: 0, z: -118.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4106054052523554}
@@ -980,6 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a3025c72d6443af8bd54a82bb518ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ZoneID: 1
   prefab: {fileID: 0}
   StartConnector: {fileID: 4918143425328304}
   EndConnector: {fileID: 4869023589517560}
@@ -987,4 +988,4 @@ MonoBehaviour:
   connectedSection: {fileID: 0}
   move: 1
   Buildings: {fileID: 0}
-  resetObjects: []
+  hitObjects: {fileID: 0}

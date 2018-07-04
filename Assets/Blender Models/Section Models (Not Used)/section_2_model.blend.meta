@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: 35a76b6dd8a0eb244bb05bf5e9b6c413
+timeCreated: 1530657149
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Cube_000
+    100002: Cube_001
+    100004: Cube_002
+    100006: Cube_003
+    100008: //RootNode
+    100010: Cube_004
+    100012: road
+    100014: road_001
+    100016: road_002
+    100018: road_003
+    100020: Cube
+    400000: Cube_000
+    400002: Cube_001
+    400004: Cube_002
+    400006: Cube_003
+    400008: //RootNode
+    400010: Cube_004
+    400012: road
+    400014: road_001
+    400016: road_002
+    400018: road_003
+    400020: Cube
+    2100000: Material_008__Untitled
+    2100002: Material_009__Untitled
+    2100004: Material_000__Untitled_005
+    2100006: Material_001__Untitled_005
+    2100008: Material_012__Untitled_003
+    2100010: Material_013__Untitled_003
+    2100012: Material_006__texture_003
+    2100014: Material_007__texture_003
+    2100016: Material_002__Untitled_001
+    2100018: Material_003__Untitled_001
+    2100020: unnamed
+    2100022: Material
+    2100024: Material_004
+    2100026: Material_005
+    2100028: Material_010
+    2100030: Material_011
+    2100032: Material_014
+    2100034: Material_015
+    2100036: Material_017
+    2100038: Material_016
+    2100040: Material_018
+    2100042: Material_020
+    2100044: Material_019
+    2100046: Material_012__Untitled_004
+    2100048: Material_013__Untitled_004
+    2300000: Cube_000
+    2300002: Cube_001
+    2300004: Cube_002
+    2300006: Cube_003
+    2300008: Cube_004
+    2300010: road
+    2300012: road_001
+    2300014: road_002
+    2300016: road_003
+    2300018: Cube
+    3300000: Cube_000
+    3300002: Cube_001
+    3300004: Cube_002
+    3300006: Cube_003
+    3300008: Cube_004
+    3300010: road
+    3300012: road_001
+    3300014: road_002
+    3300016: road_003
+    3300018: Cube
+    4300000: Cube_000
+    4300002: Cube_001
+    4300004: Cube_002
+    4300006: Cube_003
+    4300008: Cube_004
+    4300010: road_001
+    4300012: road
+    4300014: road_003
+    4300016: road_002
+    4300018: Cube
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

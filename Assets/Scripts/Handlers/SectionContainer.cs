@@ -40,7 +40,22 @@ public class SectionContainer : MonoBehaviour {
 		{
 			CreateSection(SectionType.Section_3);
 		}
-
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_4);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_5);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_6);
+		}
+		for (int i = 0; i < 7; i++)
+		{
+			CreateSection(SectionType.Section_7);
+		}
 		RepositionSections();
 
 	}
@@ -142,25 +157,58 @@ public class SectionContainer : MonoBehaviour {
 			case SectionType.Section_1: return AppResources.Section_1;
 			case SectionType.Section_2: return AppResources.Section_2;
 			case SectionType.Section_3: return AppResources.Section_3;
+			case SectionType.Section_4: return AppResources.Section_4;
+			case SectionType.Section_5: return AppResources.Section_5;
+			case SectionType.Section_6: return AppResources.Section_6;
+			case SectionType.Section_7: return AppResources.Section_7;
+
 			default: return AppResources.Section_1;
 		}
 	}
 
 	private int sectionCount;
 
+	int lastChosenIndex;
+
 	public void PoolSection(Section section)
 	{
 
-		//Test.T(section);
-		//PrefabUtility.ReplacePrefab(section, section.prefab, ReplacePrefabOptions.ConnectToPrefab);
+		GameController.POOLED_SECTION++;
+
+		if (GameController.POOLED_SECTION > 4)
+		{
+			GameController.CURRENT_ZONE++;
+			GameController.POOLED_SECTION = 0;
+		}
+
+		if (GameController.CURRENT_ZONE > 2)
+		{
+			GameController.CURRENT_ZONE = 1;
+		}
 
 		section.transform.gameObject.SetActive(false);
 
 		section.transform.SetParent(reservedTransform);
 
-		int r = Random.Range(0, reservedTransform.childCount);
+		// int r = Random.Range(0, reservedTransform.childCount);
 
-		Section s = reservedTransform.GetChild(r).GetComponent<Section>();
+		// int breakCount = 0;
+		// do
+		// {
+		// 	r = Random.Range(0, reservedTransform.childCount);
+		// 	breakCount++;
+
+		// 	if (breakCount > 100)
+		// 	{
+		// 		Debug.Log("Break");
+		// 		break;
+		// 	}
+		// }
+		// while (r == lastChosenIndex);
+
+		// lastChosenIndex = r;
+
+		Section s = GetSectionByZone();
 
 		if (s.type == SectionType.Section_1)
 		{
@@ -183,6 +231,30 @@ public class SectionContainer : MonoBehaviour {
 		s.Move(lastReservedSection);
 
 		lastReservedSection = s;
+	}
+
+	public Section GetSectionByZone()
+	{
+		int r = Random.Range(0, reservedTransform.childCount);
+		Section s = reservedTransform.GetChild(r).GetComponent<Section>();
+		int breakcount = 0;
+		do
+		{
+			r = Random.Range(0, reservedTransform.childCount);
+			s = reservedTransform.GetChild(r).GetComponent<Section>();
+			breakcount++;
+			if (breakcount > 100)
+			{
+				Debug.Log("Break");
+				break;
+			}
+		}
+		while (s.ZoneID != GameController.CURRENT_ZONE || lastChosenIndex == r);
+
+		lastChosenIndex = r;
+
+		return s;
+
 	}
 
 	public Section GetUnactiveSection()
@@ -227,5 +299,4 @@ public class SectionContainer : MonoBehaviour {
 
 		return s;
 	}
-
 }

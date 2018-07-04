@@ -7,10 +7,15 @@ public enum SectionType
 	Section_1,
 	Section_2,
 	Section_3,
+	Section_4,
+	Section_5,
+	Section_6,
+	Section_7,
 }
 
 public class Section : MonoBehaviour {
 
+	public int ZoneID = -1;
 
 	public GameObject prefab;
 
@@ -43,6 +48,8 @@ public class Section : MonoBehaviour {
 
 	private List<ResetGameObject> resetObjects;
 
+	private Vector3 targetConnectorPosition;
+
 	public void Init()
 	{
 		sectionContainer = FindObjectOfType<SectionContainer>();
@@ -50,6 +57,8 @@ public class Section : MonoBehaviour {
 		move = true;
 
 		FillHitObjects();
+
+		targetConnectorPosition = transform.position;
 
 		//Buildings.SetActive(EnalbedProps);
 	}
@@ -83,17 +92,22 @@ public class Section : MonoBehaviour {
 
 		transform.Translate(-Vector3.forward * Time.deltaTime * VELOCITY, Space.World);
 
+
+
 		if (attachedSection != null)
 		{
-			transform.position = attachedSection.EndConnector.position;
+			targetConnectorPosition = attachedSection.EndConnector.position;
+			//transform.position = attachedSection.EndConnector.position;
+			transform.position = Vector3.Lerp(transform.position, targetConnectorPosition, Time.deltaTime * 10f);
 		}
+
 
 		OutSide();
 	}
 
 	private void OutSide()
 	{
-		if (EndConnector.transform.position.z < -8f)
+		if (EndConnector.transform.position.z < -5f)
 		{
 			move = false;
 
@@ -133,7 +147,11 @@ public class Section : MonoBehaviour {
 
 		attachedSection.connectedSection = this;
 
-		transform.position = s.EndConnector.position;
+		targetConnectorPosition = s.EndConnector.position;
+
+		transform.position = s.EndConnector.position + new Vector3(0, -50, 0);
+
+		// transform.position = s.EndConnector.position;
 
 		move = true;
 	}
@@ -145,6 +163,5 @@ public class Section : MonoBehaviour {
 		{
 			t.gameObject.SetActive(b);
 		}
-
 	}
 }
