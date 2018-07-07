@@ -12,6 +12,8 @@ public class ResetGameObject : MonoBehaviour {
 	MeshRenderer mesh;
 	BoxCollider collider;
 
+	private float spawningProb = .7f;
+
 	public void Initalize()
 	{
 		position = transform.localPosition;
@@ -36,6 +38,9 @@ public class ResetGameObject : MonoBehaviour {
 		{
 			rb = GetComponent<Rigidbody>();
 		}
+
+		Toggle(Random.Range(0f, 1f) < spawningProb);
+
 	}
 
 	void Toggle(bool b)
@@ -51,6 +56,6 @@ public class ResetGameObject : MonoBehaviour {
 		rb.Sleep();
 		rb.velocity = Vector3.zero;
 
-		Toggle(Random.Range(0f, 1f) < .5f);
+		Toggle(Random.Range(0f, 1f) < spawningProb);
 	}
 }

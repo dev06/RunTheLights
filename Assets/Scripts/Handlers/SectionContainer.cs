@@ -52,9 +52,32 @@ public class SectionContainer : MonoBehaviour {
 		{
 			CreateSection(SectionType.Section_6);
 		}
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			CreateSection(SectionType.Section_7);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_8);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_9);
+		}
+
+		CreateSection(SectionType.Section_10);
+
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_11);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_12);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_13);
 		}
 		RepositionSections();
 
@@ -73,32 +96,47 @@ public class SectionContainer : MonoBehaviour {
 
 		Section to = null;
 
+		SectionType lastChosenType = SectionType.None;
+
+		int breakCount = 0;
+
 		do
 		{
 
-			if (index < 2)
+			breakCount++;
+
+			if (breakCount > 100)
+			{
+				Debug.Log("Break");
+				break;
+			}
+
+			if (index < 1)
 			{
 				to = GetSectionFromReservedByType(SectionType.Section_1);
 			}
 			else
 			{
-				r = Random.Range(4, reservedTransform.childCount);
+				r = Random.Range(0, reservedTransform.childCount);
 
 				to = reservedTransform.GetChild(r).GetComponent<Section>();
 			}
 
-			if (!queue.Contains(to))
+			if (to.ZoneID != 1) continue;
+
+			if (!queue.Contains(to) && lastChosenType != to.type)
 			{
+
 				queue.Add(to);
 
 				index++;
+
+				lastChosenType = to.type;
+
 			}
-
-
 
 		}
 		while (queue.Count < 4);
-
 
 
 		for (int i = 0; i < queue.Count; i++)
@@ -159,8 +197,15 @@ public class SectionContainer : MonoBehaviour {
 			case SectionType.Section_3: return AppResources.Section_3;
 			case SectionType.Section_4: return AppResources.Section_4;
 			case SectionType.Section_5: return AppResources.Section_5;
-			case SectionType.Section_6: return AppResources.Section_6;
 			case SectionType.Section_7: return AppResources.Section_7;
+			case SectionType.Section_6: return AppResources.Section_6;
+			case SectionType.Section_8: return AppResources.Section_8;
+			case SectionType.Section_9: return AppResources.Section_9;
+			case SectionType.Section_10: return AppResources.Section_10;
+			case SectionType.Section_11: return AppResources.Section_11;
+			case SectionType.Section_12: return AppResources.Section_12;
+			case SectionType.Section_13: return AppResources.Section_13;
+
 
 			default: return AppResources.Section_1;
 		}
@@ -175,40 +220,24 @@ public class SectionContainer : MonoBehaviour {
 
 		GameController.POOLED_SECTION++;
 
-		if (GameController.POOLED_SECTION > 4)
-		{
-			GameController.CURRENT_ZONE++;
-			GameController.POOLED_SECTION = 0;
-		}
-
-		if (GameController.CURRENT_ZONE > 2)
-		{
-			GameController.CURRENT_ZONE = 1;
-		}
-
 		section.transform.gameObject.SetActive(false);
 
 		section.transform.SetParent(reservedTransform);
 
-		// int r = Random.Range(0, reservedTransform.childCount);
-
-		// int breakCount = 0;
-		// do
-		// {
-		// 	r = Random.Range(0, reservedTransform.childCount);
-		// 	breakCount++;
-
-		// 	if (breakCount > 100)
-		// 	{
-		// 		Debug.Log("Break");
-		// 		break;
-		// 	}
-		// }
-		// while (r == lastChosenIndex);
-
-		// lastChosenIndex = r;
-
 		Section s = GetSectionByZone();
+
+		if (GameController.POOLED_SECTION > GameController.ZONE_CHANGE_EVERY)
+		{
+			GameController.CURRENT_ZONE++;
+			s = GetSection(SectionType.Section_10);
+			GameController.POOLED_SECTION = 0;
+		}
+
+		if (GameController.CURRENT_ZONE > 3)
+		{
+			GameController.CURRENT_ZONE = 1;
+		}
+
 
 		if (s.type == SectionType.Section_1)
 		{
@@ -233,6 +262,8 @@ public class SectionContainer : MonoBehaviour {
 		lastReservedSection = s;
 	}
 
+	SectionType lastType = SectionType.None;
+
 	public Section GetSectionByZone()
 	{
 		int r = Random.Range(0, reservedTransform.childCount);
@@ -249,9 +280,9 @@ public class SectionContainer : MonoBehaviour {
 				break;
 			}
 		}
-		while (s.ZoneID != GameController.CURRENT_ZONE || lastChosenIndex == r);
+		while (s.ZoneID != GameController.CURRENT_ZONE || lastType == s.type);
 
-		lastChosenIndex = r;
+		lastType = s.type;
 
 		return s;
 
@@ -296,6 +327,22 @@ public class SectionContainer : MonoBehaviour {
 
 		}
 		while (s.type != type);
+
+		return s;
+	}
+
+	Section GetSection(SectionType type)
+	{
+		Section s = null;
+		for (int i = 0; i < reservedTransform.childCount; i++)
+		{
+			s = reservedTransform.GetChild(i).GetComponent<Section>();
+			if (s.type == type)
+			{
+				s = reservedTransform.GetChild(i).GetComponent<Section>();
+				return s;
+			}
+		}
 
 		return s;
 	}

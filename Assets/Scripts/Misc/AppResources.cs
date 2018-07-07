@@ -12,7 +12,12 @@ public class AppResources : MonoBehaviour {
 	public static GameObject Section_5 = Resources.Load("Prefabs/Section_Prefabs/Section_5") as GameObject;
 	public static GameObject Section_6 = Resources.Load("Prefabs/Section_Prefabs/Section_6") as GameObject;
 	public static GameObject Section_7 = Resources.Load("Prefabs/Section_Prefabs/Section_7") as GameObject;
-
+	public static GameObject Section_8 = Resources.Load("Prefabs/Section_Prefabs/Section_8") as GameObject;
+	public static GameObject Section_9 = Resources.Load("Prefabs/Section_Prefabs/Section_9") as GameObject;
+	public static GameObject Section_10 = Resources.Load("Prefabs/Section_Prefabs/Section_10") as GameObject;
+	public static GameObject Section_11 = Resources.Load("Prefabs/Section_Prefabs/Section_11") as GameObject;
+	public static GameObject Section_12 = Resources.Load("Prefabs/Section_Prefabs/Section_12") as GameObject;
+	public static GameObject Section_13 = Resources.Load("Prefabs/Section_Prefabs/Section_13") as GameObject;
 
 
 

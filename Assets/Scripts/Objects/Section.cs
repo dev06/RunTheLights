@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum SectionType
 {
+	None,
 	Section_1,
 	Section_2,
 	Section_3,
@@ -11,6 +12,13 @@ public enum SectionType
 	Section_5,
 	Section_6,
 	Section_7,
+	Section_8,
+	Section_9,
+	Section_10, //jungle
+	Section_11, //mountain
+	Section_12, //mountain
+	Section_13, //mountain
+
 }
 
 public class Section : MonoBehaviour {
@@ -21,7 +29,7 @@ public class Section : MonoBehaviour {
 
 	public static float VELOCITY = 0;
 
-	public static readonly float MAX_VELOCITY = 15F;
+	public static readonly float MAX_VELOCITY = 20F;
 
 	public Transform StartConnector;
 

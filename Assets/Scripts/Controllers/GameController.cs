@@ -9,9 +9,11 @@ public class GameController : MonoBehaviour {
 
 	public static bool GameOver;
 
-	public static int CURRENT_ZONE = 2;
+	public static int CURRENT_ZONE;
 
 	public static int POOLED_SECTION = 0;
+
+	public static int ZONE_CHANGE_EVERY = 20;
 
 	void Awake()
 	{

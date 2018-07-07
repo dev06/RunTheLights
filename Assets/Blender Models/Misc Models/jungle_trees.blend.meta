@@ -1,0 +1,194 @@
+fileFormatVersion: 2
+guid: 72a44dc2ba827f64ebda01011f7eb40a
+timeCreated: 1530828273
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Cube
+    100002: Cube_000
+    100004: Cube_095
+    100006: //RootNode
+    400000: Cube
+    400002: Cube_000
+    400004: Cube_095
+    400006: //RootNode
+    2100000: Material_008
+    2100002: Material_009
+    2100004: Material_010
+    2100006: Material_007
+    2100008: Material_006
+    2100010: Material_023__Untitled
+    2100012: Material_022__Untitled
+    2100014: Material_027__Untitled
+    2100016: Material_026__Untitled
+    2100018: Material_029__Untitled
+    2100020: Material_028__Untitled
+    2100022: Material_033__Untitled
+    2100024: Material_032__Untitled
+    2100026: Material_035__Untitled
+    2100028: Material_034__Untitled
+    2100030: Material_057__Untitled
+    2100032: Material_056__Untitled
+    2100034: Material_061__Untitled
+    2100036: Material_060__Untitled
+    2100038: Material_063__Untitled
+    2100040: Material_062__Untitled
+    2100042: Material_065__Untitled
+    2100044: Material_064__Untitled
+    2100046: Material_086__Untitled
+    2100048: Material_087__Untitled
+    2100050: Material_088__Untitled
+    2100052: Material_089__Untitled
+    2100054: Material_090__Untitled
+    2100056: Material_091__Untitled
+    2100058: Material_110__Untitled
+    2100060: Material_111__Untitled
+    2100062: Material_112__Untitled
+    2100064: Material_113__Untitled
+    2100066: Material_114__Untitled
+    2100068: Material_115__Untitled
+    2100070: Material_122__Untitled
+    2100072: Material_123__Untitled
+    2100074: Material_124__Untitled
+    2100076: Material_132__Untitled
+    2100078: Material_131__Untitled
+    2100080: Material_134__Untitled
+    2100082: Material_133__Untitled
+    2100084: Material_142__Untitled
+    2100086: Material_141__Untitled
+    2100088: Material_168__Untitled
+    2100090: Material_169__Untitled
+    2100092: Material_170__Untitled
+    2100094: Material_180__Untitled
+    2100096: Material_181__Untitled
+    2100098: Material_182__Untitled
+    2100100: Material_186__Untitled
+    2100102: Material_187__Untitled
+    2100104: Material_188__Untitled
+    2100106: Material_195__Untitled
+    2100108: Material_194__Untitled
+    2100110: Material_197__Untitled
+    2100112: Material_196__Untitled
+    2100114: Material_216__Untitled
+    2100116: Material_215__Untitled
+    2100118: Material_232__Untitled
+    2100120: Material_231__Untitled
+    2100122: Material_234__Untitled
+    2100124: Material_233__Untitled
+    2100126: Material_241__Untitled
+    2100128: Material_242__Untitled
+    2100130: Material_243__Untitled
+    2100132: Material_244__Untitled
+    2100134: Material_245__Untitled
+    2100136: Material_246__Untitled
+    2100138: Material_253__Untitled
+    2100140: Material_252__Untitled
+    2100142: Material_269__Untitled
+    2100144: Material_270__Untitled
+    2100146: Material_271__Untitled
+    2100148: Material_293__Untitled
+    2100150: Material_292__Untitled
+    2100152: Material_299__Untitled
+    2100154: Material_298__Untitled
+    2100156: Material_303__Untitled
+    2100158: Material_304__Untitled
+    2100160: Material_305__Untitled
+    2100162: Material_309__Untitled
+    2100164: Material_310__Untitled
+    2100166: Material_311__Untitled
+    2100168: Material_346__Untitled
+    2100170: Material_345__Untitled
+    2100172: Material_348__Untitled
+    2100174: Material_347__Untitled
+    2300000: Cube
+    2300002: Cube_000
+    2300004: Cube_095
+    3300000: Cube
+    3300002: Cube_000
+    3300004: Cube_095
+    4300000: Cube
+    4300002: Cube_000
+    4300004: Cube_095
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
