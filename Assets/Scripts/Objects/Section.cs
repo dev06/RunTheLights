@@ -5,6 +5,7 @@ using UnityEngine;
 public enum SectionType
 {
 	None,
+	Section_0,
 	Section_1,
 	Section_2,
 	Section_3,
@@ -28,8 +29,6 @@ public class Section : MonoBehaviour {
 	public GameObject prefab;
 
 	public static float VELOCITY = 0;
-
-	public static readonly float MAX_VELOCITY = 20F;
 
 	public Transform StartConnector;
 

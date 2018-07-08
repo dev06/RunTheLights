@@ -5,6 +5,7 @@ using UnityEngine;
 public class AppResources : MonoBehaviour {
 
 
+	public static GameObject Section_0 = Resources.Load("Prefabs/Section_Prefabs/Section_0") as GameObject;
 	public static GameObject Section_1 = Resources.Load("Prefabs/Section_Prefabs/Section") as GameObject;
 	public static GameObject Section_2 = Resources.Load("Prefabs/Section_Prefabs/Section_2") as GameObject;
 	public static GameObject Section_3 = Resources.Load("Prefabs/Section_Prefabs/Section_3") as GameObject;
@@ -22,23 +23,68 @@ public class AppResources : MonoBehaviour {
 
 
 
-	public static GameObject Car = Resources.Load("Prefabs/Car_Prefabs/Car") as GameObject;
-	public static GameObject Car_2 = Resources.Load("Prefabs/Car_Prefabs/Car_2") as GameObject;
-	public static GameObject Car_3 = Resources.Load("Prefabs/Car_Prefabs/Car_3") as GameObject;
-	public static GameObject Car_4 = Resources.Load("Prefabs/Car_Prefabs/Car_4") as GameObject;
-	public static GameObject Car_5 = Resources.Load("Prefabs/Car_Prefabs/Car_5") as GameObject;
-	public static GameObject Car_6 = Resources.Load("Prefabs/Car_Prefabs/Car_6") as GameObject;
-	public static GameObject Car_7 = Resources.Load("Prefabs/Car_Prefabs/Car_7") as GameObject;
 
-	public static GameObject[] Vehicles =
+
+	public static GameObject car_1_1 =  Resources.Load("Prefabs/Car_Prefabs/car_1/car_1_1") as GameObject;
+	public static GameObject car_1_2 =  Resources.Load("Prefabs/Car_Prefabs/car_1/car_1_2") as GameObject;
+
+	public static GameObject car_2_1 =  Resources.Load("Prefabs/Car_Prefabs/car_2/car_2_1") as GameObject;
+	public static GameObject car_2_2 =  Resources.Load("Prefabs/Car_Prefabs/car_2/car_2_2") as GameObject;
+
+	public static GameObject car_3_1 =  Resources.Load("Prefabs/Car_Prefabs/car_3/car_3_1") as GameObject;
+
+	public static GameObject car_5_1 =  Resources.Load("Prefabs/Car_Prefabs/car_5/car_5_1") as GameObject;
+	public static GameObject car_5_2 =  Resources.Load("Prefabs/Car_Prefabs/car_5/car_5_2") as GameObject;
+
+	public static GameObject car_6_1 =  Resources.Load("Prefabs/Car_Prefabs/car_6/car_6_1") as GameObject;
+	public static GameObject car_6_2 =  Resources.Load("Prefabs/Car_Prefabs/car_6/car_6_2") as GameObject;
+	public static GameObject car_6_3 =  Resources.Load("Prefabs/Car_Prefabs/car_6/car_6_3") as GameObject;
+
+
+
+	public static GameObject[] ZONE_1_CARS =
 	{
-		Car,
-		Car_2,
-		Car_3,
-		Car_4,
-		Car_5,
-		Car_6,
-		Car_7,
+		car_1_1,
+		car_1_2,
+
+		car_3_1,
+
+		car_5_1,
+
 
 	};
+
+	public static GameObject[] ZONE_2_CARS =
+	{
+		car_1_1,
+		car_1_2,
+		car_3_1,
+
+		car_2_1,
+		car_2_2,
+
+	};
+
+	public static GameObject[] ZONE_3_CARS =
+	{
+		car_1_1,
+		car_1_2,
+
+		car_2_1,
+		car_2_2,
+
+		car_6_1,
+		car_6_2,
+		car_6_3,
+
+
+	};
+
+	public static GameObject[][] ZONE_CARS =
+	{
+		ZONE_1_CARS,
+		ZONE_2_CARS,
+		ZONE_3_CARS,
+	};
+
 }

@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class CarStream : MonoBehaviour {
 
+	private Section parentSection;
+
 	public List<Transform> cars = new List<Transform>();
 
-	private float timer;
+	public int direction = 1;
 
 	private int currentCarIndex;
 
-	public int direction = 1;
+	private float timer;
 
 	private float delay = 1f;
 
 	private Transform stoppoint;
 
 	private bool moveCars = true;
+
 
 
 	void OnEnable()
@@ -40,9 +43,11 @@ public class CarStream : MonoBehaviour {
 
 	private void CreateCars()
 	{
-		for (int i = 0; i < 2; i++)
+		GameObject[] carList = GetCarList();
+
+		for (int i = 0; i < GameController.MAX_CARS_PER_STREAM; i++)
 		{
-			GameObject clone = Instantiate(AppResources.Vehicles[Random.Range(0, AppResources.Vehicles.Length)]);
+			GameObject clone = Instantiate(carList[Random.Range(0, carList.Length)]);
 
 			clone.transform.SetParent(transform);
 
@@ -56,9 +61,14 @@ public class CarStream : MonoBehaviour {
 		}
 	}
 
+	public GameObject[] GetCarList()
+	{
+		return AppResources.ZONE_CARS[parentSection.ZoneID - 1];
+	}
+
 	private void Init()
 	{
-		//stoppoint = transform.GetChild(1);
+		parentSection = transform.parent.parent.parent.GetComponent<Section>();
 
 		CreateCars();
 
@@ -90,13 +100,13 @@ public class CarStream : MonoBehaviour {
 
 			car.Move(transform.position, transform.GetChild(0).position, direction);
 
-			delay = Random.Range(.5f, 2.8f);
+			delay = Random.Range(.5f, 2.5f);
 
 		}
 
 		currentCarIndex++;
 
-		if (currentCarIndex > cars.Count - 1)
+		if (currentCarIndex > GameController.ACTIVE_CARS - 1)
 		{
 			currentCarIndex = 0;
 		}

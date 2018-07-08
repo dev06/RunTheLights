@@ -150,8 +150,13 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 d6d7384854284a849c73869e2aba85fd Assembly-CSharp.dll:.Section
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-bb461a0e7bfb5f2bd7d751a549297e96 Assembly-CSharp.dll:.SectionContainer
+8d8153bebdd06b023bb57f5bd0de9b6c Assembly-CSharp.dll:.SectionContainer
 c07eac55761cfd9f64446d71f805f55f Assembly-CSharp.dll:.Car
 d9549764ff60c9927f91fc953e3b97bf Assembly-CSharp.dll:.CarStream
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AppResources
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ResetGameObject
+a30f88316967a090b30ed0a5d7953d73 Assembly-CSharp.dll:.GameUI
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.UserInterface
+54006da6e92719f5d033c6d2db95e5dd Assembly-CSharp.dll:.ProgressionCollider
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AdditionTexts
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Haptic

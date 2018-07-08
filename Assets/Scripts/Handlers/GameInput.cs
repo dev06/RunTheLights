@@ -18,20 +18,6 @@ public class GameInput : MonoBehaviour {
 
 	private bool pressed;
 
-	void OnEnable()
-	{
-		EventManager.OnHitObject += OnHitObject;
-	}
-
-	void OnDisable()
-	{
-		EventManager.OnHitObject -= OnHitObject;
-	}
-
-	void OnHitObject ()
-	{
-	}
-
 	void Update ()
 	{
 		if (GameController.GameOver)
@@ -61,9 +47,14 @@ public class GameInput : MonoBehaviour {
 			rate = 80;
 		}
 
-		velocity = Mathf.Clamp(velocity, 0, Section.MAX_VELOCITY);
+		velocity = Mathf.Clamp(velocity, 0, GameController.MAX_VELOCITY);
 
 		Section.VELOCITY = velocity;
+
+
+		GameController.DISTANCE_TRAVELED += velocity * .02f;
+		GameController.DISTANCE_TRAVELED = Mathf.Round(GameController.DISTANCE_TRAVELED * 10f) / 10f;
+		GameController.DISTANCE_TRAVELED = Mathf.Clamp(GameController.DISTANCE_TRAVELED, 0, GameController.DISTANCE_TRAVELED);
 
 
 
@@ -95,26 +86,6 @@ public class GameInput : MonoBehaviour {
 
 		transform.position = new Vector3(rot, transform.position.y, transform.position.z);
 
-		// diff = Mathf.Clamp(diff, 0f, 20f);
-
-		// float min = -10f;
-		// float max = 10f;
-		// float range = Mathf.Clamp(currentPosition.x, min, max);
-
-		// float scaled = (range - min) / (max - min);
-
-		// Debug.Log(scaled);
-
-		// if(currentPosition.x > lastPosition.x)
-		// {
-		// 	rot-= Time.deltaTime * diff * senstivity;
-		// }
-		// else if(currentPosition.x < lastPosition.x)
-		// {
-		// 	rot+= Time.deltaTime * diff * senstivity;
-		// }
-
-
 
 		lastPosition = currentPosition;
 
@@ -128,19 +99,21 @@ public class GameInput : MonoBehaviour {
 		{
 #if !UNITY_EDITOR
 			Death(col);
-
 #endif
 		}
 	}
 
 	void Death(Collider col)
 	{
+
 		GameController.GameOver = true;
-		StopCoroutine("IOnDeath");
-		StartCoroutine("IOnDeath");
 		explosion.Play();
 		col.transform.gameObject.SetActive(false);
 		Toggle(false);
+		if (EventManager.OnGameOver != null)
+		{
+			EventManager.OnGameOver();
+		}
 	}
 
 	void Toggle(bool b)
@@ -149,9 +122,5 @@ public class GameInput : MonoBehaviour {
 		GetComponent<BoxCollider>().enabled = b;
 	}
 
-	IEnumerator IOnDeath()
-	{
-		yield return new WaitForSeconds(2.5f);
-		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-	}
+
 }

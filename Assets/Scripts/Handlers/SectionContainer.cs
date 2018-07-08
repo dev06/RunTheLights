@@ -14,6 +14,10 @@ public class SectionContainer : MonoBehaviour {
 
 	private int defaultActive = 6;
 
+
+	[HideInInspector]
+	public int zoneIndex = 1;
+
 	void Awake()
 	{
 		sections.Clear();
@@ -27,6 +31,8 @@ public class SectionContainer : MonoBehaviour {
 
 	public void SpawnSection()
 	{
+
+		CreateSection(SectionType.Section_0);
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -113,7 +119,7 @@ public class SectionContainer : MonoBehaviour {
 
 			if (index < 1)
 			{
-				to = GetSectionFromReservedByType(SectionType.Section_1);
+				to = GetSectionFromReservedByType(SectionType.Section_0);
 			}
 			else
 			{
@@ -146,7 +152,7 @@ public class SectionContainer : MonoBehaviour {
 			queue[i].transform.gameObject.SetActive(true);
 
 
-			Vector3 position = new Vector3(0, 0, 0);
+			Vector3 position = new Vector3(0, 0, -5);
 
 			if (i > 0)
 			{
@@ -192,6 +198,7 @@ public class SectionContainer : MonoBehaviour {
 	{
 		switch (type)
 		{
+			case SectionType.Section_0: return AppResources.Section_0;
 			case SectionType.Section_1: return AppResources.Section_1;
 			case SectionType.Section_2: return AppResources.Section_2;
 			case SectionType.Section_3: return AppResources.Section_3;
@@ -205,8 +212,6 @@ public class SectionContainer : MonoBehaviour {
 			case SectionType.Section_11: return AppResources.Section_11;
 			case SectionType.Section_12: return AppResources.Section_12;
 			case SectionType.Section_13: return AppResources.Section_13;
-
-
 			default: return AppResources.Section_1;
 		}
 	}
@@ -222,20 +227,29 @@ public class SectionContainer : MonoBehaviour {
 
 		section.transform.gameObject.SetActive(false);
 
-		section.transform.SetParent(reservedTransform);
+		if (section.type != SectionType.Section_0)
+		{
+			section.transform.SetParent(reservedTransform);
+		}
+		else
+		{
+			section.transform.SetParent(null);
+		}
+
+
 
 		Section s = GetSectionByZone();
 
 		if (GameController.POOLED_SECTION > GameController.ZONE_CHANGE_EVERY)
 		{
-			GameController.CURRENT_ZONE++;
+			zoneIndex++;
 			s = GetSection(SectionType.Section_10);
 			GameController.POOLED_SECTION = 0;
 		}
 
-		if (GameController.CURRENT_ZONE > 3)
+		if (zoneIndex > 3)
 		{
-			GameController.CURRENT_ZONE = 1;
+			zoneIndex = 1;
 		}
 
 
@@ -280,7 +294,7 @@ public class SectionContainer : MonoBehaviour {
 				break;
 			}
 		}
-		while (s.ZoneID != GameController.CURRENT_ZONE || lastType == s.type);
+		while (s.ZoneID != zoneIndex || lastType == s.type);
 
 		lastType = s.type;
 

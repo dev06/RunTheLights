@@ -54,13 +54,20 @@
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Handlers\CarStream.cs" />
      <Compile Include="Assets\Scripts\Handlers\GameInput.cs" />
+     <Compile Include="Assets\Scripts\Handlers\ProgressionCollider.cs" />
      <Compile Include="Assets\Scripts\Handlers\SectionContainer.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\AdditionTexts.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\GameUI.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\UserInterface.cs" />
      <Compile Include="Assets\Scripts\Misc\AppResources.cs" />
      <Compile Include="Assets\Scripts\Misc\EventManager.cs" />
      <Compile Include="Assets\Scripts\Misc\HitObject.cs" />
      <Compile Include="Assets\Scripts\Misc\ResetGameObject.cs" />
      <Compile Include="Assets\Scripts\Objects\Car.cs" />
      <Compile Include="Assets\Scripts\Objects\Section.cs" />
+     <Compile Include="Assets\Scripts\Utils\Haptic.cs" />
+     <Compile Include="Assets\Scripts\Utils\Vibration.cs" />
+     <Compile Include="Assets\TapticPlugin\Plugins\TapticManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
