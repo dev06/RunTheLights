@@ -11,7 +11,7 @@ public class UserInterface : MonoBehaviour {
 
 	}
 
-	public void Toggle(bool b)
+	public virtual void Toggle(bool b)
 	{
 		if (canvasGroup == null)
 		{

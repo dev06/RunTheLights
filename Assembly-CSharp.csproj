@@ -51,13 +51,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Handlers\CarStream.cs" />
      <Compile Include="Assets\Scripts\Handlers\GameInput.cs" />
+     <Compile Include="Assets\Scripts\Handlers\PlayerMeshCollider.cs" />
      <Compile Include="Assets\Scripts\Handlers\ProgressionCollider.cs" />
      <Compile Include="Assets\Scripts\Handlers\SectionContainer.cs" />
+     <Compile Include="Assets\Scripts\Handlers\ShowcaseDrag.cs" />
+     <Compile Include="Assets\Scripts\Handlers\ShowModel.cs" />
+     <Compile Include="Assets\Scripts\Handlers\StatsDisplay.cs" />
      <Compile Include="Assets\Scripts\Handlers\UI\AdditionTexts.cs" />
      <Compile Include="Assets\Scripts\Handlers\UI\GameUI.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\GraphicRaycasterRaycasterExample.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\MenuUI.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\SimpleButtonEventHandler.cs" />
      <Compile Include="Assets\Scripts\Handlers\UI\UserInterface.cs" />
      <Compile Include="Assets\Scripts\Misc\AppResources.cs" />
      <Compile Include="Assets\Scripts\Misc\EventManager.cs" />

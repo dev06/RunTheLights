@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour {
 
-	public ParticleSystem explosion;
+
 
 	private float targetVelocity;
 
@@ -18,16 +18,26 @@ public class GameInput : MonoBehaviour {
 
 	private bool pressed;
 
-	void Update ()
+	void Start()
 	{
-		if (GameController.GameOver)
+		ToggleModel(GameController.SELECTED_MODEL_INDEX);
+	}
+
+	void LateUpdate ()
+	{
+		if (GameController.GameOver || GraphicRaycasterRaycasterExample.HITTING_UI || GameController.INSHOWCASE)
 		{
 			Section.VELOCITY = 0f;
 			velocity = 0f;
 			return;
 		}
 
+		MovePlayer();
 
+	}
+
+	public void MovePlayer()
+	{
 		if (Input.GetMouseButtonDown(0))
 		{
 			pressed = true;
@@ -52,12 +62,9 @@ public class GameInput : MonoBehaviour {
 		Section.VELOCITY = velocity;
 
 
-		GameController.DISTANCE_TRAVELED += velocity * .02f;
-		GameController.DISTANCE_TRAVELED = Mathf.Round(GameController.DISTANCE_TRAVELED * 10f) / 10f;
-		GameController.DISTANCE_TRAVELED = Mathf.Clamp(GameController.DISTANCE_TRAVELED, 0, GameController.DISTANCE_TRAVELED);
-
-
-
+		GameController.GAME_DISTANCE += velocity * .02f;
+		GameController.GAME_DISTANCE = Mathf.Round(GameController.GAME_DISTANCE * 10f) / 10f;
+		GameController.GAME_DISTANCE = Mathf.Clamp(GameController.GAME_DISTANCE, 0, GameController.GAME_DISTANCE);
 	}
 
 
@@ -88,39 +95,15 @@ public class GameInput : MonoBehaviour {
 
 
 		lastPosition = currentPosition;
-
-
 	}
 
-	void OnTriggerEnter(Collider col)
+	public void ToggleModel(int index)
 	{
-
-		if (col.gameObject.tag == "Objects/Car")
+		for (int i = 0; i < transform.GetChild(0).transform.childCount; i++)
 		{
-#if !UNITY_EDITOR
-			Death(col);
-#endif
+			transform.GetChild(0).transform.GetChild(i).gameObject.SetActive(false);
 		}
+
+		transform.GetChild(0).transform.GetChild(index).gameObject.SetActive(true);
 	}
-
-	void Death(Collider col)
-	{
-
-		GameController.GameOver = true;
-		explosion.Play();
-		col.transform.gameObject.SetActive(false);
-		Toggle(false);
-		if (EventManager.OnGameOver != null)
-		{
-			EventManager.OnGameOver();
-		}
-	}
-
-	void Toggle(bool b)
-	{
-		GetComponent<MeshRenderer>().enabled = b;
-		GetComponent<BoxCollider>().enabled = b;
-	}
-
-
 }

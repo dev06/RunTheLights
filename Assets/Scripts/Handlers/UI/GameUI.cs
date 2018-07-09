@@ -7,11 +7,12 @@ public class GameUI : UserInterface {
 	public Text scoreText;
 	public Text distanceText;
 	public AdditionTexts additionText;
+	private bool isToggled;
 
 	public override void Init()
 	{
 		base.Init();
-		Toggle(true);
+		Toggle(false);
 	}
 
 	void OnEnable()
@@ -31,6 +32,10 @@ public class GameUI : UserInterface {
 
 	void OnHitObject()
 	{
+		if (!isToggled)
+		{
+			Toggle(true);
+		}
 		GameController.SetScore(1 * GameController.CURRENT_ZONE);
 		additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
 		Haptic.Vibrate(HapticIntensity.Medium);
@@ -38,7 +43,7 @@ public class GameUI : UserInterface {
 
 	void OnUpdateUI()
 	{
-		scoreText.text = GameController.SCORE.ToString();
+		scoreText.text = GameController.GAME_SCORE.ToString();
 		scoreText.transform.GetComponent<Animation>().Play();
 
 	}
@@ -71,8 +76,14 @@ public class GameUI : UserInterface {
 		}
 	}
 
+	public override void Toggle(bool b)
+	{
+		base.Toggle(b);
+		isToggled = b;
+	}
+
 	void Update()
 	{
-		distanceText.text = GameController.DISTANCE_TRAVELED.ToString("F0") + "m";
+		distanceText.text = GameController.GAME_DISTANCE.ToString("F0") + "m";
 	}
 }
