@@ -12,8 +12,4 @@ public class StatsDisplay : MonoBehaviour {
 		                + "\n Last: " +  GameController.SCORE + " | " + GameController.DISTANCE_TRAVELED.ToString("F0") + "m";
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
 }

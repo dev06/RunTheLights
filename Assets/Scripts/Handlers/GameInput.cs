@@ -18,6 +18,15 @@ public class GameInput : MonoBehaviour {
 
 	private bool pressed;
 
+	void OnEnable()
+	{
+		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
+	}
+	void OnDisable()
+	{
+		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
+	}
+
 	void Start()
 	{
 		ToggleModel(GameController.SELECTED_MODEL_INDEX);
@@ -105,5 +114,10 @@ public class GameInput : MonoBehaviour {
 		}
 
 		transform.GetChild(0).transform.GetChild(index).gameObject.SetActive(true);
+	}
+
+	void OnShowcaseModelSelected(ShowcaseModel model)
+	{
+		ToggleModel(GameController.SELECTED_MODEL_INDEX);
 	}
 }

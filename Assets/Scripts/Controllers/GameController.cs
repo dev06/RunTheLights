@@ -40,6 +40,8 @@ public class GameController : MonoBehaviour {
 
 	public static int SELECTED_MODEL_INDEX = 0;
 
+	public static int GAMES_PLAYED;
+
 	void OnValidate()
 	{
 		if (DeleteSave)
@@ -70,6 +72,8 @@ public class GameController : MonoBehaviour {
 
 		GAME_DISTANCE = 0;
 
+		GAMES_PLAYED = 0;
+
 		SELECTED_MODEL_INDEX = 0;
 
 		ACTIVE_CARS = MIN_CARS_PER_STREAM;
@@ -87,6 +91,8 @@ public class GameController : MonoBehaviour {
 		EventManager.OnZoneComplete += OnZoneComplete;
 
 		EventManager.OnGameOver += OnGameOver;
+
+		EventManager.OnGameStart += OnGameStart;
 	}
 
 	void OnDisable()
@@ -94,6 +100,8 @@ public class GameController : MonoBehaviour {
 		EventManager.OnZoneComplete -= OnZoneComplete;
 
 		EventManager.OnGameOver -= OnGameOver;
+
+		EventManager.OnGameStart -= OnGameStart;
 	}
 
 	void OnZoneComplete()
@@ -124,6 +132,11 @@ public class GameController : MonoBehaviour {
 		{
 			EventManager.OnUpdateUI();
 		}
+	}
+
+	void OnGameStart()
+	{
+		GAMES_PLAYED++;
 	}
 
 
@@ -166,6 +179,8 @@ public class GameController : MonoBehaviour {
 
 		PlayerPrefs.SetInt("SELECTED_MODEL_INDEX", SELECTED_MODEL_INDEX);
 
+		PlayerPrefs.SetInt("GAMES_PLAYED", GAMES_PLAYED);
+
 
 
 
@@ -183,6 +198,7 @@ public class GameController : MonoBehaviour {
 
 		SELECTED_MODEL_INDEX = PlayerPrefs.GetInt("SELECTED_MODEL_INDEX");
 
+		GAMES_PLAYED = PlayerPrefs.GetInt("GAMES_PLAYED");
 	}
 
 }

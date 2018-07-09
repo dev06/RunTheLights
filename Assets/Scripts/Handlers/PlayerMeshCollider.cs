@@ -34,6 +34,8 @@ public class PlayerMeshCollider : MonoBehaviour {
 	{
 		GetComponent<MeshRenderer>().enabled = b;
 		GetComponent<BoxCollider>().enabled = b;
+
+		transform.gameObject.SetActive(false);
 	}
 
 }

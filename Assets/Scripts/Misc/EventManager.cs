@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour {
 	public static Gameplay OnUpdateUI;
 	public static Gameplay OnZoneComplete;
 	public static Gameplay OnGameOver;
+	public static Gameplay OnGameStart;
 	public static Gameplay OnShowcaseEnable;
 	public static Gameplay OnShowcaseDisable;
 
@@ -25,4 +26,10 @@ public class EventManager : MonoBehaviour {
 
 	public delegate void ButtonClick(ButtonID id);
 	public static ButtonClick OnButtonClick;
+
+
+	public delegate void Showcase(ShowcaseModel model);
+	public static Showcase OnShowcaseModelHover;
+	public static Showcase OnShowcaseModelSelected;
+
 }

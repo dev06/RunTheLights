@@ -35,6 +35,12 @@ public class GameUI : UserInterface {
 		if (!isToggled)
 		{
 			Toggle(true);
+
+			if (EventManager.OnGameStart != null)
+			{
+				EventManager.OnGameStart();
+			}
+
 		}
 		GameController.SetScore(1 * GameController.CURRENT_ZONE);
 		additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
@@ -50,6 +56,7 @@ public class GameUI : UserInterface {
 
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
+		//Debug.Log("hit");
 		float delay = 0f;
 		switch (type)
 		{
