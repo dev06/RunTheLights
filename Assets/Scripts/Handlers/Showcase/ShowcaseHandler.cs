@@ -15,11 +15,19 @@ public class ShowcaseHandler : MonoBehaviour {
 	void OnEnable()
 	{
 		EventManager.OnButtonClick += OnButtonClick;
+		EventManager.OnGameStart += OnGameStart;
 	}
 	void OnDisable()
 	{
 		EventManager.OnButtonClick -= OnButtonClick;
+		EventManager.OnGameStart -= OnGameStart;
 	}
+
+	void OnGameStart()
+	{
+		transform.gameObject.SetActive(false);
+	}
+
 
 	void OnButtonClick(ButtonID id)
 	{

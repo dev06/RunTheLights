@@ -12,9 +12,10 @@ public class ShowcaseModel : MonoBehaviour {
 	private float rotationSpeed;
 	private bool selected;
 	private MeshRenderer renderer;
-	private bool unlockAll = true;
+	private bool unlockAll = false;
 
 
+	public float movementMultiplier;
 	public UnlockConditions[] unlockConditions;
 
 
@@ -35,7 +36,13 @@ public class ShowcaseModel : MonoBehaviour {
 			renderer.materials[i].SetColor("_Color", !unlocked ? Color.black : Color.white);
 		}
 
-
+		if (!unlocked)
+		{
+			foreach (Transform t in transform)
+			{
+				t.gameObject.SetActive(false);
+			}
+		}
 	}
 
 	void Update ()

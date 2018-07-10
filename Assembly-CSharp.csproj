@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Controllers\CameraController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+     <Compile Include="Assets\Scripts\Handlers\CarModelHandler.cs" />
      <Compile Include="Assets\Scripts\Handlers\CarStream.cs" />
      <Compile Include="Assets\Scripts\Handlers\GameInput.cs" />
      <Compile Include="Assets\Scripts\Handlers\PlayerMeshCollider.cs" />

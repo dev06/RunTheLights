@@ -10,7 +10,11 @@ public class GameController : MonoBehaviour {
 
 	public static readonly int MIN_CARS_PER_STREAM = 2;
 
-	public static int MAX_VELOCITY;
+	public static float MAX_VELOCITY;
+
+	public static float STEER_INTENSITY;
+
+	public static float MOVEMENT_MULTIPLIER;
 
 	public GameObject Dummy;
 
@@ -78,7 +82,8 @@ public class GameController : MonoBehaviour {
 
 		ACTIVE_CARS = MIN_CARS_PER_STREAM;
 
-		MAX_VELOCITY = 20;
+		MAX_VELOCITY = 20F;
+
 
 		INSHOWCASE = false;
 

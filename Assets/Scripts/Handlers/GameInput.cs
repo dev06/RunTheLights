@@ -14,9 +14,13 @@ public class GameInput : MonoBehaviour {
 
 	private float velocity;
 
+	private float movementMultiplier;
+
 	private float acc;
 
 	private bool pressed;
+
+	private Transform showcaseContainer;
 
 	void OnEnable()
 	{
@@ -29,6 +33,7 @@ public class GameInput : MonoBehaviour {
 
 	void Start()
 	{
+		showcaseContainer = FindObjectOfType<ShowcaseHandler>().transform;
 		ToggleModel(GameController.SELECTED_MODEL_INDEX);
 	}
 
@@ -53,7 +58,7 @@ public class GameInput : MonoBehaviour {
 		}
 		if (Input.GetMouseButton(0))
 		{
-			velocity += Time.deltaTime * 20f;
+			velocity += Time.deltaTime * 20f * GameController.MOVEMENT_MULTIPLIER;
 			targetVelocity = 200;
 
 			Control();
@@ -62,11 +67,11 @@ public class GameInput : MonoBehaviour {
 		else
 		{
 			targetVelocity = 0;
-			velocity -= Time.deltaTime * 30f;
+			velocity -= Time.deltaTime * 30f * GameController.MOVEMENT_MULTIPLIER;
 			rate = 80;
 		}
 
-		velocity = Mathf.Clamp(velocity, 0, GameController.MAX_VELOCITY);
+		velocity = Mathf.Clamp(velocity, 0, GameController.MAX_VELOCITY * GameController.MOVEMENT_MULTIPLIER);
 
 		Section.VELOCITY = velocity;
 
@@ -114,6 +119,12 @@ public class GameInput : MonoBehaviour {
 		}
 
 		transform.GetChild(0).transform.GetChild(index).gameObject.SetActive(true);
+
+		ShowcaseModel model = showcaseContainer.GetChild(GameController.SELECTED_MODEL_INDEX).GetComponent<ShowcaseModel>();
+
+		GameController.MOVEMENT_MULTIPLIER = model.movementMultiplier;
+
+
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
