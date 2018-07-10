@@ -6,28 +6,33 @@ public class CarModelHandler : MonoBehaviour {
 
 	public ParticleSystem[] exhaust;
 
-	void Start () {
 
+
+	void OnEnable () {
+		EventManager.OnFingerUp += OnFingerUp;
+		EventManager.OnFingerDown += OnFingerDown;
 	}
 
-	void Update ()
-	{
-		if (Section.VELOCITY > 0)
-		{
-			if (!exhaust[0].isPlaying)
-			{
-				exhaust[0].Play();
-			}
+	void OnDisable () {
+		EventManager.OnFingerUp -= OnFingerUp;
+		EventManager.OnFingerDown -= OnFingerDown;
+	}
 
-			if (!exhaust[1].isPlaying)
-			{
-				exhaust[1].Play();
-			}
-		}
-		else
-		{
-			exhaust[0].Stop();
-			exhaust[1].Stop();
-		}
+	void Start()
+	{
+		exhaust[0].Stop();
+		exhaust[1].Stop();
+	}
+
+	void OnFingerUp()
+	{
+		exhaust[0].Stop();
+		exhaust[1].Stop();
+	}
+
+	void OnFingerDown()
+	{
+		exhaust[0].Play();
+		exhaust[1].Play();
 	}
 }

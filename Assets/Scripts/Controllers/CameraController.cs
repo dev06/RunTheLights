@@ -15,6 +15,10 @@ public class CameraController : MonoBehaviour {
 	private float shakeVel;
 	private Vector3 defaultPositon;
 
+	float targetPull;
+	float pullAmount;
+	float pullVel;
+
 	void Awake()
 	{
 		if (Instance == null)
@@ -31,6 +35,8 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnButtonClick += OnButtonClick;
 		EventManager.OnShowcaseEnable += OnShowcaseEnable;
 		EventManager.OnShowcaseDisable += OnShowcaseDisable;
+		EventManager.OnFingerUp += OnFingerUp;
+		EventManager.OnFingerDown += OnFingerDown;
 	}
 	void OnDisable()
 	{
@@ -39,6 +45,18 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnButtonClick -= OnButtonClick;
 		EventManager.OnShowcaseEnable -= OnShowcaseEnable;
 		EventManager.OnShowcaseDisable -= OnShowcaseDisable;
+		EventManager.OnFingerUp -= OnFingerUp;
+		EventManager.OnFingerDown -= OnFingerDown;
+	}
+
+	void OnFingerUp()
+	{
+		TriggerPull(0, 20f);
+	}
+
+	void OnFingerDown()
+	{
+		TriggerPull(-2f, 20f);
 	}
 
 	void OnShowcaseDisable()
@@ -78,27 +96,36 @@ public class CameraController : MonoBehaviour {
 		targetPosition = transform.localPosition;
 	}
 
+	float v;
+	float pullDamp;
 	// Update is called once per frame
 	void Update ()
 	{
 		//if (GameController.GameOver) return;
 
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			GameController.INSHOWCASE = !GameController.INSHOWCASE;
-			UpdateTransform();
-		}
+
+
+		//targetPull = Mathf.SmoothDamp(targetPull, 0f, ref v, Time.deltaTime * 10f);
+
 
 		if (!GameController.INSHOWCASE)
 		{
 			shakeIntensity = Mathf.SmoothDamp(shakeIntensity, 0, ref shakeVel, Time.deltaTime * shakeDuration);
 
-			transform.localPosition = defaultPositon + Shake();
+			pullAmount = Mathf.SmoothDamp(pullAmount, targetPull, ref pullVel, Time.deltaTime * pullDamp);
+
+			transform.localPosition = defaultPositon + Shake() + new Vector3(0, 0, pullAmount);
 		}
 		else
 		{
 			transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * 10f);
 		}
+	}
+
+	public void TriggerPull(float pull, float damp)
+	{
+		pullDamp = damp;
+		targetPull = pull;
 	}
 
 

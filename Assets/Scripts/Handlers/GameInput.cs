@@ -55,7 +55,25 @@ public class GameInput : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0))
 		{
 			pressed = true;
+
+			if (EventManager.OnFingerDown != null)
+			{
+				EventManager.OnFingerDown();
+			}
+
+			//	CameraController.Instance.TriggerPull(-2f, 20f);
 		}
+		else if (Input.GetMouseButtonUp(0))
+		{
+
+			if (EventManager.OnFingerDown != null)
+			{
+				EventManager.OnFingerUp();
+			}
+			//	CameraController.Instance.TriggerPull(2f, 10f);
+
+		}
+
 		if (Input.GetMouseButton(0))
 		{
 			velocity += Time.deltaTime * 20f * GameController.MOVEMENT_MULTIPLIER;
@@ -66,6 +84,8 @@ public class GameInput : MonoBehaviour {
 		}
 		else
 		{
+			//	CameraController.Instance.TriggerPull(2f, 20f);
+
 			targetVelocity = 0;
 			velocity -= Time.deltaTime * 30f * GameController.MOVEMENT_MULTIPLIER;
 			rate = 80;
