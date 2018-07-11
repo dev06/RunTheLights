@@ -240,6 +240,8 @@ public class SectionContainer : MonoBehaviour {
 
 		Section s = GetSectionByZone();
 
+		//s = GetSectionFromReservedByType(SectionType.Section_3); //OVERRIDE SECTION LINE
+
 		if (GameController.POOLED_SECTION > GameController.ZONE_CHANGE_EVERY)
 		{
 			zoneIndex++;

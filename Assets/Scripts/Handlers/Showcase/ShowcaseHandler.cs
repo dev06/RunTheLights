@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShowcaseHandler : MonoBehaviour {
 
+	public Transform showcaseTransform;
 	private Vector3 currentPosition;
 	private Vector3 lastPosition;
 	private ShowcaseModel selectedShowcaseModel;
@@ -11,21 +12,32 @@ public class ShowcaseHandler : MonoBehaviour {
 	private bool selected;
 	private float distanceOffset = 4f;
 	private int selectingIndex;
+	private Vector3 offset = new Vector3(7, 3, 0);
+	private Vector3 snapPos;
+	private int lastSelectedIndex;
+	private CameraController cameraController;
 
 	void OnEnable()
 	{
 		EventManager.OnButtonClick += OnButtonClick;
 		EventManager.OnGameStart += OnGameStart;
+		EventManager.OnShowcaseEnable += OnShowcaseEnable;
 	}
 	void OnDisable()
 	{
 		EventManager.OnButtonClick -= OnButtonClick;
 		EventManager.OnGameStart -= OnGameStart;
+		EventManager.OnShowcaseEnable -= OnShowcaseEnable;
 	}
 
 	void OnGameStart()
 	{
 		transform.gameObject.SetActive(false);
+	}
+
+	void OnShowcaseEnable()
+	{
+		cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
 	}
 
 
@@ -39,6 +51,8 @@ public class ShowcaseHandler : MonoBehaviour {
 			{
 				EventManager.OnShowcaseModelSelected(selectedShowcaseModel);
 			}
+
+
 		}
 	}
 
@@ -46,22 +60,26 @@ public class ShowcaseHandler : MonoBehaviour {
 
 	void Start()
 	{
-		for (int i = 0; i < transform.childCount; i++)
+		cameraController = CameraController.Instance;
+
+		for (int i = 1; i < transform.childCount; i++)
 		{
 			transform.GetChild(i).localPosition = new Vector3(0, 0, i * distanceOffset);
 		}
 	}
 
 
+	bool dragging = false;
 	void Update()
 	{
 		if (!GameController.INSHOWCASE) return;
 
 		if (Input.GetMouseButton(0))
 		{
+
 			Control();
 
-			CameraController.Instance.SetTargetPosition(new Vector3(CameraController.Instance.transform.localPosition.x, CameraController.Instance.transform.localPosition.y, rot * distanceOffset));
+			cameraController.SetTargetPosition(new Vector3(cameraController.transform.position.x, cameraController.transform.position.y, rot * distanceOffset));
 
 			if (Mathf.Abs(rot) > .1f)
 			{
@@ -70,7 +88,6 @@ public class ShowcaseHandler : MonoBehaviour {
 		}
 		else
 		{
-
 			if (!selected)
 			{
 
@@ -80,12 +97,19 @@ public class ShowcaseHandler : MonoBehaviour {
 				}
 
 				rot = Mathf.Round(rot);
-				Vector3 pos = transform.GetChild((int)rot).position;
-				CameraController.Instance.SetTargetPosition(pos + new Vector3(7, 1, 0));
+				snapPos = transform.GetChild((int)rot).position;
+				//CameraController.Instance.SetTargetPosition(pos + offset);
+				cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
 				selectedShowcaseModel = transform.GetChild((int)rot).GetComponent<ShowcaseModel>();
 				selectingIndex = (int)rot;
+
+				if (lastSelectedIndex != selectingIndex)
+				{
+					Haptic.Vibrate(HapticIntensity.Medium);
+				}
+
+				lastSelectedIndex = selectingIndex;
 				selectedShowcaseModel.Select();
-				Haptic.Vibrate(HapticIntensity.Medium);
 
 				if (EventManager.OnShowcaseModelHover != null)
 				{
@@ -93,6 +117,8 @@ public class ShowcaseHandler : MonoBehaviour {
 				}
 				selected = true;
 			}
+
+
 		}
 	}
 
@@ -113,8 +139,5 @@ public class ShowcaseHandler : MonoBehaviour {
 		rot = Mathf.Clamp(rot, 0, transform.childCount - 1);
 
 		lastPosition = currentPosition;
-
-
 	}
-
 }

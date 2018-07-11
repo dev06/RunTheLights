@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	public static GameController Instance;
+
 	public bool DeleteSave;
+
+	public static readonly float MAX_CAR_SPEED = 50f;
+
+	public static readonly float MAX_CAR_ACC = 50f;
+
+	public static readonly float MAX_CAR_DEC = 50F;
+
+	public static readonly float MAX_CAR_POWER = 10F;
 
 	public static readonly int MAX_CARS_PER_STREAM = 5;
 
 	public static readonly int MIN_CARS_PER_STREAM = 2;
 
-	public static float MAX_VELOCITY;
-
 	public static float STEER_INTENSITY;
 
 	public static float MOVEMENT_MULTIPLIER;
+
+	public static float CAR_STREAM_DELAY;
 
 	public GameObject Dummy;
 
@@ -34,8 +44,6 @@ public class GameController : MonoBehaviour {
 
 	public static int BEST_SCORE = 0;
 
-	public static int ACTIVE_CARS = 2;
-
 	public static bool INSHOWCASE = false;
 
 	public static int GAME_SCORE = 0;
@@ -45,6 +53,8 @@ public class GameController : MonoBehaviour {
 	public static int SELECTED_MODEL_INDEX = 0;
 
 	public static int GAMES_PLAYED;
+
+	public static ShowcaseModel ActiveModel;
 
 	void OnValidate()
 	{
@@ -58,6 +68,10 @@ public class GameController : MonoBehaviour {
 
 	void Awake()
 	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
 		Application.targetFrameRate = 60;
 
 		Dummy.SetActive(false);
@@ -79,11 +93,6 @@ public class GameController : MonoBehaviour {
 		GAMES_PLAYED = 0;
 
 		SELECTED_MODEL_INDEX = 0;
-
-		ACTIVE_CARS = MIN_CARS_PER_STREAM;
-
-		MAX_VELOCITY = 20F;
-
 
 		INSHOWCASE = false;
 
@@ -111,11 +120,9 @@ public class GameController : MonoBehaviour {
 
 	void OnZoneComplete()
 	{
-		ACTIVE_CARS++;
+		CAR_STREAM_DELAY -= .2f;
 
-		MAX_VELOCITY += 1;
-
-		ACTIVE_CARS = Mathf.Clamp(ACTIVE_CARS, MIN_CARS_PER_STREAM, MAX_CARS_PER_STREAM);
+		CAR_STREAM_DELAY = Mathf.Clamp(CAR_STREAM_DELAY, 1f , CAR_STREAM_DELAY);
 	}
 
 	void Start()
@@ -177,9 +184,11 @@ public class GameController : MonoBehaviour {
 		}
 
 		PlayerPrefs.SetInt("SCORE", SCORE);
+
 		PlayerPrefs.SetFloat("DISTANCE_TRAVELED", DISTANCE_TRAVELED);
 
 		PlayerPrefs.SetInt("BEST_SCORE", BEST_SCORE);
+
 		PlayerPrefs.SetFloat("BEST_DISTANCE", BEST_DISTANCE);
 
 		PlayerPrefs.SetInt("SELECTED_MODEL_INDEX", SELECTED_MODEL_INDEX);
@@ -204,6 +213,18 @@ public class GameController : MonoBehaviour {
 		SELECTED_MODEL_INDEX = PlayerPrefs.GetInt("SELECTED_MODEL_INDEX");
 
 		GAMES_PLAYED = PlayerPrefs.GetInt("GAMES_PLAYED");
+
+		Haptic.Enabled = PlayerPrefs.HasKey("Vibration") ? bool.Parse(PlayerPrefs.GetString("Vibration")) : true;
+
+		CAR_STREAM_DELAY = 1.5F;
+	}
+
+	public void ToggleVibration(bool b)
+	{
+		Haptic.Enabled = b;
+		PlayerPrefs.SetString("Vibration", Haptic.Enabled.ToString());
+
+		Haptic.Vibrate(HapticIntensity.Medium);
 	}
 
 }

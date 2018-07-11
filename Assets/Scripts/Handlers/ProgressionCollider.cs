@@ -6,6 +6,7 @@ public enum ProgressionColliderType
 {
 	Intersection,
 	Zone,
+	Stop,
 }
 public class ProgressionCollider : MonoBehaviour {
 

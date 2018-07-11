@@ -1,9 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum ModelType
+{
+	None,
+	Car_Regular,
+	Car,
+	Bike,
+	Cop,
 
+}
 public class ShowcaseModel : MonoBehaviour {
 
+
+	public ModelType modelType;
 	[HideInInspector]
 	public string lockMessage;
 	private bool showLog = false;
@@ -14,6 +24,10 @@ public class ShowcaseModel : MonoBehaviour {
 	private MeshRenderer renderer;
 	private bool unlockAll = false;
 
+	public float speed;
+	public float acceleration;
+	public float deceleration;
+	public float power;
 
 	public float movementMultiplier;
 	public UnlockConditions[] unlockConditions;
@@ -43,6 +57,11 @@ public class ShowcaseModel : MonoBehaviour {
 				t.gameObject.SetActive(false);
 			}
 		}
+
+		speed = Mathf.Clamp(speed, 0, GameController.MAX_CAR_SPEED);
+		acceleration = Mathf.Clamp(acceleration, 0, GameController.MAX_CAR_ACC);
+		deceleration = Mathf.Clamp(deceleration, 0, GameController.MAX_CAR_DEC);
+		power = Mathf.Clamp(power, 0, GameController.MAX_CAR_POWER);
 	}
 
 	void Update ()

@@ -10,6 +10,7 @@ public enum ButtonID
 	Showcase,
 	Back,
 	SelectModel,
+	VibrateToggle
 }
 public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 

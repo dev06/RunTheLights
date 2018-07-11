@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour {
 
 	public static CameraController Instance;
 
+	public Transform sectionContainer;
 	public Transform showcaseTransform;
 	public Transform defaultTransform;
 
@@ -15,9 +16,25 @@ public class CameraController : MonoBehaviour {
 	private float shakeVel;
 	private Vector3 defaultPositon;
 
-	float targetPull;
-	float pullAmount;
-	float pullVel;
+	public bool ToggleShowcaseCamera;
+
+	private float targetPull;
+	private float pullAmount;
+	private float pullVel;
+	private float v;
+	private float pullDamp;
+
+	private float defaultFOV;
+	private float stopFOV;
+	private float targetFOV;
+	private float fovVel;
+	private float fovThreshold;
+
+	Vector3 targetPosition;
+	private float startIntensity, startIntensityVel;
+
+	private bool inStopZone;
+
 
 	void Awake()
 	{
@@ -27,12 +44,16 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
+	void OnValidate()
+	{
+		transform.localPosition = ToggleShowcaseCamera ? showcaseTransform.position : transform.localPosition = defaultTransform.position;;
+		transform.localRotation = ToggleShowcaseCamera ? showcaseTransform.rotation :	transform.localRotation = defaultTransform.rotation;;
+	}
 
 	void OnEnable()
 	{
 		EventManager.OnHitObject += OnHitObject;
 		EventManager.OnGameOver += OnGameOver;
-		EventManager.OnButtonClick += OnButtonClick;
 		EventManager.OnShowcaseEnable += OnShowcaseEnable;
 		EventManager.OnShowcaseDisable += OnShowcaseDisable;
 		EventManager.OnFingerUp += OnFingerUp;
@@ -42,11 +63,17 @@ public class CameraController : MonoBehaviour {
 	{
 		EventManager.OnHitObject -= OnHitObject;
 		EventManager.OnGameOver -= OnGameOver;
-		EventManager.OnButtonClick -= OnButtonClick;
 		EventManager.OnShowcaseEnable -= OnShowcaseEnable;
 		EventManager.OnShowcaseDisable -= OnShowcaseDisable;
 		EventManager.OnFingerUp -= OnFingerUp;
 		EventManager.OnFingerDown -= OnFingerDown;
+	}
+
+
+	void OnFingerDown()
+	{
+		TriggerPull(-2f, 20f);
+		startIntensity = .1f;
 	}
 
 	void OnFingerUp()
@@ -54,34 +81,21 @@ public class CameraController : MonoBehaviour {
 		TriggerPull(0, 20f);
 	}
 
-	void OnFingerDown()
-	{
-		TriggerPull(-2f, 20f);
-	}
 
 	void OnShowcaseDisable()
 	{
-		GameController.INSHOWCASE = false;
-		UpdateTransform();
+		SetTransform(defaultTransform.position, defaultTransform.rotation);
+		sectionContainer.gameObject.SetActive(true);
 	}
 
 	void OnShowcaseEnable()
 	{
-		UpdateTransform();
+		sectionContainer.gameObject.SetActive(false);
 	}
 
 	void OnHitObject()
 	{
 		TriggerShake();
-	}
-
-	void OnButtonClick(ButtonID id)
-	{
-		if (id == ButtonID.Showcase)
-		{
-			GameController.INSHOWCASE = true;
-			UpdateTransform();
-		}
 	}
 
 	void OnGameOver()
@@ -91,21 +105,17 @@ public class CameraController : MonoBehaviour {
 
 	void Start ()
 	{
-		UpdateTransform();
+		//UpdateTransform();
 		defaultPositon = transform.localPosition;
 		targetPosition = transform.localPosition;
+
+		defaultFOV = Camera.main.fieldOfView;
+		stopFOV = defaultFOV + 35f;
+		targetFOV = defaultFOV;
 	}
 
-	float v;
-	float pullDamp;
-	// Update is called once per frame
 	void Update ()
 	{
-		//if (GameController.GameOver) return;
-
-
-
-		//targetPull = Mathf.SmoothDamp(targetPull, 0f, ref v, Time.deltaTime * 10f);
 
 
 		if (!GameController.INSHOWCASE)
@@ -114,12 +124,43 @@ public class CameraController : MonoBehaviour {
 
 			pullAmount = Mathf.SmoothDamp(pullAmount, targetPull, ref pullVel, Time.deltaTime * pullDamp);
 
-			transform.localPosition = defaultPositon + Shake() + new Vector3(0, 0, pullAmount);
+			startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
+
+			transform.localPosition = defaultPositon + Shake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+
 		}
 		else
 		{
-			transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * 10f);
+			transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f);
+			fovThreshold = 0;
+			targetFOV = defaultFOV;
 		}
+
+		if (inStopZone)
+		{
+			fovThreshold += Time.deltaTime;
+			if (fovThreshold > .4f)
+			{
+				targetFOV = stopFOV;
+			}
+		}
+
+
+		if (Section.VELOCITY > 0 || !InStopZone)
+		{
+			fovThreshold = 0;
+			targetFOV = defaultFOV;
+		}
+
+		if (GameController.GameOver)
+		{
+			targetFOV = defaultFOV;
+		}
+
+
+		Camera.main.fieldOfView = Mathf.SmoothDamp(Camera.main.fieldOfView, targetFOV, ref fovVel, Time.deltaTime * 10f);
+
+
 	}
 
 	public void TriggerPull(float pull, float damp)
@@ -140,24 +181,26 @@ public class CameraController : MonoBehaviour {
 		return Random.insideUnitCircle * shakeIntensity;
 	}
 
-	private void UpdateTransform()
-	{
 
-		if (GameController.INSHOWCASE)
-		{
-			transform.localPosition = showcaseTransform.position;
-			transform.localRotation = showcaseTransform.rotation;
-		}
-		else
-		{
-			transform.localPosition = defaultTransform.position;
-			transform.localRotation = defaultTransform.rotation;
-		}
-	}
-
-	Vector3 targetPosition;
 	public void SetTargetPosition(Vector3 position)
 	{
 		targetPosition = position;
+	}
+
+	public void SetTransform(Vector3 position, Quaternion rotation)
+	{
+		targetPosition = position;
+		transform.rotation = rotation;
+	}
+
+	public bool InStopZone
+	{
+		get {
+			return inStopZone;
+		}
+
+		set {
+			this.inStopZone = value;
+		}
 	}
 }

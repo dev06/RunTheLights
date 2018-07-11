@@ -5,9 +5,6 @@ using UnityEngine;
 public class GameInput : MonoBehaviour {
 
 
-
-	private float targetVelocity;
-
 	private float vel;
 
 	private float rate;
@@ -22,13 +19,17 @@ public class GameInput : MonoBehaviour {
 
 	private Transform showcaseContainer;
 
+	private ShowcaseModel selectedModel;
+
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
+		EventManager.OnGameStart += OnGameStart;
 	}
 	void OnDisable()
 	{
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
+		EventManager.OnGameStart -= OnGameStart;
 	}
 
 	void Start()
@@ -47,7 +48,12 @@ public class GameInput : MonoBehaviour {
 		}
 
 		MovePlayer();
+	}
 
+	bool canSteer;
+	void OnGameStart()
+	{
+		canSteer = true;
 	}
 
 	public void MovePlayer()
@@ -60,8 +66,6 @@ public class GameInput : MonoBehaviour {
 			{
 				EventManager.OnFingerDown();
 			}
-
-			//	CameraController.Instance.TriggerPull(-2f, 20f);
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
@@ -70,28 +74,22 @@ public class GameInput : MonoBehaviour {
 			{
 				EventManager.OnFingerUp();
 			}
-			//	CameraController.Instance.TriggerPull(2f, 10f);
 
 		}
 
 		if (Input.GetMouseButton(0))
 		{
-			velocity += Time.deltaTime * 20f * GameController.MOVEMENT_MULTIPLIER;
-			targetVelocity = 200;
+
+			velocity += Time.deltaTime * selectedModel.acceleration;
 
 			Control();
-			rate = 100f;
 		}
 		else
 		{
-			//	CameraController.Instance.TriggerPull(2f, 20f);
-
-			targetVelocity = 0;
-			velocity -= Time.deltaTime * 30f * GameController.MOVEMENT_MULTIPLIER;
-			rate = 80;
+			velocity -= Time.deltaTime * selectedModel.deceleration;
 		}
 
-		velocity = Mathf.Clamp(velocity, 0, GameController.MAX_VELOCITY * GameController.MOVEMENT_MULTIPLIER);
+		velocity = Mathf.Clamp(velocity, 0, selectedModel.speed);
 
 		Section.VELOCITY = velocity;
 
@@ -111,6 +109,7 @@ public class GameInput : MonoBehaviour {
 	{
 
 		if (!pressed) return;
+
 
 		currentPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
@@ -142,6 +141,10 @@ public class GameInput : MonoBehaviour {
 
 		ShowcaseModel model = showcaseContainer.GetChild(GameController.SELECTED_MODEL_INDEX).GetComponent<ShowcaseModel>();
 
+		selectedModel = model;
+
+		GameController.ActiveModel = model;
+
 		GameController.MOVEMENT_MULTIPLIER = model.movementMultiplier;
 
 
@@ -151,4 +154,6 @@ public class GameInput : MonoBehaviour {
 	{
 		ToggleModel(GameController.SELECTED_MODEL_INDEX);
 	}
+
+
 }

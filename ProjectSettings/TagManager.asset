@@ -8,6 +8,7 @@ TagManager:
   - Objects/Car
   - Objects/Player
   - Objects/HitObject
+  - Trigger/StopProgressionCollider
   layers:
   - Default
   - TransparentFX

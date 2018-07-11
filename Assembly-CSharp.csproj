@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Handlers\UI\MenuUI.cs" />
      <Compile Include="Assets\Scripts\Handlers\UI\ShowcaseUI.cs" />
      <Compile Include="Assets\Scripts\Handlers\UI\SimpleButtonEventHandler.cs" />
+     <Compile Include="Assets\Scripts\Handlers\UI\StatCharacteristic.cs" />
      <Compile Include="Assets\Scripts\Handlers\UI\UserInterface.cs" />
      <Compile Include="Assets\Scripts\Misc\AppResources.cs" />
      <Compile Include="Assets\Scripts\Misc\EventManager.cs" />

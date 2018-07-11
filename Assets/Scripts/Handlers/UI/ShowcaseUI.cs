@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class ShowcaseUI : MonoBehaviour {
 
 	public CanvasGroup ui_selectButton;
-	public CanvasGroup  ui_conditionText;
+	public CanvasGroup ui_conditionText;
+	public Transform selectedButton;
 
 	void OnEnable()
 	{
@@ -32,22 +33,24 @@ public class ShowcaseUI : MonoBehaviour {
 
 		ui_conditionText.transform.GetComponent<Text>().text = model.lockMessage;
 
-
-
+		ToggleActiveSelectButton((model.modelType == GameController.ActiveModel.modelType));
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
 	{
-		//	Debug.Log("Selected Model: " + model);
+		ToggleActiveSelectButton((model.modelType == GameController.ActiveModel.modelType));
+
 	}
 
 
-	void Start ()
+	void ToggleActiveSelectButton(bool b)
 	{
+		selectedButton.GetComponent<Image>().color = b ? new Color(54f / 255f, 124f / 255f, 98f / 255f, 1f) : new Color(1, 1, 1, 1);
 
-	}
 
-	void Update () {
+		Text text = selectedButton.GetComponentInChildren<Text>();
+		text.color = b ? Color.white : Color.black;
 
+		text.text = b ? "Active" : "Select";
 	}
 }

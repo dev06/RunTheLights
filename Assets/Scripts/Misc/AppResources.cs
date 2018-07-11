@@ -27,6 +27,8 @@ public class AppResources : MonoBehaviour {
 
 	public static GameObject car_1_1 =  Resources.Load("Prefabs/Car_Prefabs/car_1/car_1_1") as GameObject;
 	public static GameObject car_1_2 =  Resources.Load("Prefabs/Car_Prefabs/car_1/car_1_2") as GameObject;
+	public static GameObject car_1_3 =  Resources.Load("Prefabs/Car_Prefabs/car_1/car_1_3") as GameObject;
+
 
 	public static GameObject car_2_1 =  Resources.Load("Prefabs/Car_Prefabs/car_2/car_2_1") as GameObject;
 	public static GameObject car_2_2 =  Resources.Load("Prefabs/Car_Prefabs/car_2/car_2_2") as GameObject;
@@ -46,6 +48,7 @@ public class AppResources : MonoBehaviour {
 	{
 		car_1_1,
 		car_1_2,
+		car_1_3,
 
 		car_3_1,
 
@@ -58,6 +61,8 @@ public class AppResources : MonoBehaviour {
 	{
 		car_1_1,
 		car_1_2,
+		car_1_3,
+
 		car_3_1,
 
 		car_2_1,
@@ -69,6 +74,7 @@ public class AppResources : MonoBehaviour {
 	{
 		car_1_1,
 		car_1_2,
+		car_1_3,
 
 		car_2_1,
 		car_2_2,

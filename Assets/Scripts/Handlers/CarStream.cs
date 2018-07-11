@@ -100,13 +100,14 @@ public class CarStream : MonoBehaviour {
 
 			car.Move(transform.position, transform.GetChild(0).position, direction);
 
-			delay = Random.Range(.5f, 2.5f);
+			delay = Random.Range(1f, 3f) * GameController.CAR_STREAM_DELAY;
+
 
 		}
 
 		currentCarIndex++;
 
-		if (currentCarIndex > GameController.ACTIVE_CARS - 1)
+		if (currentCarIndex > cars.Count - 1)
 		{
 			currentCarIndex = 0;
 		}

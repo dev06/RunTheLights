@@ -83,8 +83,13 @@ public class Section : MonoBehaviour {
 
 		foreach (ResetGameObject rg in resetObjects)
 		{
-			rg.Initalize();
+			if (rg != null)
+			{
+				rg.Initalize();
+			}
 		}
+
+
 	}
 
 
@@ -103,18 +108,16 @@ public class Section : MonoBehaviour {
 
 		if (attachedSection != null)
 		{
-			targetConnectorPosition = attachedSection.EndConnector.position;
-			//transform.position = attachedSection.EndConnector.position;
+			targetConnectorPosition = new Vector3(attachedSection.EndConnector.position.x, 0, attachedSection.EndConnector.position.z);
 			transform.position = Vector3.Lerp(transform.position, targetConnectorPosition, Time.deltaTime * 10f);
 		}
-
 
 		OutSide();
 	}
 
 	private void OutSide()
 	{
-		if (EndConnector.transform.position.z < -5f)
+		if (EndConnector.transform.position.z < -10f)
 		{
 			move = false;
 

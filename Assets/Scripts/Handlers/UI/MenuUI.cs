@@ -7,11 +7,14 @@ public class MenuUI : UserInterface {
 
 	public CanvasGroup regularUI, showcaseUI;
 
+	public Text vibrationText;
+
 
 	public override void Init()
 	{
 		base.Init();
 		ToggleShowcaseUI(false);
+		vibrationText.text = "Vibrate:\n" + (Haptic.Enabled ? "on" : "off");
 	}
 
 	void OnEnable()
@@ -36,6 +39,12 @@ public class MenuUI : UserInterface {
 		{
 			DisableShowcase();
 		}
+
+		if (buttonID == ButtonID.VibrateToggle)
+		{
+			GameController.Instance.ToggleVibration(!Haptic.Enabled);
+			vibrationText.text = "Vibrate:\n" + (Haptic.Enabled ? "on" : "off");
+		}
 	}
 
 	public void EnableShowcase()
@@ -46,6 +55,8 @@ public class MenuUI : UserInterface {
 		}
 
 		ToggleShowcaseUI(true);
+
+		GameController.INSHOWCASE = true;
 	}
 
 	public void DisableShowcase()
@@ -56,6 +67,9 @@ public class MenuUI : UserInterface {
 		}
 
 		ToggleShowcaseUI(false);
+
+		GameController.INSHOWCASE = false;
+
 	}
 
 	private void ToggleShowcaseUI(bool b)
