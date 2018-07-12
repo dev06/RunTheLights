@@ -32,7 +32,6 @@ public class ShowcaseModel : MonoBehaviour {
 	public float movementMultiplier;
 	public UnlockConditions[] unlockConditions;
 
-
 	void Start ()
 	{
 		defaultRotation = transform.localRotation;
@@ -170,8 +169,14 @@ public class UnlockConditions
 
 			case ConditionType.GamesPlayed:
 			{
-				message = "Play " + target + " games [" + GameController.GAMES_PLAYED + " / " + target + "]";
+				message = "Play " + target + " games \n[" + GameController.GAMES_PLAYED + " / " + target + "]";
 				return CheckGamesPlayed();
+			}
+
+			case ConditionType.LightsRan:
+			{
+				message = "Run " + target + " red lights \n[" + GameController.LIGHTS_RAN + " / " + target + "]";
+				return CheckLightsRan();
 			}
 		}
 
@@ -193,6 +198,11 @@ public class UnlockConditions
 	{
 		return GameController.BEST_DISTANCE >= target;
 	}
+
+	public bool CheckLightsRan()
+	{
+		return GameController.LIGHTS_RAN >= target;
+	}
 }
 
 public enum ConditionType
@@ -201,6 +211,7 @@ public enum ConditionType
 	Score,
 	GamesPlayed,
 	Distance,
+	LightsRan,
 
 }
 

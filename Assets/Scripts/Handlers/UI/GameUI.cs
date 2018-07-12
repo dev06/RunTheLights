@@ -65,6 +65,7 @@ public class GameUI : UserInterface {
 				additionText.TriggerNextText("+" + (5 * GameController.CURRENT_ZONE)  + " Ran Light!", new Color(1f, .5f, .5f, 1f));
 				GameController.SetScore(5);
 				delay = .06f;
+				GameController.LIGHTS_RAN++;
 				break;
 			}
 

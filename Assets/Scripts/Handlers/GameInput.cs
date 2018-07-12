@@ -137,16 +137,24 @@ public class GameInput : MonoBehaviour {
 			transform.GetChild(0).transform.GetChild(i).gameObject.SetActive(false);
 		}
 
-		transform.GetChild(0).transform.GetChild(index).gameObject.SetActive(true);
 
-		ShowcaseModel model = showcaseContainer.GetChild(GameController.SELECTED_MODEL_INDEX).GetComponent<ShowcaseModel>();
+
+		ShowcaseModel model = showcaseContainer.GetChild(index).GetComponent<ShowcaseModel>();
+
+		if (!model.isUnlocked())
+		{
+			index = 0;
+
+			model = showcaseContainer.GetChild(index).GetComponent<ShowcaseModel>();
+		}
 
 		selectedModel = model;
+
+		transform.GetChild(0).transform.GetChild(index).gameObject.SetActive(true);
 
 		GameController.ActiveModel = model;
 
 		GameController.MOVEMENT_MULTIPLIER = model.movementMultiplier;
-
 
 	}
 

@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour {
 
 	public static int BEST_SCORE = 0;
 
+	public static int LIGHTS_RAN = 0;
+
 	public static bool INSHOWCASE = false;
 
 	public static int GAME_SCORE = 0;
@@ -195,6 +197,8 @@ public class GameController : MonoBehaviour {
 
 		PlayerPrefs.SetInt("GAMES_PLAYED", GAMES_PLAYED);
 
+		PlayerPrefs.SetInt("LIGHTS_RAN", LIGHTS_RAN);
+
 
 
 
@@ -215,6 +219,8 @@ public class GameController : MonoBehaviour {
 		GAMES_PLAYED = PlayerPrefs.GetInt("GAMES_PLAYED");
 
 		Haptic.Enabled = PlayerPrefs.HasKey("Vibration") ? bool.Parse(PlayerPrefs.GetString("Vibration")) : true;
+
+		LIGHTS_RAN = PlayerPrefs.HasKey("LIGHTS_RAN") ? PlayerPrefs.GetInt("LIGHTS_RAN") : 0;
 
 		CAR_STREAM_DELAY = 1.5F;
 	}
