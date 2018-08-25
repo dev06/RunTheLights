@@ -23,8 +23,9 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 		if (col.gameObject.tag == "Objects/Car")
 		{
-			Death(col);
 #if !UNITY_EDITOR
+			Death(col);
+			
 #endif
 		}
 	}

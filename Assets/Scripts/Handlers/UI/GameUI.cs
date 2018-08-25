@@ -63,7 +63,7 @@ public class GameUI : UserInterface {
 			case ProgressionColliderType.Intersection:
 			{
 				additionText.TriggerNextText("+" + (5 * GameController.CURRENT_ZONE)  + " Ran Light!", new Color(1f, .5f, .5f, 1f));
-				GameController.SetScore(5);
+				GameController.SetScore(5 * GameController.CURRENT_ZONE);
 				delay = .06f;
 				GameController.LIGHTS_RAN++;
 				break;
@@ -72,7 +72,7 @@ public class GameUI : UserInterface {
 			case ProgressionColliderType.Zone:
 			{
 				additionText.TriggerNextText("+" + (10 * GameController.CURRENT_ZONE) +  " Zone Complete ",  new Color(.5f, .5f, 1f, 1f));
-				GameController.SetScore(10);
+				GameController.SetScore(10 * GameController.CURRENT_ZONE);
 				GameController.CURRENT_ZONE++;
 				delay = .1f;
 				if (EventManager.OnZoneComplete != null)

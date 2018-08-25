@@ -77,6 +77,8 @@ public class GameInput : MonoBehaviour {
 
 		}
 
+		if(!pressed) return; 
+
 		if (Input.GetMouseButton(0))
 		{
 
@@ -146,6 +148,8 @@ public class GameInput : MonoBehaviour {
 			index = 0;
 
 			model = showcaseContainer.GetChild(index).GetComponent<ShowcaseModel>();
+
+			GameController.SELECTED_MODEL_INDEX = index; 
 		}
 
 		selectedModel = model;

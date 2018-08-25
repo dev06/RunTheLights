@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour {
 	{
 		//UpdateTransform();
 		defaultPositon = transform.localPosition;
-		targetPosition = transform.localPosition;
+		targetPosition = transform.position;
 
 		defaultFOV = Camera.main.fieldOfView;
 		stopFOV = defaultFOV + 35f;
@@ -116,7 +116,6 @@ public class CameraController : MonoBehaviour {
 
 	void Update ()
 	{
-
 
 		if (!GameController.INSHOWCASE)
 		{
@@ -139,7 +138,8 @@ public class CameraController : MonoBehaviour {
 		if (inStopZone)
 		{
 			fovThreshold += Time.deltaTime;
-			if (fovThreshold > .4f)
+
+			if (fovThreshold > .3f)
 			{
 				targetFOV = stopFOV;
 			}
@@ -182,8 +182,7 @@ public class CameraController : MonoBehaviour {
 	}
 
 
-	public void SetTargetPosition(Vector3 position)
-	{
+	public void SetTargetPosition(Vector3 position) {
 		targetPosition = position;
 	}
 

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using RabaGames;
+using GameAnalyticsSDK; 
 public class GameController : MonoBehaviour {
 
 	public static GameController Instance;
@@ -56,7 +57,15 @@ public class GameController : MonoBehaviour {
 
 	public static int GAMES_PLAYED;
 
+	public static bool APP_OPENED; 
+
+	public static int APP_OPENED_COUNT = 0; 
+
 	public static ShowcaseModel ActiveModel;
+
+	private int ShowRateDialogAtEvery = 5; //app starts
+
+	private static bool sdk_init; 
 
 	void OnValidate()
 	{
@@ -75,6 +84,12 @@ public class GameController : MonoBehaviour {
 			Instance = this;
 		}
 		Application.targetFrameRate = 60;
+
+		if(!sdk_init)
+		{
+			GameAnalytics.Initialize();
+			sdk_init = true; 
+		}
 
 		Dummy.SetActive(false);
 
@@ -98,7 +113,32 @@ public class GameController : MonoBehaviour {
 
 		INSHOWCASE = false;
 
+		Section.VELOCITY = 0; 
+
 		Load();
+
+		if(!APP_OPENED)
+		{
+			APP_OPENED_COUNT++; 
+			
+			if(APP_OPENED_COUNT % ShowRateDialogAtEvery == 0 && BEST_SCORE >= 50)
+			{
+				if(Application.platform == RuntimePlatform.IPhonePlayer)
+				{
+					RateInsideAppiOS.DisplayReviewDialog();
+				}
+
+				APP_OPENED_COUNT = 0; 
+			}
+			APP_OPENED = true; 
+		}
+
+	}
+
+
+	void OnApplicationQuit()
+	{
+		Save(); 
 	}
 
 
@@ -125,6 +165,8 @@ public class GameController : MonoBehaviour {
 		CAR_STREAM_DELAY -= .2f;
 
 		CAR_STREAM_DELAY = Mathf.Clamp(CAR_STREAM_DELAY, 1f , CAR_STREAM_DELAY);
+
+		GameAnalytics.NewDesignEvent ("ZONE_PROGRESSION_" + CURRENT_ZONE, CURRENT_ZONE);
 	}
 
 	void Start()
@@ -151,11 +193,14 @@ public class GameController : MonoBehaviour {
 	void OnGameStart()
 	{
 		GAMES_PLAYED++;
+		GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game"); 
 	}
 
 
 	void OnGameOver()
 	{
+
+		GameAnalytics.NewProgressionEvent (GAProgressionStatus.Complete, "game", GAME_SCORE); // with score
 		Haptic.VibrateHandheld();
 		Save();
 		StopCoroutine("IOnDeath");
@@ -199,6 +244,8 @@ public class GameController : MonoBehaviour {
 
 		PlayerPrefs.SetInt("LIGHTS_RAN", LIGHTS_RAN);
 
+		PlayerPrefs.SetInt("APP_OPENED_COUNT", APP_OPENED_COUNT); 
+
 
 
 
@@ -222,12 +269,15 @@ public class GameController : MonoBehaviour {
 
 		LIGHTS_RAN = PlayerPrefs.HasKey("LIGHTS_RAN") ? PlayerPrefs.GetInt("LIGHTS_RAN") : 0;
 
+		APP_OPENED_COUNT = PlayerPrefs.GetInt("APP_OPENED_COUNT"); 
+
 		CAR_STREAM_DELAY = 1.5F;
 	}
 
 	public void ToggleVibration(bool b)
 	{
 		Haptic.Enabled = b;
+
 		PlayerPrefs.SetString("Vibration", Haptic.Enabled.ToString());
 
 		Haptic.Vibrate(HapticIntensity.Medium);

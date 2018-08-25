@@ -37,6 +37,7 @@ public class ShowcaseHandler : MonoBehaviour {
 
 	void OnShowcaseEnable()
 	{
+		cameraController.transform.position = snapPos + offset + new Vector3(0, 0, -50); 
 		cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
 	}
 
@@ -55,7 +56,6 @@ public class ShowcaseHandler : MonoBehaviour {
 
 		}
 	}
-
 
 
 	void Start()
@@ -79,7 +79,10 @@ public class ShowcaseHandler : MonoBehaviour {
 
 			Control();
 
-			cameraController.SetTargetPosition(new Vector3(cameraController.transform.position.x, cameraController.transform.position.y, rot * distanceOffset));
+			float x = (snapPos + offset).x; 
+			float y = (snapPos + offset).y; 
+
+			cameraController.SetTargetPosition(new Vector3(x, y, rot * distanceOffset));
 
 			if (Mathf.Abs(rot) > .1f)
 			{
@@ -98,7 +101,6 @@ public class ShowcaseHandler : MonoBehaviour {
 
 				rot = Mathf.Round(rot);
 				snapPos = transform.GetChild((int)rot).position;
-				//CameraController.Instance.SetTargetPosition(pos + offset);
 				cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
 				selectedShowcaseModel = transform.GetChild((int)rot).GetComponent<ShowcaseModel>();
 				selectingIndex = (int)rot;
