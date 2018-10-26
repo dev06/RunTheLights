@@ -14,7 +14,6 @@ public class ProgressionCollider : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-
 		if (EventManager.OnProgressionColliderHit != null)
 		{
 			EventManager.OnProgressionColliderHit(colliderType);

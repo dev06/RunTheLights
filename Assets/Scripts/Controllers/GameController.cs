@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RabaGames;
-using GameAnalyticsSDK; 
+using GameAnalyticsSDK;
 public class GameController : MonoBehaviour {
 
 	public static GameController Instance;
@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour {
 
 	public static int POOLED_SECTION = 0;
 
-	public static int ZONE_CHANGE_EVERY = 10;
+	public static int ZONE_CHANGE_EVERY = 4;
 
 	public static float DISTANCE_TRAVELED = 0;
 
@@ -57,15 +57,15 @@ public class GameController : MonoBehaviour {
 
 	public static int GAMES_PLAYED;
 
-	public static bool APP_OPENED; 
+	public static bool APP_OPENED;
 
-	public static int APP_OPENED_COUNT = 0; 
+	public static int APP_OPENED_COUNT = 0;
 
 	public static ShowcaseModel ActiveModel;
 
 	private int ShowRateDialogAtEvery = 5; //app starts
 
-	private static bool sdk_init; 
+	private static bool sdk_init;
 
 	void OnValidate()
 	{
@@ -85,10 +85,10 @@ public class GameController : MonoBehaviour {
 		}
 		Application.targetFrameRate = 60;
 
-		if(!sdk_init)
+		if (!sdk_init)
 		{
 			GameAnalytics.Initialize();
-			sdk_init = true; 
+			sdk_init = true;
 		}
 
 		Dummy.SetActive(false);
@@ -113,24 +113,24 @@ public class GameController : MonoBehaviour {
 
 		INSHOWCASE = false;
 
-		Section.VELOCITY = 0; 
+		Section.VELOCITY = 0;
 
 		Load();
 
-		if(!APP_OPENED)
+		if (!APP_OPENED)
 		{
-			APP_OPENED_COUNT++; 
-			
-			if(APP_OPENED_COUNT % ShowRateDialogAtEvery == 0 && BEST_SCORE >= 50)
+			APP_OPENED_COUNT++;
+
+			if (APP_OPENED_COUNT % ShowRateDialogAtEvery == 0 && BEST_SCORE >= 50)
 			{
-				if(Application.platform == RuntimePlatform.IPhonePlayer)
+				if (Application.platform == RuntimePlatform.IPhonePlayer)
 				{
 					RateInsideAppiOS.DisplayReviewDialog();
 				}
 
-				APP_OPENED_COUNT = 0; 
+				APP_OPENED_COUNT = 0;
 			}
-			APP_OPENED = true; 
+			APP_OPENED = true;
 		}
 
 	}
@@ -138,7 +138,7 @@ public class GameController : MonoBehaviour {
 
 	void OnApplicationQuit()
 	{
-		Save(); 
+		Save();
 	}
 
 
@@ -193,7 +193,7 @@ public class GameController : MonoBehaviour {
 	void OnGameStart()
 	{
 		GAMES_PLAYED++;
-		GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game"); 
+		GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
 	}
 
 
@@ -244,7 +244,7 @@ public class GameController : MonoBehaviour {
 
 		PlayerPrefs.SetInt("LIGHTS_RAN", LIGHTS_RAN);
 
-		PlayerPrefs.SetInt("APP_OPENED_COUNT", APP_OPENED_COUNT); 
+		PlayerPrefs.SetInt("APP_OPENED_COUNT", APP_OPENED_COUNT);
 
 
 
@@ -269,7 +269,7 @@ public class GameController : MonoBehaviour {
 
 		LIGHTS_RAN = PlayerPrefs.HasKey("LIGHTS_RAN") ? PlayerPrefs.GetInt("LIGHTS_RAN") : 0;
 
-		APP_OPENED_COUNT = PlayerPrefs.GetInt("APP_OPENED_COUNT"); 
+		APP_OPENED_COUNT = PlayerPrefs.GetInt("APP_OPENED_COUNT");
 
 		CAR_STREAM_DELAY = 1.5F;
 	}

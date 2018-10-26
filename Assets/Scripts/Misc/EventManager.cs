@@ -19,6 +19,7 @@ public class EventManager : MonoBehaviour {
 	public static Gameplay OnShowcaseDisable;
 	public static Gameplay OnFingerDown;
 	public static Gameplay OnFingerUp;
+	public static Gameplay OnLevelComplete;
 
 
 

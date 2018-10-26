@@ -57,6 +57,19 @@ public class Section : MonoBehaviour {
 
 	private Vector3 targetConnectorPosition;
 
+	private bool canPoolSection = true;
+
+
+	void OnEnable()
+	{
+		EventManager.OnLevelComplete += OnLevelComplete;
+	}
+
+	void OnDisable()
+	{
+		EventManager.OnLevelComplete -= OnLevelComplete;
+	}
+
 	public void Init()
 	{
 		sectionContainer = FindObjectOfType<SectionContainer>();
@@ -72,7 +85,7 @@ public class Section : MonoBehaviour {
 
 	private void FillHitObjects()
 	{
-		if (hitObjects == null) return;
+		if (hitObjects == null) { return; }
 
 		resetObjects = new List<ResetGameObject>();
 
@@ -100,11 +113,9 @@ public class Section : MonoBehaviour {
 
 	void Update()
 	{
-		if (!move) return;
+		if (!move) { return; }
 
 		transform.Translate(-Vector3.forward * Time.deltaTime * VELOCITY, Space.World);
-
-
 
 		if (attachedSection != null)
 		{
@@ -117,6 +128,8 @@ public class Section : MonoBehaviour {
 
 	private void OutSide()
 	{
+		if (canPoolSection == false) { return; }
+
 		if (EndConnector.transform.position.z < -10f)
 		{
 			move = false;
@@ -173,5 +186,11 @@ public class Section : MonoBehaviour {
 		{
 			t.gameObject.SetActive(b);
 		}
+	}
+
+
+	private void OnLevelComplete()
+	{
+		canPoolSection = false;
 	}
 }

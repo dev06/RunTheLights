@@ -1,0 +1,377 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"checkpoin",
+				"checkpointsInLevel"
+			],
+			[
+				"GetNext",
+				"GetNextLocation"
+			],
+			[
+				"speedMul",
+				"speedMultiplier"
+			],
+			[
+				"linere",
+				"lineRenderer"
+			],
+			[
+				"intens",
+				"intensity"
+			],
+			[
+				"lighting",
+				"lightningTimer"
+			],
+			[
+				"defaultIn",
+				"defaultIntensity"
+			],
+			[
+				"defaultin",
+				"defaultIntensity"
+			],
+			[
+				"heightOf",
+				"heightOffset"
+			],
+			[
+				"StopCorou",
+				"StopCoroutine"
+			],
+			[
+				"shootin",
+				"shootingTimer"
+			],
+			[
+				"tragetp",
+				"targetPosition"
+			],
+			[
+				"targetpo",
+				"targetPosition"
+			],
+			[
+				"WaitForSe",
+				"WaitForSeconds"
+			],
+			[
+				"movedir",
+				"moveDirection"
+			],
+			[
+				"currentdi",
+				"currentDirection"
+			],
+			[
+				"GetMousebu",
+				"GetMouseButton"
+			],
+			[
+				"currentp",
+				"currentPosition"
+			],
+			[
+				"pointerdow",
+				"pointerDown"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/Unity/Github/DigitalMed/Assets/scripts/controller/GameplayController.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/Level.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/controller/LevelController.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/LevelObjects.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/Checkpoint.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/EventManager.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/UI/PowerbeamFlash.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/CameraController.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/DirectionalLightining.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/PlayerMovement.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/Ghost.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/SpawnerHandler.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/Bullet.cs",
+		"/E/Unity/Github/DoomsDay/Assets/scripts/dottedline.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/HoverGhost.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/LightFlicker.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/Idol.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/Checkpoint.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/HoverGhost.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/Bullet.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/PlayerMovement.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/Ghost.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/SpawnerHandler.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/MovementHandler.cs",
+		"/E/Unity/Github/DigitalMed/Assets/scripts/GameController.cs"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 105.0,
+		"where_history":
+		[
+			"",
+			"<current file>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"_currentLevelObject",
+			"CurrentLevelObject",
+			"UpdateLevel",
+			"AI",
+			"GetNextLocation",
+			"1f",
+			"CurrentLevelObject",
+			"Input.GetKeyDown",
+			"transform"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"_currentLevel",
+			"CurrentLevel",
+			"AIContainer",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.astyle_error_message":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "SublimeRunTheLights.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"levelcon",
+				"controller\\LevelController.cs"
+			],
+			[
+				"level",
+				"handler\\LevelObjects.cs"
+			],
+			[
+				"event",
+				"EventManager.cs"
+			],
+			[
+				"gamepl",
+				"controller\\GameplayController.cs"
+			],
+			[
+				"powerb",
+				"handler\\UI\\PowerbeamFlash.cs"
+			],
+			[
+				"di",
+				"handler\\DirectionalLightining.cs"
+			],
+			[
+				"check",
+				"objects\\Checkpoint.cs"
+			],
+			[
+				"camera",
+				"handler\\CameraController.cs"
+			],
+			[
+				"player",
+				"handler\\PlayerMovement.cs"
+			],
+			[
+				"direc",
+				"handler\\DirectionalLightining.cs"
+			],
+			[
+				"bul",
+				"objects\\Bullet.cs"
+			],
+			[
+				"bullet",
+				"objects\\Bullet.cs"
+			],
+			[
+				"hover",
+				"objects\\HoverGhost.cs"
+			],
+			[
+				"ido",
+				"handler\\Idol.cs"
+			],
+			[
+				"pl",
+				"handler\\PlayerMovement.cs"
+			],
+			[
+				"ghost",
+				"objects\\Ghost.cs"
+			],
+			[
+				"chekc",
+				"objects\\Checkpoint.cs"
+			],
+			[
+				"leveloj",
+				"handler\\LevelObjects.cs"
+			],
+			[
+				"levelc",
+				"controller\\LevelController.cs"
+			],
+			[
+				"play",
+				"handler\\PlayerMovement.cs"
+			],
+			[
+				"playermo",
+				"PlayerMovement.cs"
+			],
+			[
+				"bu",
+				"Bullet.cs"
+			],
+			[
+				"spawn",
+				"SpawnerHandler.cs"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

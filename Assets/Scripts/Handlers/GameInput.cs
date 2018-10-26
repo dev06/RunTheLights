@@ -21,21 +21,26 @@ public class GameInput : MonoBehaviour {
 
 	private ShowcaseModel selectedModel;
 
+	private bool canSteer;
+
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
 		EventManager.OnGameStart += OnGameStart;
+		EventManager.OnLevelComplete += OnLevelComplete;
 	}
 	void OnDisable()
 	{
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
 		EventManager.OnGameStart -= OnGameStart;
+		EventManager.OnLevelComplete -= OnLevelComplete;
 	}
 
 	void Start()
 	{
 		showcaseContainer = FindObjectOfType<ShowcaseHandler>().transform;
 		ToggleModel(GameController.SELECTED_MODEL_INDEX);
+		canSteer = true;
 	}
 
 	void LateUpdate ()
@@ -50,14 +55,42 @@ public class GameInput : MonoBehaviour {
 		MovePlayer();
 	}
 
-	bool canSteer;
 	void OnGameStart()
 	{
 		canSteer = true;
 	}
 
+	private void OnLevelComplete()
+	{
+		canSteer = false;
+
+		StopCoroutine("IEndLevelAnimation");
+
+		StartCoroutine("IEndLevelAnimation");
+	}
+
+	IEnumerator IEndLevelAnimation()
+	{
+		float timer = 0;
+
+		while (timer < 4f)
+		{
+			timer += Time.deltaTime;
+
+			velocity = selectedModel.speed;
+
+			Section.VELOCITY = velocity;
+
+			yield return null;
+		}
+
+		Section.VELOCITY = 0;
+	}
+
 	public void MovePlayer()
 	{
+		if (canSteer == false) { return; }
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			pressed = true;
@@ -77,7 +110,7 @@ public class GameInput : MonoBehaviour {
 
 		}
 
-		if(!pressed) return; 
+		if (!pressed) { return; }
 
 		if (Input.GetMouseButton(0))
 		{
@@ -110,7 +143,7 @@ public class GameInput : MonoBehaviour {
 	void Control()
 	{
 
-		if (!pressed) return;
+		if (!pressed) { return; }
 
 
 		currentPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -149,7 +182,7 @@ public class GameInput : MonoBehaviour {
 
 			model = showcaseContainer.GetChild(index).GetComponent<ShowcaseModel>();
 
-			GameController.SELECTED_MODEL_INDEX = index; 
+			GameController.SELECTED_MODEL_INDEX = index;
 		}
 
 		selectedModel = model;

@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour {
 
 	public bool ToggleShowcaseCamera;
 
+	private Transform parent;
 	private float targetPull;
 	private float pullAmount;
 	private float pullVel;
@@ -31,9 +32,11 @@ public class CameraController : MonoBehaviour {
 	private float fovThreshold;
 
 	Vector3 targetPosition;
+
 	private float startIntensity, startIntensityVel;
 
 	private bool inStopZone;
+	private bool isCameraDetached;
 
 
 	void Awake()
@@ -58,6 +61,7 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnShowcaseDisable += OnShowcaseDisable;
 		EventManager.OnFingerUp += OnFingerUp;
 		EventManager.OnFingerDown += OnFingerDown;
+		EventManager.OnLevelComplete += OnLevelComplete;
 	}
 	void OnDisable()
 	{
@@ -67,6 +71,7 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnShowcaseDisable -= OnShowcaseDisable;
 		EventManager.OnFingerUp -= OnFingerUp;
 		EventManager.OnFingerDown -= OnFingerDown;
+		EventManager.OnLevelComplete -= OnLevelComplete;
 	}
 
 
@@ -79,6 +84,11 @@ public class CameraController : MonoBehaviour {
 	void OnFingerUp()
 	{
 		TriggerPull(0, 20f);
+	}
+
+	void OnLevelComplete()
+	{
+		DetachCamera();
 	}
 
 
@@ -106,6 +116,7 @@ public class CameraController : MonoBehaviour {
 	void Start ()
 	{
 		//UpdateTransform();
+		parent = transform.parent;
 		defaultPositon = transform.localPosition;
 		targetPosition = transform.position;
 
@@ -119,14 +130,21 @@ public class CameraController : MonoBehaviour {
 
 		if (!GameController.INSHOWCASE)
 		{
-			shakeIntensity = Mathf.SmoothDamp(shakeIntensity, 0, ref shakeVel, Time.deltaTime * shakeDuration);
+			if (!isCameraDetached)
+			{
 
-			pullAmount = Mathf.SmoothDamp(pullAmount, targetPull, ref pullVel, Time.deltaTime * pullDamp);
+				shakeIntensity = Mathf.SmoothDamp(shakeIntensity, 0, ref shakeVel, Time.deltaTime * shakeDuration);
 
-			startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
+				pullAmount = Mathf.SmoothDamp(pullAmount, targetPull, ref pullVel, Time.deltaTime * pullDamp);
 
-			transform.localPosition = defaultPositon + Shake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
+				transform.localPosition = defaultPositon + Shake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+			}
+			else
+			{
+				transform.Translate(-Vector3.forward * Time.deltaTime * Section.VELOCITY, Space.World);
+			}
 		}
 		else
 		{
@@ -134,6 +152,8 @@ public class CameraController : MonoBehaviour {
 			fovThreshold = 0;
 			targetFOV = defaultFOV;
 		}
+
+		if (isCameraDetached) { return; }
 
 		if (inStopZone)
 		{
@@ -201,5 +221,24 @@ public class CameraController : MonoBehaviour {
 		set {
 			this.inStopZone = value;
 		}
+	}
+
+	public void AttachCameraToParent()
+	{
+		if (parent != null)
+		{
+			transform.SetParent(parent);
+			isCameraDetached = false;
+		}
+		else
+		{
+			Debug.Log("Cannot attach camera to parent. Parent is null.");
+		}
+	}
+
+	public void DetachCamera()
+	{
+		transform.SetParent(null);
+		isCameraDetached = true;
 	}
 }

@@ -18,6 +18,17 @@ public class SectionContainer : MonoBehaviour {
 	[HideInInspector]
 	public int zoneIndex = 1;
 
+
+	void OnEnable()
+	{
+		EventManager.OnProgressionColliderHit += OnProgressionColliderHit;
+	}
+
+	void OnDisable()
+	{
+		EventManager.OnProgressionColliderHit -= OnProgressionColliderHit;
+	}
+
 	void Awake()
 	{
 		sections.Clear();
@@ -128,7 +139,7 @@ public class SectionContainer : MonoBehaviour {
 				to = reservedTransform.GetChild(r).GetComponent<Section>();
 			}
 
-			if (to.ZoneID != 1) continue;
+			if (to.ZoneID != 1) { continue; }
 
 			if (!queue.Contains(to) && lastChosenType != to.type)
 			{
@@ -244,7 +255,8 @@ public class SectionContainer : MonoBehaviour {
 
 		if (GameController.POOLED_SECTION > GameController.ZONE_CHANGE_EVERY)
 		{
-			zoneIndex++;
+
+			// zoneIndex++;
 			s = GetSection(SectionType.Section_10);
 			GameController.POOLED_SECTION = 0;
 		}
@@ -276,6 +288,17 @@ public class SectionContainer : MonoBehaviour {
 		s.Move(lastReservedSection);
 
 		lastReservedSection = s;
+	}
+
+	private void OnProgressionColliderHit(ProgressionColliderType type)
+	{
+		if (type == ProgressionColliderType.Zone)
+		{
+			if (EventManager.OnLevelComplete != null)
+			{
+				EventManager.OnLevelComplete();
+			}
+		}
 	}
 
 	SectionType lastType = SectionType.None;
