@@ -4,80 +4,516 @@
 		"selected_items":
 		[
 			[
-				"checkpoin",
-				"checkpointsInLevel"
+				"levelco",
+				"levelObjects"
 			],
 			[
-				"GetNext",
-				"GetNextLocation"
+				"Level",
+				"LevelObjects"
 			],
 			[
-				"speedMul",
-				"speedMultiplier"
+				"Game",
+				"GameController.LIGHTS_RAN"
 			],
 			[
-				"linere",
-				"lineRenderer"
+				"mo",
+				"model"
 			],
 			[
-				"intens",
-				"intensity"
+				"vec",
+				"Vector3"
 			],
 			[
-				"lighting",
-				"lightningTimer"
+				"targ",
+				"targetFOV"
 			],
 			[
-				"defaultIn",
-				"defaultIntensity"
+				"fov",
+				"fovThreshold"
 			],
 			[
-				"defaultin",
-				"defaultIntensity"
+				"target",
+				"targetFOV"
 			],
 			[
-				"heightOf",
-				"heightOffset"
+				"defau",
+				"defaultFOV"
 			],
 			[
-				"StopCorou",
-				"StopCoroutine"
+				"defa",
+				"defaultFOV"
 			],
 			[
-				"shootin",
-				"shootingTimer"
-			],
-			[
-				"tragetp",
+				"targp",
 				"targetPosition"
 			],
 			[
-				"targetpo",
-				"targetPosition"
+				"Camer",
+				"CameraController"
 			],
 			[
-				"WaitForSe",
-				"WaitForSeconds"
+				"HitObj",
+				"HitObjectType"
 			],
 			[
-				"movedir",
-				"moveDirection"
+				"Hit",
+				"HitObjectType"
 			],
 			[
-				"currentdi",
-				"currentDirection"
+				"starin",
+				"startIntensityVel"
 			],
 			[
-				"GetMousebu",
-				"GetMouseButton"
+				"Ve",
+				"Vector3"
 			],
 			[
-				"currentp",
-				"currentPosition"
+				"sle",
+				"selectingIndex"
 			],
 			[
-				"pointerdow",
-				"pointerDown"
+				"las",
+				"lastSelectedIndex"
+			],
+			[
+				"Showcase",
+				"ShowcaseModel"
+			],
+			[
+				"de",
+				"deceleration"
+			],
+			[
+				"Stat",
+				"StatType"
+			],
+			[
+				"OnFinger",
+				"OnFingerDown"
+			],
+			[
+				"targetp",
+				"targetPull"
+			],
+			[
+				"G",
+				"GameController.MOVEMENT_MULTIPLIER"
+			],
+			[
+				"GameCOntroll",
+				"GameController.MAX_VELOCITY"
+			],
+			[
+				"unl",
+				"unlocked"
+			],
+			[
+				"Gamecon",
+				"GameController.GAMES_PLAYED"
+			],
+			[
+				"hid",
+				"HideInInspector"
+			],
+			[
+				"CHeck",
+				"CheckTimesPlayed"
+			],
+			[
+				"Conn",
+				"ConditionType"
+			],
+			[
+				"GAME",
+				"GAMES_PLAYED"
+			],
+			[
+				"condit",
+				"conditionType"
+			],
+			[
+				"Check",
+				"CheckScore"
+			],
+			[
+				"Best",
+				"BEST_SCORE"
+			],
+			[
+				"BES",
+				"BEST_DISTANCE"
+			],
+			[
+				"BEST",
+				"BEST_SCORE"
+			],
+			[
+				"sele",
+				"selectingIndex"
+			],
+			[
+				"Ga",
+				"GraphicRaycasterRaycasterExample.HITTING_UI"
+			],
+			[
+				"Upd",
+				"UpdateTransform"
+			],
+			[
+				"Haptic",
+				"HapticIntensity.Medium"
+			],
+			[
+				"GA",
+				"GameController.CURRENT_ZONE"
+			],
+			[
+				"GetC",
+				"GetComponent"
+			],
+			[
+				"GAme",
+				"GameController.DISTANCE_TRAVELED"
+			],
+			[
+				"Gam",
+				"GameController.DISTANCE_TRAVELED"
+			],
+			[
+				"last",
+				"lastChosenIndex"
+			],
+			[
+				"lastch",
+				"lastPoolChosenSectionType"
+			],
+			[
+				"lasch",
+				"lastChosenType"
+			],
+			[
+				"Gets",
+				"GetSection"
+			],
+			[
+				"Gamec",
+				"GameController.CURRENT_ZONE"
+			],
+			[
+				"Gae",
+				"GameController.CURRENT_ZONE"
+			],
+			[
+				"Rese",
+				"ResetGameObject"
+			],
+			[
+				"HIDE",
+				"HideInInspector"
+			],
+			[
+				"sec",
+				"section"
+			],
+			[
+				"Stt",
+				"StatRecordController.CoinsCollected"
+			],
+			[
+				"StatRec",
+				"StatRecordController.SkinsUnlocked"
+			],
+			[
+				"Store",
+				"StoreItem"
+			],
+			[
+				"Skin",
+				"SkinItems"
+			],
+			[
+				"Unlock",
+				"UnlockSkins"
+			],
+			[
+				"Unlcok",
+				"UnlockSkins"
+			],
+			[
+				"Unl",
+				"UnlockSkins"
+			],
+			[
+				"Vec",
+				"Vector3"
+			],
+			[
+				"Part",
+				"ParticleSystem"
+			],
+			[
+				"panel",
+				"panelTitleHandler"
+			],
+			[
+				"pane",
+				"panelTitleHandler"
+			],
+			[
+				"Panel",
+				"PanelTitleHandler"
+			],
+			[
+				"Sh",
+				"ShowPanel"
+			],
+			[
+				"CAnva",
+				"CanvasGroup"
+			],
+			[
+				"Canav",
+				"CanvasGroup"
+			],
+			[
+				"gro",
+				"group"
+			],
+			[
+				"grou",
+				"group.blocksRaycasts"
+			],
+			[
+				"grop",
+				"group.alpha"
+			],
+			[
+				"Mono",
+				"MonoBehaviour"
+			],
+			[
+				"Teth",
+				"TetherHeads"
+			],
+			[
+				"Tether",
+				"TetherHead_"
+			],
+			[
+				"Un",
+				"UnlockAt"
+			],
+			[
+				"Curr",
+				"CurrentTetherHeadID"
+			],
+			[
+				"teth",
+				"tetherHeadParent"
+			],
+			[
+				"te",
+				"tetherHeadParent"
+			],
+			[
+				"Shop",
+				"ShopButtonHandler"
+			],
+			[
+				"Canvas",
+				"CanvasGroup"
+			],
+			[
+				"Sprite",
+				"SpriteRenderer"
+			],
+			[
+				"LockTasva",
+				"LockTaskValue.Task2Value"
+			],
+			[
+				"th",
+				"thrustForce"
+			],
+			[
+				"screen",
+				"screenAspect"
+			],
+			[
+				"Par",
+				"Particles"
+			],
+			[
+				"tar",
+				"targetMixer"
+			],
+			[
+				"slo",
+				"slomo_pitch"
+			],
+			[
+				"def",
+				"default_vol"
+			],
+			[
+				"puase",
+				"pause_freq"
+			],
+			[
+				"pau",
+				"pause_pitch"
+			],
+			[
+				"targe",
+				"targetMixer"
+			],
+			[
+				"Time",
+				"deltaTime"
+			],
+			[
+				"p",
+				"pitch"
+			],
+			[
+				"df",
+				"default_vol"
+			],
+			[
+				"should",
+				"shouldCount"
+			],
+			[
+				"V",
+				"Vector2"
+			],
+			[
+				"en",
+				"endLinePosition"
+			],
+			[
+				"end",
+				"endLineToPlayer"
+			],
+			[
+				"at",
+				"attachRunning"
+			],
+			[
+				"enl",
+				"endLineToPlayer"
+			],
+			[
+				"cans",
+				"canStartGame"
+			],
+			[
+				"mousep",
+				"mousePositionUp"
+			],
+			[
+				"mouse",
+				"mousePositionDown"
+			],
+			[
+				"can",
+				"canStartGame"
+			],
+			[
+				"a",
+				"abs_mouse"
+			],
+			[
+				"slow",
+				"slowmoDistanceTimer"
+			],
+			[
+				"Get",
+				"GetComponent"
+			],
+			[
+				"Lerp",
+				"LerpEndPosition"
+			],
+			[
+				"hit",
+				"hitPosition"
+			],
+			[
+				"line",
+				"lineController"
+			],
+			[
+				"ob",
+				"object"
+			],
+			[
+				"Str",
+				"StartCoroutine"
+			],
+			[
+				"star",
+				"startLinePosition"
+			],
+			[
+				"shot",
+				"shotTether"
+			],
+			[
+				"Shoo",
+				"ShootTether"
+			],
+			[
+				"acti",
+				"activeBoost"
+			],
+			[
+				"Tiem",
+				"unscaledDeltaTime"
+			],
+			[
+				"boos",
+				"BoostShake"
+			],
+			[
+				"boo",
+				"boostShakeTimer"
+			],
+			[
+				"OnGame",
+				"OnGameEnd"
+			],
+			[
+				"Ler",
+				"LerpTimeToNormal"
+			],
+			[
+				"Start",
+				"StartCoroutine"
+			],
+			[
+				"LErp",
+				"LerpTimeToNormal"
+			],
+			[
+				"sho",
+				"shotViaTimer"
+			],
+			[
+				"hol",
+				"holdStartDelayTimer"
+			],
+			[
+				"Sta",
+				"StartCoroutine"
+			],
+			[
+				"trail",
+				"trialRenderer"
+			],
+			[
+				"trai",
+				"trialRenderer"
 			]
 		]
 	},
@@ -91,12 +527,16 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"side bar",
+				"View: Toggle Open Files in Side Bar"
+			]
 		],
-		"width": 0.0
+		"width": 412.0
 	},
 	"console":
 	{
@@ -116,44 +556,150 @@
 	},
 	"file_history":
 	[
-		"/E/Unity/Github/DigitalMed/Assets/scripts/controller/GameplayController.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/Level.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/controller/LevelController.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/LevelObjects.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/Checkpoint.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/EventManager.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/UI/PowerbeamFlash.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/CameraController.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/DirectionalLightining.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/PlayerMovement.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/Ghost.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/SpawnerHandler.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/Bullet.cs",
-		"/E/Unity/Github/DoomsDay/Assets/scripts/dottedline.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/objects/HoverGhost.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/LightFlicker.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/handler/Idol.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/Checkpoint.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/HoverGhost.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/Bullet.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/PlayerMovement.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/Ghost.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/SpawnerHandler.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/MovementHandler.cs",
-		"/E/Unity/Github/DigitalMed/Assets/scripts/GameController.cs"
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/handler/SpawnerHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/objects/Ghost.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/objects/HoverGhost.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/handler/Level.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/objects/Checkpoint.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/handler/PlayerMovement.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/handler/LevelObjects.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/EventManager.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/controller/GameplayController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/controller/LevelController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/DigitalMed/Assets/scripts/PlayerMovement.cs",
+		"/C/Users/Devan/Documents/UnityProjects/UpKeep/Assets/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Misc/ResetGameObject.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/Showcase/ShowcaseModel.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Controllers/CameraController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Controllers/GameController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/GameInput.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Objects/Section.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/CarStream.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/MenuUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/PlayerMeshCollider.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/ProgressionCollider.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/SectionContainer.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Misc/EventManager.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/GameUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Misc/HitObject.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Utils/Haptic.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/Showcase/ShowcaseHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/StatCharacteristic.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/PlayerMeshCollider.cs.meta",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/ShowcaseUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/CarModelHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/SimpleButtonEventHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Misc/AppResources.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/StatsDisplay.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/ShowcaseDrag.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/ShowModel.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/GraphicRaycasterRaycasterExample.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/UserInterface.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/AdditionTexts.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Utils/Vibration.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Objects/Car.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Handlers/UI/UserInteface.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Editor/Test.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/RunTheLights/Assets/Scripts/Misc/Test.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Prototypes/Block Prototype/Assets/Test.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/MenuUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/AppResources.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/GameUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/PauseUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/UserInterface.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Controller/Controller.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Controller/LinkController.cs",
+		"/C/Users/Devan/Desktop/VibrationTest/Assets/Vibrate_Watch.cs",
+		"/C/Users/Devan/Desktop/VibrationTest/Assets/Test.cs",
+		"/C/Users/Devan/Desktop/Unity Indoor Estimote/UnityIndoorEstimote/Assets/Plugins/Android/AndroidManifest.xml",
+		"/C/Users/Devan/Desktop/Unity-Indoor-Estimote/UnityIndoorEstimote/Assets/Plugins/Android/AndroidManifest.xml",
+		"/C/Users/Devan/Desktop/Unity-Indoor-Estimote/UnityIndoorEstimote/Assets/Scripts/Notification_Vibrate.cs",
+		"/C/Users/Devan/Desktop/Unity-Indoor-Estimote/UnityIndoorEstimote/Assets/Scripts/Vibration.cs",
+		"/C/Users/Devan/Desktop/Unity-Indoor-Estimote/UnityIndoorEstimote/Assets/Scripts/Vibrate_Watch.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Controller/LevelController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/CharacterSelector/CharacterSelector.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/Button/ButtonEventHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Controller/StatRecordController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Object/Link.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Object/Player.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/Button/SimpleButtonHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/CharacterSelector/StoreItem.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/CharacterSelector/StorePanel.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/SelectorInfoHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/CharacterSelector/PanelTitleHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/CharacterTemplate.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/EventManager.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/Button/CharacterButton.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/LevelProgessionHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Handler/UI/Button/SettingButton.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Object/Platform.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Player.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/LinkController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/Link.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Scripts/LevelController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Controllers/GameplayController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/Shop/TetherHead.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/Lock/LockTaskPanel.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Controllers/BaseController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/Shop/ShopButtonHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Controllers/CameraController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Controllers/LineController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/SwappyLane/SwappyLane/Assets/Standard Assets/Effects/ImageEffects/Scripts/Antialiasing.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/ButtonEvent/SimpleButtonHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/ButtonEvent/ButtonEventHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Controllers/PlayerController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/LevelSelectUI.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/Shop/ShopPanel.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Event/EventManager.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/PerfectBastHit.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/TutorialHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Audio/ReverbHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Handler/LineCollider.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/Game.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Handler/ScoreHandler.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/Menu.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/Controllers/LevelController.cs",
+		"/C/Users/Devan/Documents/UnityProjects/Github/Tether/Tether/Assets/scripts/UI/CaptionHandler.cs",
+		"/Users/devan/Documents/Unity/Github/Myo Arm Band/Assets/Myo Samples/Scripts/ColorBoxByPose.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/LevelSelectUI.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/CameraController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/Lock/LockTask.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/GameplayController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/ScoreHandler.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/PlayerController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/Lock/LockTaskPanel.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/Menu.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/PowerUp.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/LineController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/LineCollider.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/AudioController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/AudioSpecturm.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/LevelController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/BoostSpriteMask.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/SwitchTrackHandler.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Event/EventManager.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/BaseController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/ButtonEvent/SimpleButtonHandler.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/BorderController.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/UI/Pause.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Handler/LogoParallex.cs",
+		"/Users/devan/Documents/Unity/Github/Tether/Assets/scripts/Controllers/ObjectSpawner.cs"
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 52.0
 	},
 	"find_in_files":
 	{
-		"height": 105.0,
+		"height": 176.0,
 		"where_history":
 		[
 			"",
 			"<current file>",
-			""
+			"",
+			"<current file>",
+			"",
+			"<current file>"
 		]
 	},
 	"find_state":
@@ -161,15 +707,105 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"_currentLevelObject",
-			"CurrentLevelObject",
-			"UpdateLevel",
-			"AI",
-			"GetNextLocation",
-			"1f",
-			"CurrentLevelObject",
-			"Input.GetKeyDown",
-			"transform"
+			"Add",
+			"AddGhost",
+			"OnProgressionColliderHit",
+			"ToggleModel",
+			"MAX_VELOCITY",
+			"min",
+			"MAX_VELOCITY",
+			"ACTIVE_CARS",
+			"Reset",
+			"SetTargetPosition",
+			"OnShowcaseEnable",
+			"SetTargetPosition",
+			"OnShowcaseModelSelected",
+			"OnShowcaseModelHover",
+			"MOVEMENT_MULTIPLIER",
+			"MAX_VELOCITY",
+			"Validate",
+			"VELOCITY",
+			"OnProgressionColliderHit",
+			"OnShowcaseModelSelected",
+			"selectedShowModel",
+			"selectedModel",
+			"ToggleModel",
+			"distan",
+			"DISTANCE_TRAVELED",
+			"SCORE",
+			"MovePlayer",
+			"INSHOWCASE",
+			"OnHitObject",
+			"CURRENT_ZONE",
+			"SetScore",
+			"CURRENT_ZONE",
+			"\t\t\tcase SectionType.Section_6: return AppResources.Section_6;\n",
+			"2f",
+			"Init",
+			"RefreshCompletion",
+			"Init",
+			"Initalize",
+			"TotalGamesPlayed",
+			"OnObstacleHit",
+			"PlayerPrefs",
+			"isGameOver",
+			"OnGameOver",
+			"DeleteAll",
+			"unlockAt",
+			"\t\t}",
+			"Debug.Log",
+			"skinSprite",
+			"inTutorial",
+			"baseHitCounter",
+			"SetYOffset",
+			"hitOffset",
+			"Jitter",
+			"highscoretex",
+			"MIN_VELOCITY",
+			";\n",
+			"StopAllCoroutines(); \n\t\t// Debug.LogError(\"Init called\"); \n\t\t// targetPitch = menu_pitch; \n\t\t// StartCoroutine(\"SetMixer\", slowmo_freq);\n\t\t// //StartCoroutine(\"SetPitch\", menu_pitch);\n\t\t// StartCoroutine(\"SetVolume\", default_vol); ",
+			"OnGameOver",
+			"Expection",
+			"StartGame",
+			"% 0 == 6",
+			"\t\t// if (endLineToPlayer)\n\t\t// {\n\t\t// \tendLinePosition = player.transform.position;\n\t\t// }",
+			"SetTargetBase",
+			"SetCurrentBase",
+			"SetTar",
+			"OnHoldStatus",
+			"controlTime",
+			"OnBoostStart",
+			"Time.timeScale",
+			"timeVel",
+			"Time.timeScale",
+			"VIBRATION_DURATION",
+			"holdDelayTimer",
+			"SetGlow",
+			"Shoot",
+			"SetGlow",
+			"running",
+			"OnBoostEnd",
+			"defaultBackgroundColor",
+			"OnBoost",
+			"3f",
+			"sety",
+			"SetGlow",
+			"hit_base",
+			"OnBaseHit",
+			"effect",
+			"SetGlow",
+			"timeVel",
+			"effect",
+			"\n\t",
+			"GetColor",
+			"SpawnPowerup",
+			"DIRECTION",
+			"system",
+			"targetPos",
+			"timer",
+			"rotating",
+			"angle",
+			"aa"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -177,15 +813,16 @@
 		"regex": false,
 		"replace_history":
 		[
-			"_currentLevel",
-			"CurrentLevel",
-			"AIContainer",
-			""
+			"OnShowcaseModelHover",
+			"selectedShowcaseModel",
+			"holdStartDelayTimer",
+			"started",
+			"particleSystems"
 		],
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
@@ -198,7 +835,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 35.0
 	},
 	"input":
 	{
@@ -239,7 +876,7 @@
 	"project": "SublimeRunTheLights.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 65.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -249,96 +886,516 @@
 		"selected_items":
 		[
 			[
-				"levelcon",
-				"controller\\LevelController.cs"
-			],
-			[
-				"level",
-				"handler\\LevelObjects.cs"
-			],
-			[
-				"event",
-				"EventManager.cs"
-			],
-			[
-				"gamepl",
-				"controller\\GameplayController.cs"
-			],
-			[
-				"powerb",
-				"handler\\UI\\PowerbeamFlash.cs"
-			],
-			[
-				"di",
-				"handler\\DirectionalLightining.cs"
-			],
-			[
-				"check",
-				"objects\\Checkpoint.cs"
-			],
-			[
-				"camera",
-				"handler\\CameraController.cs"
-			],
-			[
-				"player",
-				"handler\\PlayerMovement.cs"
-			],
-			[
-				"direc",
-				"handler\\DirectionalLightining.cs"
-			],
-			[
-				"bul",
-				"objects\\Bullet.cs"
-			],
-			[
-				"bullet",
-				"objects\\Bullet.cs"
-			],
-			[
 				"hover",
 				"objects\\HoverGhost.cs"
-			],
-			[
-				"ido",
-				"handler\\Idol.cs"
-			],
-			[
-				"pl",
-				"handler\\PlayerMovement.cs"
-			],
-			[
-				"ghost",
-				"objects\\Ghost.cs"
-			],
-			[
-				"chekc",
-				"objects\\Checkpoint.cs"
 			],
 			[
 				"leveloj",
 				"handler\\LevelObjects.cs"
 			],
 			[
-				"levelc",
-				"controller\\LevelController.cs"
+				"level",
+				"handler\\Level.cs"
 			],
 			[
-				"play",
+				"ghot",
+				"objects\\Ghost.cs"
+			],
+			[
+				"gamep",
+				"controller\\GameplayController.cs"
+			],
+			[
+				"ghos",
+				"objects\\Ghost.cs"
+			],
+			[
+				"player",
 				"handler\\PlayerMovement.cs"
 			],
 			[
-				"playermo",
-				"PlayerMovement.cs"
+				"spaw",
+				"handler\\SpawnerHandler.cs"
 			],
 			[
-				"bu",
-				"Bullet.cs"
+				"event",
+				"EventManager.cs"
+			],
+			[
+				"check",
+				"objects\\Checkpoint.cs"
+			],
+			[
+				"lee",
+				"handler\\LevelObjects.cs"
 			],
 			[
 				"spawn",
-				"SpawnerHandler.cs"
+				"handler\\SpawnerHandler.cs"
+			],
+			[
+				"playerm",
+				"PlayerMovement.cs"
+			],
+			[
+				"rest",
+				"Misc\\ResetGameObject.cs"
+			],
+			[
+				"showcasem",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"gamecon",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"shocasemo",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"menu",
+				"Handlers\\UI\\MenuUI.cs"
+			],
+			[
+				"playerme",
+				"Handlers\\PlayerMeshCollider.cs"
+			],
+			[
+				"showmo",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"gaminp",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"gameocno",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"cars",
+				"Handlers\\CarStream.cs"
+			],
+			[
+				"playermes",
+				"Handlers\\PlayerMeshCollider.cs"
+			],
+			[
+				"reset",
+				"Misc\\ResetGameObject.cs"
+			],
+			[
+				"section",
+				"Objects\\Section.cs"
+			],
+			[
+				"seciton",
+				"Handlers\\SectionContainer.cs"
+			],
+			[
+				"hitojb",
+				"Misc\\HitObject.cs"
+			],
+			[
+				"showca",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"gamin",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"sectioncon",
+				"Handlers\\SectionContainer.cs"
+			],
+			[
+				"prog",
+				"Handlers\\ProgressionCollider.cs"
+			],
+			[
+				"playerc",
+				"Handlers\\PlayerMeshCollider.cs"
+			],
+			[
+				"caem",
+				"Controllers\\CameraController.cs"
+			],
+			[
+				"gameocn",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"payer",
+				"Handlers\\PlayerMeshCollider.cs.meta"
+			],
+			[
+				"hitobj",
+				"Misc\\HitObject.cs"
+			],
+			[
+				"gameon",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"showcasemo",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"stat",
+				"Handlers\\UI\\StatCharacteristic.cs"
+			],
+			[
+				"camera",
+				"Controllers\\CameraController.cs"
+			],
+			[
+				"show",
+				"Handlers\\Showcase\\ShowcaseHandler.cs"
+			],
+			[
+				"showcasemod",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"gamie",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"showcase",
+				"Handlers\\Showcase\\ShowcaseHandler.cs"
+			],
+			[
+				"statc",
+				"Handlers\\UI\\StatCharacteristic.cs"
+			],
+			[
+				"showcas",
+				"Handlers\\Showcase\\ShowcaseHandler.cs"
+			],
+			[
+				"hap",
+				"Utils\\Haptic.cs"
+			],
+			[
+				"simpe",
+				"Handlers\\UI\\SimpleButtonEventHandler.cs"
+			],
+			[
+				"ap",
+				"Misc\\AppResources.cs"
+			],
+			[
+				"carmode",
+				"Handlers\\CarModelHandler.cs"
+			],
+			[
+				"gamein",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"even",
+				"Misc\\EventManager.cs"
+			],
+			[
+				"showm",
+				"Handlers\\Showcase\\ShowcaseModel.cs"
+			],
+			[
+				"gami",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"sec",
+				"Objects\\Section.cs"
+			],
+			[
+				"gamec",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"gameiu",
+				"Handlers\\UI\\GameUI.cs"
+			],
+			[
+				"gameui",
+				"Handlers\\UI\\GameUI.cs"
+			],
+			[
+				"dis",
+				"Handlers\\StatsDisplay.cs"
+			],
+			[
+				"hitoj",
+				"Misc\\HitObject.cs"
+			],
+			[
+				"showcaseui",
+				"Handlers\\UI\\ShowcaseUI.cs"
+			],
+			[
+				"stats",
+				"Handlers\\StatsDisplay.cs"
+			],
+			[
+				"game",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"grap",
+				"Handlers\\UI\\GraphicRaycasterRaycasterExample.cs"
+			],
+			[
+				"simp",
+				"Handlers\\UI\\SimpleButtonEventHandler.cs"
+			],
+			[
+				"graphi",
+				"Handlers\\UI\\GraphicRaycasterRaycasterExample.cs"
+			],
+			[
+				"gameinpu",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"shwocase",
+				"Handlers\\ShowcaseDrag.cs"
+			],
+			[
+				"userin",
+				"Handlers\\UI\\UserInterface.cs"
+			],
+			[
+				"gameu",
+				"Handlers\\UI\\GameUI.cs"
+			],
+			[
+				"meu",
+				"Handlers\\UI\\MenuUI.cs"
+			],
+			[
+				"graph",
+				"Handlers\\UI\\GraphicRaycasterRaycasterExample.cs"
+			],
+			[
+				"gra",
+				"Handlers\\UI\\GraphicRaycasterRaycasterExample.cs"
+			],
+			[
+				"hapti",
+				"Utils\\Haptic.cs"
+			],
+			[
+				"hito",
+				"Misc\\HitObject.cs"
+			],
+			[
+				"app",
+				"Misc\\AppResources.cs"
+			],
+			[
+				"hapt",
+				"Utils\\Haptic.cs"
+			],
+			[
+				"haptic",
+				"Utils\\Haptic.cs"
+			],
+			[
+				"een",
+				"Misc\\EventManager.cs"
+			],
+			[
+				"gaminpu",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"g",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"vibr",
+				"Utils\\Vibration.cs"
+			],
+			[
+				"add",
+				"Handlers\\UI\\AdditionTexts.cs"
+			],
+			[
+				"user",
+				"Handlers\\UI\\UserInteface.cs"
+			],
+			[
+				"rese",
+				"Misc\\ResetGameObject.cs"
+			],
+			[
+				"sect",
+				"Objects\\Section.cs"
+			],
+			[
+				"gameco",
+				"Controllers\\GameController.cs"
+			],
+			[
+				"carse",
+				"Handlers\\CarStream.cs"
+			],
+			[
+				"hit",
+				"Misc\\HitObject.cs"
+			],
+			[
+				"sectiocon",
+				"Handlers\\SectionContainer.cs"
+			],
+			[
+				"gain",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"car",
+				"Objects\\Car.cs"
+			],
+			[
+				"ga",
+				"Handlers\\GameInput.cs"
+			],
+			[
+				"appre",
+				"AppResources.cs"
+			],
+			[
+				"charac",
+				"Handler\\UI\\CharacterSelector\\CharacterSelector.cs"
+			],
+			[
+				"pause",
+				"Handler\\UI\\PauseUI.cs"
+			],
+			[
+				"butt",
+				"Handler\\UI\\Button\\ButtonEventHandler.cs"
+			],
+			[
+				"ln",
+				"Controller\\LinkController.cs"
+			],
+			[
+				"button",
+				"Handler\\UI\\Button\\ButtonEventHandler.cs"
+			],
+			[
+				"con",
+				"Controller\\Controller.cs"
+			],
+			[
+				"info",
+				"Handler\\UI\\SelectorInfoHandler.cs"
+			],
+			[
+				"storeitem",
+				"Handler\\UI\\CharacterSelector\\StoreItem.cs"
+			],
+			[
+				"sat",
+				"Controller\\StatRecordController.cs"
+			],
+			[
+				"link",
+				"Object\\Link.cs"
+			],
+			[
+				"linkc",
+				"Controller\\LinkController.cs"
+			],
+			[
+				"a",
+				"AppResources.cs"
+			],
+			[
+				"sotre",
+				"Handler\\UI\\CharacterSelector\\StoreItem.cs"
+			],
+			[
+				"titl",
+				"Handler\\UI\\CharacterSelector\\PanelTitleHandler.cs"
+			],
+			[
+				"page",
+				"Handler\\LevelProgessionHandler.cs"
+			],
+			[
+				"storeit",
+				"Handler\\UI\\CharacterSelector\\StoreItem.cs"
+			],
+			[
+				"chara",
+				"Handler\\UI\\Button\\CharacterButton.cs"
+			],
+			[
+				"cont",
+				"Controller\\Controller.cs"
+			],
+			[
+				"cahra",
+				"Handler\\UI\\Button\\CharacterButton.cs"
+			],
+			[
+				"eent",
+				"EventManager.cs"
+			],
+			[
+				"platform",
+				"Object\\Platform.cs"
+			],
+			[
+				"linkcon",
+				"Controller\\LinkController.cs"
+			],
+			[
+				"levelcon",
+				"Controller\\LevelController.cs"
+			],
+			[
+				"userinter",
+				"Handler\\UI\\UserInterface.cs"
+			],
+			[
+				"plat",
+				"Object\\Platform.cs"
+			],
+			[
+				"lin",
+				"Link.cs"
+			],
+			[
+				"line",
+				"Controllers\\LineController.cs"
+			],
+			[
+				"base",
+				"Controllers\\BaseController.cs"
+			],
+			[
+				"lock",
+				"UI\\Lock\\LockTaskPanel.cs"
+			],
+			[
+				"gam",
+				"Controllers\\GameplayController.cs"
+			],
+			[
+				"levels",
+				"UI\\LevelSelectUI.cs"
+			],
+			[
+				"eventm",
+				"Event\\EventManager.cs"
+			],
+			[
+				"lcok",
+				"UI\\Lock\\LockTaskPanel.cs"
 			]
 		],
 		"width": 0.0
@@ -354,22 +1411,22 @@
 	},
 	"select_symbol":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"selected_group": 0,
 	"settings":
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": false,
+	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 244.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

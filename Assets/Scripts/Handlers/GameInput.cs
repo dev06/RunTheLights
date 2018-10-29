@@ -23,6 +23,8 @@ public class GameInput : MonoBehaviour {
 
 	private bool canSteer;
 
+	private BoxCollider modelCollider;
+
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
@@ -63,6 +65,8 @@ public class GameInput : MonoBehaviour {
 	private void OnLevelComplete()
 	{
 		canSteer = false;
+
+		modelCollider.enabled = false;
 
 		StopCoroutine("IEndLevelAnimation");
 
@@ -188,6 +192,8 @@ public class GameInput : MonoBehaviour {
 		selectedModel = model;
 
 		transform.GetChild(0).transform.GetChild(index).gameObject.SetActive(true);
+
+		modelCollider = transform.GetChild(0).transform.GetChild(index).GetComponent<BoxCollider>();
 
 		GameController.ActiveModel = model;
 

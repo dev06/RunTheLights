@@ -3097,6 +3097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ZoneID: 3
+  category: 3
   prefab: {fileID: 0}
   StartConnector: {fileID: 4525984313681912}
   EndConnector: {fileID: 4989109034883942}

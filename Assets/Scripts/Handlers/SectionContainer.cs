@@ -12,6 +12,8 @@ public class SectionContainer : MonoBehaviour {
 
 	public Section lastReservedSection;
 
+	private SectionType lastType = SectionType.None;
+
 	private int defaultActive = 6;
 
 
@@ -45,10 +47,10 @@ public class SectionContainer : MonoBehaviour {
 
 		CreateSection(SectionType.Section_0);
 
-		for (int i = 0; i < 4; i++)
-		{
-			CreateSection(SectionType.Section_1);
-		}
+		// for (int i = 0; i < 4; i++)
+		// {
+		// 	CreateSection(SectionType.Section_1);
+		// }
 		for (int i = 0; i < 4; i++)
 		{
 			CreateSection(SectionType.Section_2);
@@ -57,10 +59,10 @@ public class SectionContainer : MonoBehaviour {
 		{
 			CreateSection(SectionType.Section_3);
 		}
-		for (int i = 0; i < 4; i++)
-		{
-			CreateSection(SectionType.Section_4);
-		}
+		// for (int i = 0; i < 4; i++)
+		// {
+		// 	CreateSection(SectionType.Section_4);
+		// }
 		for (int i = 0; i < 4; i++)
 		{
 			CreateSection(SectionType.Section_5);
@@ -107,15 +109,19 @@ public class SectionContainer : MonoBehaviour {
 
 		int r = Random.Range(0, reservedTransform.childCount);
 
-		List<int> chosen = new List<int>();
-
 		int index = 0;
 
-		Section to = null;
+		Section to = GetSectionFromReservedByType(SectionType.Section_0);
 
-		SectionType lastChosenType = SectionType.None;
+		queue.Add(to);
+
+		SectionCategory targetCategory = LevelController.Instance.GetSectionCategoryFromLevel();
+
+		SectionType lastChosenType = to.type;
 
 		int breakCount = 0;
+
+		bool canBypass = false;
 
 		do
 		{
@@ -128,18 +134,11 @@ public class SectionContainer : MonoBehaviour {
 				break;
 			}
 
-			if (index < 1)
-			{
-				to = GetSectionFromReservedByType(SectionType.Section_0);
-			}
-			else
-			{
-				r = Random.Range(0, reservedTransform.childCount);
+			r = Random.Range(0, reservedTransform.childCount);
 
-				to = reservedTransform.GetChild(r).GetComponent<Section>();
-			}
+			to = reservedTransform.GetChild(r).GetComponent<Section>();
 
-			if (to.ZoneID != 1) { continue; }
+			if (to.category != targetCategory) { continue; }
 
 			if (!queue.Contains(to) && lastChosenType != to.type)
 			{
@@ -231,6 +230,8 @@ public class SectionContainer : MonoBehaviour {
 
 	int lastChosenIndex;
 
+	private Section nextSection = null;
+
 	public void PoolSection(Section section)
 	{
 
@@ -247,49 +248,9 @@ public class SectionContainer : MonoBehaviour {
 			section.transform.SetParent(null);
 		}
 
-
-
-		Section s = GetSectionByZone();
-
-		//s = GetSectionFromReservedByType(SectionType.Section_3); //OVERRIDE SECTION LINE
-
-		if (GameController.POOLED_SECTION > GameController.ZONE_CHANGE_EVERY)
-		{
-
-			// zoneIndex++;
-			s = GetSection(SectionType.Section_10);
-			GameController.POOLED_SECTION = 0;
-		}
-
-		if (zoneIndex > 3)
-		{
-			zoneIndex = 1;
-		}
-
-
-		if (s.type == SectionType.Section_1)
-		{
-			sectionCount++;
-		}
-
-		if (sectionCount > 1)
-		{
-			s = GetSectionFromReservedByType(SectionType.Section_2);
-
-			sectionCount = 0;
-		}
-
-		s.transform.SetParent(transform);
-
-		s.transform.gameObject.SetActive(true);
-
-		lastReservedSection = lastReservedSection == null ? sections[sections.Count - 1] : lastReservedSection;
-
-		s.Move(lastReservedSection);
-
-		lastReservedSection = s;
 	}
 
+	//Called when player hits the finish line, marks begin of level end process.
 	private void OnProgressionColliderHit(ProgressionColliderType type)
 	{
 		if (type == ProgressionColliderType.Zone)
@@ -299,32 +260,62 @@ public class SectionContainer : MonoBehaviour {
 				EventManager.OnLevelComplete();
 			}
 		}
+
+		if (type == ProgressionColliderType.Intersection)
+		{
+			nextSection = GetSectionByLevel();
+
+			if (GameController.Instance.LightsRanInLevel > GameController.ZONE_CHANGE_EVERY - 3)
+			{
+				nextSection = GetSection(SectionType.Section_10);
+			}
+
+			Section s = nextSection;
+
+			s.transform.SetParent(transform);
+
+			s.transform.gameObject.SetActive(true);
+
+			lastReservedSection = lastReservedSection == null ? sections[sections.Count - 1] : lastReservedSection;
+
+			s.Move(lastReservedSection);
+
+			lastReservedSection = s;
+		}
 	}
 
-	SectionType lastType = SectionType.None;
 
-	public Section GetSectionByZone()
+	public Section GetSectionByLevel()
 	{
 		int r = Random.Range(0, reservedTransform.childCount);
+
 		Section s = reservedTransform.GetChild(r).GetComponent<Section>();
+
+		SectionCategory targetCategory = LevelController.Instance.GetSectionCategoryFromLevel();
+
 		int breakcount = 0;
+
 		do
 		{
 			r = Random.Range(0, reservedTransform.childCount);
+
 			s = reservedTransform.GetChild(r).GetComponent<Section>();
+
 			breakcount++;
+
 			if (breakcount > 100)
 			{
+
 				Debug.Log("Break");
 				break;
 			}
 		}
-		while (s.ZoneID != zoneIndex || lastType == s.type);
+
+		while (s.category != targetCategory || lastType == s.type);
 
 		lastType = s.type;
 
 		return s;
-
 	}
 
 	public Section GetUnactiveSection()

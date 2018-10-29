@@ -19,12 +19,21 @@ public enum SectionType
 	Section_11, //mountain
 	Section_12, //mountain
 	Section_13, //mountain
+}
 
+public enum SectionCategory
+{
+	None,
+	Building,
+	Neighborhood,
+	Jungle,
 }
 
 public class Section : MonoBehaviour {
 
 	public int ZoneID = -1;
+
+	public SectionCategory category;
 
 	public GameObject prefab;
 
@@ -109,6 +118,11 @@ public class Section : MonoBehaviour {
 	public void SetType(SectionType type)
 	{
 		this.type = type;
+	}
+
+	public void SetCategory(SectionCategory category)
+	{
+		this.category = category;
 	}
 
 	void Update()

@@ -7,7 +7,9 @@ public class GameUI : UserInterface {
 	public Text scoreText;
 	public Text distanceText;
 	public AdditionTexts additionText;
+	public LevelProgression levelProgression;
 	private bool isToggled;
+	private bool disableAdditionalTexts;
 
 	public override void Init()
 	{
@@ -18,16 +20,22 @@ public class GameUI : UserInterface {
 	void OnEnable()
 	{
 		EventManager.OnUpdateUI += OnUpdateUI;
+
 		EventManager.OnHitObject += OnHitObject;
 
 		EventManager.OnProgressionColliderHit += OnProgressionColliderHit;
+
+		EventManager.OnLevelComplete += OnLevelComplete;
 	}
 	void OnDisable()
 	{
 		EventManager.OnUpdateUI -= OnUpdateUI;
+
 		EventManager.OnHitObject -= OnHitObject;
 
 		EventManager.OnProgressionColliderHit -= OnProgressionColliderHit;
+
+		EventManager.OnLevelComplete -= OnLevelComplete;
 	}
 
 	void OnHitObject()
@@ -54,9 +62,15 @@ public class GameUI : UserInterface {
 
 	}
 
+	void OnLevelComplete()
+	{
+		levelProgression.UpdateUI();
+		disableAdditionalTexts = true;
+	}
+
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
-		//Debug.Log("hit");
+		if (disableAdditionalTexts) return;
 		float delay = 0f;
 		switch (type)
 		{

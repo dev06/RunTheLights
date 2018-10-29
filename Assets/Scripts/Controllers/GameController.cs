@@ -67,6 +67,8 @@ public class GameController : MonoBehaviour {
 
 	private static bool sdk_init;
 
+	public int LightsRanInLevel;
+
 	void OnValidate()
 	{
 		if (DeleteSave)

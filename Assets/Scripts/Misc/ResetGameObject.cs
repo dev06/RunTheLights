@@ -12,7 +12,7 @@ public class ResetGameObject : MonoBehaviour {
 	MeshRenderer mesh;
 	BoxCollider collider;
 
-	private float spawningProb = .45f;
+	private float spawningProb = .2f;
 
 	public void Initalize()
 	{
