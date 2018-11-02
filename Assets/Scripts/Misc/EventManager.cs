@@ -21,6 +21,9 @@ public class EventManager : MonoBehaviour {
 	public static Gameplay OnFingerUp;
 	public static Gameplay OnLevelComplete;
 
+	public delegate void Fury(int i);
+	public static Fury OnFuryStatus;
+
 
 
 	public delegate void ProgressionCollider(ProgressionColliderType type);

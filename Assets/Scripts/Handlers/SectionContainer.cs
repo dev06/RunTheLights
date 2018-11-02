@@ -98,6 +98,10 @@ public class SectionContainer : MonoBehaviour {
 		{
 			CreateSection(SectionType.Section_13);
 		}
+		for (int i = 0; i < 4; i++)
+		{
+			CreateSection(SectionType.Section_14);
+		}
 		RepositionSections();
 
 	}
@@ -222,6 +226,8 @@ public class SectionContainer : MonoBehaviour {
 			case SectionType.Section_11: return AppResources.Section_11;
 			case SectionType.Section_12: return AppResources.Section_12;
 			case SectionType.Section_13: return AppResources.Section_13;
+			case SectionType.Section_14: return AppResources.Section_14;
+
 			default: return AppResources.Section_1;
 		}
 	}
@@ -271,6 +277,8 @@ public class SectionContainer : MonoBehaviour {
 			}
 
 			Section s = nextSection;
+
+			s = GetSection(SectionType.Section_14);
 
 			s.transform.SetParent(transform);
 

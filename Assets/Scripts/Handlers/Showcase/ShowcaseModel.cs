@@ -133,7 +133,7 @@ public class ShowcaseModel : MonoBehaviour {
 		}
 
 
-		return unlocked;
+		return true;
 	}
 }
 

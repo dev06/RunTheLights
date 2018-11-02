@@ -19,6 +19,7 @@ public class AppResources : MonoBehaviour {
 	public static GameObject Section_11 = Resources.Load("Prefabs/Section_Prefabs/Section_11") as GameObject;
 	public static GameObject Section_12 = Resources.Load("Prefabs/Section_Prefabs/Section_12") as GameObject;
 	public static GameObject Section_13 = Resources.Load("Prefabs/Section_Prefabs/Section_13") as GameObject;
+	public static GameObject Section_14 = Resources.Load("Prefabs/Section_Prefabs/Section_14") as GameObject;
 
 
 

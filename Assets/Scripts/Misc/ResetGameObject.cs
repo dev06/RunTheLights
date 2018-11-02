@@ -56,6 +56,7 @@ public class ResetGameObject : MonoBehaviour {
 		rb.Sleep();
 		rb.velocity = Vector3.zero;
 
-		Toggle(Random.Range(0f, 1f) < spawningProb);
+
+		Toggle(Random.Range(0f, 1f) < spawningProb + (FuryHandler.InFury ? .5f : 0f));
 	}
 }

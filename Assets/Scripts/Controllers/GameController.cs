@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour {
 
 	public bool DeleteSave;
 
+	public bool CanDie = true;
+
 	public static readonly float MAX_CAR_SPEED = 50f;
 
 	public static readonly float MAX_CAR_ACC = 50f;
@@ -35,7 +37,7 @@ public class GameController : MonoBehaviour {
 
 	public static int POOLED_SECTION = 0;
 
-	public static int ZONE_CHANGE_EVERY = 4;
+	public static int ZONE_CHANGE_EVERY = 15;
 
 	public static float DISTANCE_TRAVELED = 0;
 

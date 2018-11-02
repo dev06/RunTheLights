@@ -23,10 +23,25 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 		if (col.gameObject.tag == "Objects/Car")
 		{
-#if !UNITY_EDITOR
-			Death(col);
-			
-#endif
+
+			// #if !UNITY_EDITOR
+			// 			Death(col);
+			// #endif
+
+			if (FuryHandler.InFury)
+			{
+				col.transform.GetComponent<Car>().Toggle(false);
+				col.transform.GetComponentInChildren<ParticleSystem>().Play();
+				FindObjectOfType<FuryHandler>().StopFury();
+				cameraController.TriggerShake(.75f, 15f);
+			}
+			else
+			{
+				if (GameController.Instance.CanDie)
+				{
+					Death(col);
+				}
+			}
 		}
 	}
 

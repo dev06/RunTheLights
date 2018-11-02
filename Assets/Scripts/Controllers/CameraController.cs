@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityStandardAssets.ImageEffects;
 public class CameraController : MonoBehaviour {
 
 
@@ -31,12 +31,16 @@ public class CameraController : MonoBehaviour {
 	private float fovVel;
 	private float fovThreshold;
 
-	Vector3 targetPosition;
+	private Vector3 targetPosition;
 
 	private float startIntensity, startIntensityVel;
 
 	private bool inStopZone;
 	private bool isCameraDetached;
+
+	public BloomOptimized bloom;
+
+	private float continuousShakeIntensity = .06f;
 
 
 	void Awake()
@@ -77,7 +81,8 @@ public class CameraController : MonoBehaviour {
 
 	void OnFingerDown()
 	{
-		TriggerPull(-2f, 20f);
+		float multiplier = FuryHandler.InFury ? 2f : 1f;
+		TriggerPull(-2f * multiplier, 20f * multiplier);
 		startIntensity = .1f;
 	}
 
@@ -116,6 +121,7 @@ public class CameraController : MonoBehaviour {
 	void Start ()
 	{
 		//UpdateTransform();
+		bloom = GetComponent<BloomOptimized>();
 		parent = transform.parent;
 		defaultPositon = transform.localPosition;
 		targetPosition = transform.position;
@@ -125,6 +131,7 @@ public class CameraController : MonoBehaviour {
 		targetFOV = defaultFOV;
 	}
 
+	float s = 0, vv;
 	void Update ()
 	{
 
@@ -139,11 +146,14 @@ public class CameraController : MonoBehaviour {
 
 				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
-				transform.localPosition = defaultPositon + Shake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.speed) ? .06f : 0f;
+
+				transform.localPosition = defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 			}
 			else
 			{
-				transform.Translate(-Vector3.forward * Time.deltaTime * Section.VELOCITY, Space.World);
+				s = Mathf.SmoothDamp(s, Section.VELOCITY, ref vv, Time.deltaTime * 25f);
+				transform.Translate(-Vector3.forward * Time.deltaTime * s, Space.World);
 			}
 		}
 		else
@@ -196,6 +206,11 @@ public class CameraController : MonoBehaviour {
 		shakeDuration = duration;
 	}
 
+	Vector3 ContinuousShake()
+	{
+		return Random.insideUnitCircle * continuousShakeIntensity;
+	}
+
 	Vector3 Shake()
 	{
 		return Random.insideUnitCircle * shakeIntensity;
@@ -240,5 +255,16 @@ public class CameraController : MonoBehaviour {
 	{
 		transform.SetParent(null);
 		isCameraDetached = true;
+	}
+
+	public float BloomIntensity
+	{
+		get {
+			return bloom.intensity;
+		}
+
+		set {
+			this.bloom.intensity = value;
+		}
 	}
 }

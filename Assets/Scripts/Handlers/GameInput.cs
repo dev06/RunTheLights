@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameInput : MonoBehaviour {
 
 
+	public ParticleSystem zoomParticles;
+
 	private float vel;
 
 	private float rate;
@@ -25,17 +27,26 @@ public class GameInput : MonoBehaviour {
 
 	private BoxCollider modelCollider;
 
+	private Vector2 currentPosition, lastPosition;
+
+	private float rot;
+
+	private float senstivity = 40;
+
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
 		EventManager.OnGameStart += OnGameStart;
 		EventManager.OnLevelComplete += OnLevelComplete;
+		EventManager.OnFuryStatus += OnFuryStatus;
 	}
+
 	void OnDisable()
 	{
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
 		EventManager.OnGameStart -= OnGameStart;
 		EventManager.OnLevelComplete -= OnLevelComplete;
+		EventManager.OnFuryStatus -= OnFuryStatus;
 	}
 
 	void Start()
@@ -54,6 +65,22 @@ public class GameInput : MonoBehaviour {
 			return;
 		}
 
+		if (Section.VELOCITY <= 0)
+		{
+			if (zoomParticles.isPlaying)
+			{
+				zoomParticles.Stop();
+			}
+		}
+		else
+		{
+			if (FuryHandler.InFury && !zoomParticles.isPlaying)
+			{
+				zoomParticles.Play();
+			}
+		}
+
+
 		MovePlayer();
 	}
 
@@ -62,9 +89,23 @@ public class GameInput : MonoBehaviour {
 		canSteer = true;
 	}
 
+	void OnFuryStatus(int i)
+	{
+		if (i == 0)
+		{
+			zoomParticles.Stop();
+		}
+		else
+		{
+			zoomParticles.Play();
+		}
+	}
+
 	private void OnLevelComplete()
 	{
 		canSteer = false;
+
+		zoomParticles.Stop();
 
 		modelCollider.enabled = false;
 
@@ -104,7 +145,8 @@ public class GameInput : MonoBehaviour {
 				EventManager.OnFingerDown();
 			}
 		}
-		else if (Input.GetMouseButtonUp(0))
+
+		if (Input.GetMouseButtonUp(0))
 		{
 
 			if (EventManager.OnFingerDown != null)
@@ -128,7 +170,9 @@ public class GameInput : MonoBehaviour {
 			velocity -= Time.deltaTime * selectedModel.deceleration;
 		}
 
-		velocity = Mathf.Clamp(velocity, 0, selectedModel.speed);
+
+		velocity = Mathf.Clamp(velocity, 0, selectedModel.speed * (FuryHandler.InFury ? 1.5f : 1f));
+
 
 		Section.VELOCITY = velocity;
 
@@ -139,11 +183,6 @@ public class GameInput : MonoBehaviour {
 	}
 
 
-	private Vector2 currentPosition, lastPosition;
-
-	private float rot;
-
-	private float senstivity = 40;
 	void Control()
 	{
 

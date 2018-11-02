@@ -12,15 +12,19 @@ public class Car : MonoBehaviour {
 
 	public float CarSpeed = 100f;
 
+	private MeshRenderer mesh;
+
 	void Start ()
 	{
 		CarSpeed = 10f;
+
+		mesh = transform.GetComponentInChildren<MeshRenderer>();
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!move) return;
+		if (!move) { return; }
 
 		transform.Translate(direction * Vector3.right * Time.deltaTime * CarSpeed, Space.World);
 
@@ -28,6 +32,7 @@ public class Car : MonoBehaviour {
 
 	public void Move(Vector3 startingPos, Vector3 target, int direction)
 	{
+		Toggle(true);
 		move = true;
 		transform.position = startingPos + new Vector3(0, 0, Random.Range(-.2f, .2f));
 		this.direction = direction;
@@ -45,5 +50,14 @@ public class Car : MonoBehaviour {
 	public void SetMove(bool b)
 	{
 		move = b;
+	}
+
+	public void Toggle(bool b)
+	{
+		if (mesh == null)
+		{
+			mesh = transform.GetComponentInChildren<MeshRenderer>();
+		}
+		mesh.enabled = b;
 	}
 }

@@ -100,7 +100,7 @@ public class CarStream : MonoBehaviour {
 
 			car.Move(transform.position, transform.GetChild(0).position, direction);
 
-			delay = Random.Range(1f, 3f) * GameController.CAR_STREAM_DELAY;
+			delay = Random.Range(2f, 4f) * GameController.CAR_STREAM_DELAY;
 
 
 		}
@@ -115,7 +115,7 @@ public class CarStream : MonoBehaviour {
 
 	private void PlaceCarsAtStopPoint()
 	{
-		if (moveCars) return;
+		if (moveCars) { return; }
 
 		for (int i = 0; i < cars.Count; i++)
 		{
