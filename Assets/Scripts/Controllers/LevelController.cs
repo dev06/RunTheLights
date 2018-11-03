@@ -6,7 +6,7 @@ public class LevelController : MonoBehaviour {
 
 	public static LevelController Instance;
 
-	public static int LEVEL = 225;
+	public static int LEVEL = 3;
 
 	public static float LOAD_NEXT_LEVEL_DELAY = 4f; // second delay for loading level;
 
@@ -47,7 +47,7 @@ public class LevelController : MonoBehaviour {
 	public SectionCategory GetSectionCategoryFromLevel()
 	{
 		SectionCategory cat = SectionCategory.None;
-		cat = (SectionCategory)((LEVEL % 3) + 1);
+		cat = (SectionCategory)((LEVEL % 4) + 1);
 		return cat;
 	}
 

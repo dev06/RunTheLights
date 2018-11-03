@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
 
 	public static int POOLED_SECTION = 0;
 
-	public static int ZONE_CHANGE_EVERY = 15;
+	public static int ZONE_CHANGE_EVERY = 30;
 
 	public static float DISTANCE_TRAVELED = 0;
 

@@ -17,4 +17,9 @@ public class FuryMeter : MonoBehaviour {
 	{
 		foreground.fillAmount = furyHandler.FuryTime / 3f;
 	}
+
+	public void TriggerAnimation()
+	{
+		GetComponent<Animation>().Play();
+	}
 }

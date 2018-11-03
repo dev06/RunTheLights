@@ -32,7 +32,6 @@ public class PlayerMeshCollider : MonoBehaviour {
 			{
 				col.transform.GetComponent<Car>().Toggle(false);
 				col.transform.GetComponentInChildren<ParticleSystem>().Play();
-				FindObjectOfType<FuryHandler>().StopFury();
 				cameraController.TriggerShake(.75f, 15f);
 			}
 			else

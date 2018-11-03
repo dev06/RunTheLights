@@ -25,6 +25,8 @@ public class FuryHandler : MonoBehaviour {
 
 	private int furyLightRan;
 
+	private FuryMeter furyMeter;
+
 	void OnEnable ()
 	{
 
@@ -54,6 +56,8 @@ public class FuryHandler : MonoBehaviour {
 	{
 		camera = FindObjectOfType<CameraController>();
 
+		furyMeter = FindObjectOfType<FuryMeter>();
+
 		InFury = false;
 	}
 
@@ -74,12 +78,18 @@ public class FuryHandler : MonoBehaviour {
 			{
 				canRegisterFury = true;
 			}
-
-
 		}
 		else
 		{
-			furyTime -= Time.deltaTime;
+			if (!InFury)
+			{
+				furyTime -= Time.deltaTime;
+			}
+		}
+
+		if (InFury)
+		{
+			furyTime -= Time.deltaTime * .5f;
 		}
 
 		if (furyTime <= 0)
@@ -107,7 +117,10 @@ public class FuryHandler : MonoBehaviour {
 			{
 				furyStep++;
 
-				furyTime = furyStep;
+				if (!InFury)
+				{
+					furyTime = furyStep;
+				}
 
 				furyStep = Mathf.Clamp(furyStep, 0, 3);
 			}
@@ -119,7 +132,10 @@ public class FuryHandler : MonoBehaviour {
 				StartFury();
 			}
 
-
+			if (!InFury)
+			{
+				furyMeter.TriggerAnimation();
+			}
 		}
 	}
 
@@ -144,19 +160,25 @@ public class FuryHandler : MonoBehaviour {
 
 	public void StopFury()
 	{
-		FuryStep = 0;
 
-		furyTime = 0;
-
-		furyLightRan = 0;
 
 		if (InFury)
 		{
+
+			FuryStep = 0;
+
+			furyTime = 0;
+
+			furyLightRan = 0;
+
+			camera.TriggerPull(-2, 20f);
+
 			holdingTimer = 0;
 
 			canRegisterFury = false;
 
 			camera.bloom.enabled = false;
+
 			camera.BloomIntensity = camera.BloomIntensity - .4f;
 
 			InFury = false;
@@ -181,7 +203,10 @@ public class FuryHandler : MonoBehaviour {
 	{
 		holding = true;
 
-		furyTime = furyStep;
+		if (!InFury)
+		{
+			furyTime = furyStep;
+		}
 	}
 
 	public float FuryStep

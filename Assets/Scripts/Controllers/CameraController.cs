@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour {
 
 	public BloomOptimized bloom;
 
-	private float continuousShakeIntensity = .06f;
+	private float continuousShakeIntensity = .05f;
 
 
 	void Awake()
@@ -146,7 +146,7 @@ public class CameraController : MonoBehaviour {
 
 				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
-				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.speed) ? .06f : 0f;
+				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.speed) ? .05f : 0f;
 
 				transform.localPosition = defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 			}

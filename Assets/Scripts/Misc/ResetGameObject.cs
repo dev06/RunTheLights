@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
 public class ResetGameObject : MonoBehaviour {
 
 	Vector3 position;
@@ -12,6 +13,7 @@ public class ResetGameObject : MonoBehaviour {
 	MeshRenderer mesh;
 	BoxCollider collider;
 
+	public bool isProp;
 	private float spawningProb = .2f;
 
 	public void Initalize()
@@ -22,6 +24,7 @@ public class ResetGameObject : MonoBehaviour {
 
 		mesh = GetComponent<MeshRenderer>();
 
+
 		if (mesh == null)
 		{
 			mesh = transform.GetChild(0).GetComponent<MeshRenderer>();
@@ -29,7 +32,7 @@ public class ResetGameObject : MonoBehaviour {
 
 		collider = GetComponent<BoxCollider>();
 
-		if (collider == null)
+		if (collider == null && transform.childCount > 0)
 		{
 			collider = transform.GetChild(0).GetComponent<BoxCollider>();
 		}
@@ -39,13 +42,19 @@ public class ResetGameObject : MonoBehaviour {
 			rb = GetComponent<Rigidbody>();
 		}
 
-		Toggle(Random.Range(0f, 1f) < spawningProb);
+		rb.isKinematic = isProp;
+
+		Toggle(Random.Range(0f, 1f) < (!isProp ? spawningProb : .5f));
 
 	}
 
 	void Toggle(bool b)
 	{
-		mesh.enabled = collider.enabled = b;
+		mesh.enabled = b;
+		if (collider != null)
+		{
+			collider.enabled = b;
+		}
 	}
 
 	public void Reset()
@@ -57,6 +66,6 @@ public class ResetGameObject : MonoBehaviour {
 		rb.velocity = Vector3.zero;
 
 
-		Toggle(Random.Range(0f, 1f) < spawningProb + (FuryHandler.InFury ? .5f : 0f));
+		Toggle(Random.Range(0f, 1f) < (!isProp ? (spawningProb + (FuryHandler.InFury ? .5f : 0f)) : .5f));
 	}
 }

@@ -20,6 +20,8 @@ public enum SectionType
 	Section_12, //mountain
 	Section_13, //mountain
 	Section_14,
+	Section_15,
+	Section_16,
 }
 
 public enum SectionCategory
@@ -28,6 +30,7 @@ public enum SectionCategory
 	Building,
 	Neighborhood,
 	Jungle,
+	Construction,
 }
 
 public class Section : MonoBehaviour {
