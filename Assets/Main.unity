@@ -414,9 +414,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelType: 4
   lockMessage: 
-  speed: 27
-  acceleration: 25
-  deceleration: 55
+  speed: 20
+  acceleration: 60
+  deceleration: 70
   power: 8
   movementMultiplier: 1.3
   unlockConditions:
@@ -538,9 +538,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelType: 3
   lockMessage: 
-  speed: 25
-  acceleration: 45
-  deceleration: 40
+  speed: 20
+  acceleration: 60
+  deceleration: 70
   power: 5
   movementMultiplier: 1.2
   unlockConditions:
@@ -1518,7 +1518,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 10.28
+    angle: 5
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -4388,6 +4388,7 @@ GameObject:
   - component: {fileID: 152713400}
   - component: {fileID: 152713405}
   - component: {fileID: 152713406}
+  - component: {fileID: 152713402}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4409,6 +4410,21 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 152713399}
   m_Enabled: 1
+--- !u!114 &152713402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 152713399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f19108706fdce9469603d07980eb8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blendMode: 3
+  intensity: 0.8
+  texture: {fileID: 2800000, guid: d5295ce4d3d4a46cebb2b75e815d47d4, type: 3}
+  overlayShader: {fileID: 4800000, guid: 8c81db0e527d24acc9bcec04e87781bd, type: 3}
 --- !u!20 &152713403
 Camera:
   m_ObjectHideFlags: 0
@@ -4486,9 +4502,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: 0.35
-  intensity: 0.1
-  blurSize: 1
-  blurIterations: 1
+  intensity: 0.26
+  blurSize: 5.5
+  blurIterations: 2
   blurType: 0
   fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
 --- !u!1 &158227384
@@ -5492,7 +5508,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 10.28
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -8460,7 +8476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelType: 2
   lockMessage: 
-  speed: 22
+  speed: 20
   acceleration: 60
   deceleration: 70
   power: 7
@@ -9557,7 +9573,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 10.28
+    angle: 5
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -27007,7 +27023,7 @@ Canvas:
   m_GameObject: {fileID: 866140389}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 152713403}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
@@ -31367,7 +31383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1112549476
 Transform:
   m_ObjectHideFlags: 0
@@ -44465,7 +44481,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1271069042
+  randomSeed: -1785970354
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -44909,7 +44925,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 10.28
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -48069,7 +48085,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 091e4db61307d6a469c8d46ef29d63ce, type: 2}
     - target: {fileID: 100000, guid: c2522ac79348bff428782471151cf996, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2522ac79348bff428782471151cf996, type: 3}

@@ -5,6 +5,9 @@ using UnityEngine;
 public class FuryHandler : MonoBehaviour {
 
 
+	public static FuryHandler Instance; 
+
+
 	public static bool InFury;
 
 	private bool holding;
@@ -26,6 +29,14 @@ public class FuryHandler : MonoBehaviour {
 	private int furyLightRan;
 
 	private FuryMeter furyMeter;
+
+	void Awake()
+	{
+		if(Instance == null)
+		{
+			Instance = this; 
+		}
+	}
 
 	void OnEnable ()
 	{
@@ -89,7 +100,7 @@ public class FuryHandler : MonoBehaviour {
 
 		if (InFury)
 		{
-			furyTime -= Time.deltaTime * .5f;
+			furyTime -= Time.deltaTime * .25f;
 		}
 
 		if (furyTime <= 0)
@@ -112,6 +123,10 @@ public class FuryHandler : MonoBehaviour {
 
 		if (type == ProgressionColliderType.Intersection)
 		{
+			if(!InFury)
+			{
+				Haptic.Instance.VibrateTwice(.15f, HapticIntensity.Light);				
+			}
 
 			if (canRegisterFury)
 			{
@@ -141,6 +156,7 @@ public class FuryHandler : MonoBehaviour {
 
 	public void StartFury()
 	{
+
 		camera.bloom.enabled = true;
 
 		camera.TriggerPull(-4f, 10f);
@@ -153,7 +169,7 @@ public class FuryHandler : MonoBehaviour {
 		{
 			EventManager.OnFuryStatus(1);
 		}
-		camera.BloomIntensity = camera.BloomIntensity + .4f;
+		camera.BloomIntensity = camera.BloomIntensity + .7f;
 
 		furyStarted = true;
 	}

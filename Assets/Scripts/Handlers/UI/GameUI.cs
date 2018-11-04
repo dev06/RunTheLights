@@ -51,8 +51,13 @@ public class GameUI : UserInterface {
 
 		}
 		GameController.SetScore(1 * GameController.CURRENT_ZONE);
+		
 		additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
-		Haptic.Vibrate(HapticIntensity.Medium);
+		
+		if(FuryHandler.InFury)
+		{
+			Haptic.Vibrate(HapticIntensity.Medium);			
+		}
 	}
 
 	void OnUpdateUI()

@@ -40,6 +40,8 @@ public class CameraController : MonoBehaviour {
 
 	public BloomOptimized bloom;
 
+	private ScreenOverlay screenOverlay;
+
 	private float continuousShakeIntensity = .05f;
 
 
@@ -122,6 +124,7 @@ public class CameraController : MonoBehaviour {
 	{
 		//UpdateTransform();
 		bloom = GetComponent<BloomOptimized>();
+		screenOverlay = GetComponent<ScreenOverlay>();
 		parent = transform.parent;
 		defaultPositon = transform.localPosition;
 		targetPosition = transform.position;
@@ -135,6 +138,7 @@ public class CameraController : MonoBehaviour {
 	void Update ()
 	{
 
+		screenOverlay.enabled = FuryHandler.InFury;
 		if (!GameController.INSHOWCASE)
 		{
 			if (!isCameraDetached)
