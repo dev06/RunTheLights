@@ -49,42 +49,61 @@ public class AppResources : MonoBehaviour {
 
 	public static GameObject[] ZONE_1_CARS =
 	{
-		car_1_1,
+		//car_1_1,
 		car_1_2,
-		car_1_3,
+		//car_1_3,
+		car_2_2,
+		//car_3_1,
 
-		car_3_1,
+		//car_5_1,
+		car_5_2,
+		//car_6_1,
 
-		car_5_1,
-
-
+		car_6_3,
 	};
 
 	public static GameObject[] ZONE_2_CARS =
 	{
-		car_1_1,
+		// car_1_1,
+		// //car_1_2,
+		// //car_1_3,
+
+		// //car_3_1,
+
+		// car_2_1,
+		// //car_2_2,
+
+		// car_5_1,
+		// //	car_5_2,
+		// car_6_1,
 		car_1_2,
-		car_1_3,
-
-		car_3_1,
-
-		car_2_1,
 		car_2_2,
+		car_5_2,
+		car_6_3,
 
 	};
 
 	public static GameObject[] ZONE_3_CARS =
 	{
-		car_1_1,
+		// car_1_1,
+		// //car_1_2,
+		// //car_1_3,
+
+		// car_2_1,
+		// // car_2_2,
+
+		// car_6_1,
+		// // car_6_2,
+		// // car_6_3,
+
+		// car_5_1,
+		// //car_5_2,
+
 		car_1_2,
-		car_1_3,
-
-		car_2_1,
 		car_2_2,
-
-		car_6_1,
-		car_6_2,
+		car_5_2,
 		car_6_3,
+
 
 
 	};
