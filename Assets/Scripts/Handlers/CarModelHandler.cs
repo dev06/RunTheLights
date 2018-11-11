@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ThrustType
+{
+	Default, Fury,
+}
+
 public class CarModelHandler : MonoBehaviour {
+
+	public Transform defaultThrust;
+
+	public Transform furyThrust;
 
 	public ParticleSystem[] exhaust;
 
@@ -31,63 +40,120 @@ public class CarModelHandler : MonoBehaviour {
 
 		furySize = Random.Range(.4f, .5f);
 		furyLife = Random.Range(.7f, 1f);
-		exhaust[0].Stop();
-		exhaust[1].Stop();
+		ToggleThrust(false);
 	}
 
 	void OnFingerUp()
 	{
-		exhaust[0].Stop();
-		exhaust[1].Stop();
+		ToggleThrust(false);
 	}
 
 	void OnFuryStatus(int i)
 	{
-		var main0 = exhaust[0].main;
-		var main1 = exhaust[1].main;
-		if (i == 0)
-		{
-			main0.startSize = startSize;
-			main1.startSize = startSize;
 
-			main0.startLifetime = startLife;
-			main1.startLifetime = startLife;
-		}
-		else
-		{
+		ToggleThrust((i == 1) ? ThrustType.Fury : ThrustType.Default);
+		// var main0 = exhaust[0].main;
+		// var main1 = exhaust[1].main;
+		// if (i == 0)
+		// {
+		// 	main0.startSize = startSize;
+		// 	main1.startSize = startSize;
 
-			main0.startSize = furySize;
-			main1.startSize = furySize;
+		// 	main0.startLifetime = startLife;
+		// 	main1.startLifetime = startLife;
+		// }
+		// else
+		// {
 
-			main0.startLifetime = furyLife;
-			main1.startLifetime = furyLife;
-		}
+		// 	main0.startSize = furySize;
+		// 	main1.startSize = furySize;
+
+		// 	main0.startLifetime = furyLife;
+		// 	main1.startLifetime = furyLife;
+		// }
 	}
 
 	void OnFingerDown()
 	{
-		exhaust[0].Play();
-		exhaust[1].Play();
+		ToggleThrust(FuryHandler.InFury ? ThrustType.Fury : ThrustType.Default);
 
-		var main0 = exhaust[0].main;
-		var main1 = exhaust[1].main;
-		if (FuryHandler.InFury == false)
+		// var main0 = exhaust[0].main;
+		// var main1 = exhaust[1].main;
+		// if (FuryHandler.InFury == false)
+		// {
+		// 	main0.startSize = startSize;
+		// 	main1.startSize = startSize;
+
+		// 	main0.startLifetime = startLife;
+		// 	main1.startLifetime = startLife;
+
+		// }
+		// else
+		// {
+
+		// 	main0.startSize = furySize;
+		// 	main1.startSize = furySize;
+
+		// 	main0.startLifetime = furyLife;
+		// 	main1.startLifetime = furyLife;
+		// }
+	}
+
+
+	void ToggleThrust(bool b)
+	{
+		ToggleFuryThrust(b);
+		ToggleDefaultThrust(b);
+	}
+
+	void ToggleThrust(ThrustType type)
+	{
+		if (type == ThrustType.Default)
 		{
-			main0.startSize = startSize;
-			main1.startSize = startSize;
-
-			main0.startLifetime = startLife;
-			main1.startLifetime = startLife;
-
+			ToggleFuryThrust(false);
+			ToggleDefaultThrust(true);
 		}
 		else
 		{
+			ToggleDefaultThrust(false);
+			ToggleFuryThrust(true);
+		}
+	}
 
-			main0.startSize = furySize;
-			main1.startSize = furySize;
+	void ToggleDefaultThrust(bool b)
+	{
+		if (defaultThrust == null) return;
 
-			main0.startLifetime = furyLife;
-			main1.startLifetime = furyLife;
+		for (int i = 0; i < defaultThrust.childCount; i++)
+		{
+			ParticleSystem ps = defaultThrust.GetChild(i).GetComponent<ParticleSystem>();
+
+			if (b)
+			{
+				ps.Play();
+			}
+			else
+			{
+				ps.Stop();
+			}
+		}
+	}
+
+	void ToggleFuryThrust(bool b)
+	{
+		if (furyThrust == null) return;
+		for (int i = 0; i < furyThrust.childCount; i++)
+		{
+			ParticleSystem ps = furyThrust.GetChild(i).GetComponent<ParticleSystem>();
+
+			if (b)
+			{
+				ps.Play();
+			}
+			else
+			{
+				ps.Stop();
+			}
 		}
 	}
 }

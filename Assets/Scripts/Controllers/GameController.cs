@@ -37,11 +37,13 @@ public class GameController : MonoBehaviour {
 
 	public static int POOLED_SECTION = 0;
 
-	public static int ZONE_CHANGE_EVERY = 30;
+	public static int ZONE_CHANGE_EVERY = 5;
 
 	public static float DISTANCE_TRAVELED = 0;
 
 	public static int SCORE = 0;
+
+	public static int SESSION_SCORE = 0;
 
 	public static float BEST_DISTANCE = 0;
 
@@ -64,6 +66,8 @@ public class GameController : MonoBehaviour {
 	public static int APP_OPENED_COUNT = 0;
 
 	public static ShowcaseModel ActiveModel;
+
+	public static bool TutorialEnabled;
 
 	private int ShowRateDialogAtEvery = 5; //app starts
 
@@ -153,6 +157,8 @@ public class GameController : MonoBehaviour {
 		EventManager.OnGameOver += OnGameOver;
 
 		EventManager.OnGameStart += OnGameStart;
+
+		EventManager.OnLevelComplete += OnLevelComplete;
 	}
 
 	void OnDisable()
@@ -162,6 +168,8 @@ public class GameController : MonoBehaviour {
 		EventManager.OnGameOver -= OnGameOver;
 
 		EventManager.OnGameStart -= OnGameStart;
+
+		EventManager.OnLevelComplete -= OnLevelComplete;
 	}
 
 	void OnZoneComplete()
@@ -171,6 +179,17 @@ public class GameController : MonoBehaviour {
 		CAR_STREAM_DELAY = Mathf.Clamp(CAR_STREAM_DELAY, 1f , CAR_STREAM_DELAY);
 
 		GameAnalytics.NewDesignEvent ("ZONE_PROGRESSION_" + CURRENT_ZONE, CURRENT_ZONE);
+	}
+
+	void OnLevelComplete()
+	{
+		if (TutorialEnabled)
+		{
+			TutorialEnabled = false;
+
+			ZONE_CHANGE_EVERY = 30;
+
+		}
 	}
 
 	void Start()
@@ -186,7 +205,7 @@ public class GameController : MonoBehaviour {
 
 	public static void SetScore(int addition)
 	{
-		GAME_SCORE += addition;
+		SESSION_SCORE += addition;
 
 		if (EventManager.OnUpdateUI != null)
 		{
@@ -203,12 +222,12 @@ public class GameController : MonoBehaviour {
 
 	void OnGameOver()
 	{
-
 		GameAnalytics.NewProgressionEvent (GAProgressionStatus.Complete, "game", GAME_SCORE); // with score
 		Haptic.VibrateHandheld();
 		Save();
 		StopCoroutine("IOnDeath");
 		StartCoroutine("IOnDeath");
+		SESSION_SCORE = 0;
 	}
 
 
@@ -218,29 +237,20 @@ public class GameController : MonoBehaviour {
 		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
 	}
 
-	void Save()
+	public void Save()
 	{
-		SCORE = GAME_SCORE;
 
-		DISTANCE_TRAVELED = GAME_DISTANCE;
 
-		if (SCORE > BEST_SCORE)
+		if (SESSION_SCORE > BEST_SCORE)
 		{
-			BEST_SCORE = SCORE;
+			BEST_SCORE = SESSION_SCORE;
 		}
 
-		if (DISTANCE_TRAVELED > BEST_DISTANCE)
-		{
-			BEST_DISTANCE = DISTANCE_TRAVELED;
-		}
+		PlayerPrefs.SetInt("LEVEL", LevelController.LEVEL);
 
-		PlayerPrefs.SetInt("SCORE", SCORE);
-
-		PlayerPrefs.SetFloat("DISTANCE_TRAVELED", DISTANCE_TRAVELED);
+		PlayerPrefs.SetInt("SESSION_SCORE", SESSION_SCORE);
 
 		PlayerPrefs.SetInt("BEST_SCORE", BEST_SCORE);
-
-		PlayerPrefs.SetFloat("BEST_DISTANCE", BEST_DISTANCE);
 
 		PlayerPrefs.SetInt("SELECTED_MODEL_INDEX", SELECTED_MODEL_INDEX);
 
@@ -257,13 +267,16 @@ public class GameController : MonoBehaviour {
 
 	void Load()
 	{
-		SCORE = PlayerPrefs.GetInt("SCORE");
+
+		LevelController.LEVEL =  PlayerPrefs.HasKey("LEVEL") ? PlayerPrefs.GetInt("LEVEL") : 0;
+
+		TutorialEnabled = LevelController.LEVEL == 0;
+
+
+		ZONE_CHANGE_EVERY = TutorialEnabled ? 8 :  30;
+
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
-
-		DISTANCE_TRAVELED = PlayerPrefs.GetFloat("DISTANCE_TRAVELED");
-
-		BEST_DISTANCE = PlayerPrefs.GetFloat("BEST_DISTANCE");
 
 		SELECTED_MODEL_INDEX = PlayerPrefs.GetInt("SELECTED_MODEL_INDEX");
 

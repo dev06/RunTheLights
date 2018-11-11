@@ -10,7 +10,7 @@ public class ShowcaseHandler : MonoBehaviour {
 	private ShowcaseModel selectedShowcaseModel;
 	private float rot;
 	private bool selected;
-	private float distanceOffset = 4f;
+	private float distanceOffset = 5f;
 	private int selectingIndex;
 	private Vector3 offset = new Vector3(7, 3, 0);
 	private Vector3 snapPos;
@@ -37,7 +37,7 @@ public class ShowcaseHandler : MonoBehaviour {
 
 	void OnShowcaseEnable()
 	{
-		cameraController.transform.position = snapPos + offset + new Vector3(0, 0, -50); 
+		cameraController.transform.position = snapPos + offset + new Vector3(0, 0, -50);
 		cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
 	}
 
@@ -79,8 +79,8 @@ public class ShowcaseHandler : MonoBehaviour {
 
 			Control();
 
-			float x = (snapPos + offset).x; 
-			float y = (snapPos + offset).y; 
+			float x = (snapPos + offset).x;
+			float y = (snapPos + offset).y;
 
 			cameraController.SetTargetPosition(new Vector3(x, y, rot * distanceOffset));
 

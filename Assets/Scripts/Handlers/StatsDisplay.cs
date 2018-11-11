@@ -8,8 +8,7 @@ public class StatsDisplay : MonoBehaviour {
 
 	void Start ()
 	{
-		textMesh.text = "Best Distance: " + GameController.BEST_DISTANCE.ToString("F0") + "m" + "\n" + " Best Score: " + GameController.BEST_SCORE
-		                + "\n Last: " +  GameController.SCORE + " | " + GameController.DISTANCE_TRAVELED.ToString("F0") + "m";
+		textMesh.text =  "Best Score\n" + GameController.BEST_SCORE ;
 	}
 
 }

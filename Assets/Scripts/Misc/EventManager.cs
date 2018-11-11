@@ -38,4 +38,7 @@ public class EventManager : MonoBehaviour {
 	public static Showcase OnShowcaseModelHover;
 	public static Showcase OnShowcaseModelSelected;
 
+	public delegate void Tutorial(int step);
+	public static Tutorial OnTutorialStep;
+
 }

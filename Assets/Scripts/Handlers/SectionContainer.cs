@@ -279,11 +279,22 @@ public class SectionContainer : MonoBehaviour {
 
 		if (type == ProgressionColliderType.Intersection)
 		{
+
 			nextSection = GetSectionByLevel();
 
-			if (GameController.Instance.LightsRanInLevel > GameController.ZONE_CHANGE_EVERY - 3)
+			if (GameController.TutorialEnabled)
 			{
-				nextSection = GetSection(SectionType.Section_10);
+				if (!TutorialHandler.TutorialStatus)
+				{
+					nextSection = GetSection(SectionType.Section_10);
+				}
+			}
+			else
+			{
+				if (GameController.Instance.LightsRanInLevel > GameController.ZONE_CHANGE_EVERY - 3)
+				{
+					nextSection = GetSection(SectionType.Section_10);
+				}
 			}
 
 			Section s = nextSection;

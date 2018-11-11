@@ -6,7 +6,7 @@ public class LevelController : MonoBehaviour {
 
 	public static LevelController Instance;
 
-	public static int LEVEL = 5;
+	public static int LEVEL = 2;
 
 	public static float LOAD_NEXT_LEVEL_DELAY = 4f; // second delay for loading level;
 
@@ -30,6 +30,8 @@ public class LevelController : MonoBehaviour {
 	private void OnLevelComplete()
 	{
 		LEVEL++;
+
+		GameController.Instance.Save();
 
 		StopCoroutine("ILoadNextLevel");
 

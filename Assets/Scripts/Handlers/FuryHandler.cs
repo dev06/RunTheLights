@@ -5,7 +5,7 @@ using UnityEngine;
 public class FuryHandler : MonoBehaviour {
 
 
-	public static FuryHandler Instance; 
+	public static FuryHandler Instance;
 
 
 	public static bool InFury;
@@ -32,9 +32,9 @@ public class FuryHandler : MonoBehaviour {
 
 	void Awake()
 	{
-		if(Instance == null)
+		if (Instance == null)
 		{
-			Instance = this; 
+			Instance = this;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class FuryHandler : MonoBehaviour {
 		{
 			if (!InFury)
 			{
-				furyTime -= Time.deltaTime;
+				furyTime -= Time.deltaTime * 2f * furyStep;
 			}
 		}
 
@@ -106,11 +106,14 @@ public class FuryHandler : MonoBehaviour {
 		if (furyTime <= 0)
 		{
 			StopFury();
+			ResetValues();
 		}
 	}
 
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
+		if (GameController.TutorialEnabled) return;
+
 		StopCoroutine("ICheck");
 
 		StartCoroutine("ICheck", type);
@@ -123,9 +126,9 @@ public class FuryHandler : MonoBehaviour {
 
 		if (type == ProgressionColliderType.Intersection)
 		{
-			if(!InFury)
+			if (!InFury)
 			{
-				Haptic.Instance.VibrateTwice(.15f, HapticIntensity.Light);				
+				Haptic.Instance.VibrateTwice(.15f, HapticIntensity.Light);
 			}
 
 			if (canRegisterFury)
@@ -174,14 +177,24 @@ public class FuryHandler : MonoBehaviour {
 		furyStarted = true;
 	}
 
+	void ResetValues()
+	{
+		furyTime = 0;
+
+		furyStep = 0;
+
+		furyLightRan = 0;
+	}
+
 	public void StopFury()
 	{
 
+		FuryStep = 0;
 
 		if (InFury)
 		{
 
-			FuryStep = 0;
+			//FuryStep = 0;
 
 			furyTime = 0;
 

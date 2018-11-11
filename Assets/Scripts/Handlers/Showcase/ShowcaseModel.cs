@@ -8,6 +8,7 @@ public enum ModelType
 	Car,
 	Bike,
 	Cop,
+	Car_7,
 
 }
 public class ShowcaseModel : MonoBehaviour {
@@ -127,13 +128,14 @@ public class ShowcaseModel : MonoBehaviour {
 			Debug.Log(gameObject.name + " | None of the conditions are met");
 		}
 
-		if (unlockConditions.Length > 0)
-		{
-			lockMessage = "Either\n" + unlockConditions[0].message + "\nor\n" + unlockConditions[1].message;
-		}
+		// if (unlockConditions.Length > 0)
+		// {
+		// 	lockMessage = "Either\n" + unlockConditions[0].message + "\nor\n" + unlockConditions[1].message;
+		// }
 
+		lockMessage = unlockConditions[0].message;
 
-		return true;
+		return unlocked;
 	}
 }
 
@@ -178,6 +180,13 @@ public class UnlockConditions
 				message = "Run " + target + " red lights \n[" + GameController.LIGHTS_RAN + " / " + target + "]";
 				return CheckLightsRan();
 			}
+
+			case ConditionType.LevelReach:
+			{
+				message = "Unlocked at level " + target + " \n[" + LevelController.LEVEL + " / " + target + "]";
+				return CheckLevelReach();
+			}
+
 		}
 
 		return false;
@@ -203,6 +212,11 @@ public class UnlockConditions
 	{
 		return GameController.LIGHTS_RAN >= target;
 	}
+
+	public bool CheckLevelReach()
+	{
+		return LevelController.LEVEL >= target;
+	}
 }
 
 public enum ConditionType
@@ -212,6 +226,7 @@ public enum ConditionType
 	GamesPlayed,
 	Distance,
 	LightsRan,
+	LevelReach,
 
 }
 
