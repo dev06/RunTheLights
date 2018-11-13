@@ -9,7 +9,8 @@ public enum ModelType
 	Bike,
 	Cop,
 	Car_7,
-
+	Car_8,
+	Car_9,
 }
 public class ShowcaseModel : MonoBehaviour {
 
@@ -32,6 +33,8 @@ public class ShowcaseModel : MonoBehaviour {
 
 	public float movementMultiplier;
 	public UnlockConditions[] unlockConditions;
+
+	public Vector3 cameraPositionOffset;
 
 	void Start ()
 	{

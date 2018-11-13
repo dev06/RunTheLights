@@ -238,6 +238,11 @@ public class GameInput : MonoBehaviour {
 
 		GameController.MOVEMENT_MULTIPLIER = model.movementMultiplier;
 
+
+		CameraController.Instance.SetCameraHeightOffset(model.cameraPositionOffset);
+
+
+
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)

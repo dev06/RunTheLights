@@ -112,7 +112,7 @@ public class FuryHandler : MonoBehaviour {
 
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
-		if (GameController.TutorialEnabled) return;
+		if (GameController.TutorialEnabled) { return; }
 
 		StopCoroutine("ICheck");
 

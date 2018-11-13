@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour {
 	private float shakeDuration;
 	private float shakeVel;
 	private Vector3 defaultPositon;
+	private Vector3 heightOffset;
 
 	public bool ToggleShowcaseCamera;
 
@@ -68,6 +69,7 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnFingerUp += OnFingerUp;
 		EventManager.OnFingerDown += OnFingerDown;
 		EventManager.OnLevelComplete += OnLevelComplete;
+		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
 	}
 	void OnDisable()
 	{
@@ -78,6 +80,12 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnFingerUp -= OnFingerUp;
 		EventManager.OnFingerDown -= OnFingerDown;
 		EventManager.OnLevelComplete -= OnLevelComplete;
+		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
+	}
+
+	void OnShowcaseModelSelected(ShowcaseModel model)
+	{
+		SetCameraHeightOffset(model.cameraPositionOffset);
 	}
 
 
@@ -152,7 +160,7 @@ public class CameraController : MonoBehaviour {
 
 				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.speed) ? .05f : 0f;
 
-				transform.localPosition = defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+				transform.localPosition = heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 			}
 			else
 			{
@@ -195,6 +203,11 @@ public class CameraController : MonoBehaviour {
 		Camera.main.fieldOfView = Mathf.SmoothDamp(Camera.main.fieldOfView, targetFOV, ref fovVel, Time.deltaTime * 10f);
 
 
+	}
+
+	public void SetCameraHeightOffset(Vector3 cameraPositionOffset)
+	{
+		heightOffset =  cameraPositionOffset;
 	}
 
 	public void TriggerPull(float pull, float damp)

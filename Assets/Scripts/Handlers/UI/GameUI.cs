@@ -11,12 +11,14 @@ public class GameUI : UserInterface {
 	public LevelProgression levelProgression;
 	private bool isToggled;
 	private bool disableAdditionalTexts;
+	private Animation furyPopAnim;
 
 	public override void Init()
 	{
 		base.Init();
 		Toggle(false);
 		scoreText.text = GameController.SESSION_SCORE.ToString();
+		furyPopAnim = furyPop.transform.GetComponent<Animation>();
 	}
 
 	void OnEnable()
@@ -62,6 +64,7 @@ public class GameUI : UserInterface {
 			GameController.SetScore(1 * GameController.CURRENT_ZONE);
 
 			additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
+
 		}
 
 		if (FuryHandler.InFury)
@@ -80,7 +83,8 @@ public class GameUI : UserInterface {
 		else
 		{
 			furyPop.enabled = true;
-			furyPop.transform.GetComponent<Animation>().Play();
+
+			furyPopAnim.Play();
 		}
 	}
 
@@ -99,8 +103,8 @@ public class GameUI : UserInterface {
 
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
-		if (disableAdditionalTexts) return;
-		if (GameController.TutorialEnabled) return;
+		if (disableAdditionalTexts) { return; }
+		if (GameController.TutorialEnabled) { return; }
 		float delay = 0f;
 		switch (type)
 		{
@@ -131,7 +135,7 @@ public class GameUI : UserInterface {
 
 	public override void Toggle(bool b)
 	{
-		if (GameController.TutorialEnabled) return;
+		if (GameController.TutorialEnabled) { return; }
 		base.Toggle(b);
 		isToggled = b;
 	}
