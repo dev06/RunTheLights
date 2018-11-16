@@ -186,10 +186,13 @@ public class GameController : MonoBehaviour {
 		if (TutorialEnabled)
 		{
 			TutorialEnabled = false;
-
-			ZONE_CHANGE_EVERY = 30;
-
 		}
+
+		// ZONE_CHANGE_EVERY++;
+
+		// ZONE_CHANGE_EVERY = Mathf.Clamp(ZONE_CHANGE_EVERY, 5, 30);
+
+		PlayerPrefs.SetInt("ZONE_CHANGE_EVERY", ZONE_CHANGE_EVERY);
 	}
 
 	void Start()
@@ -246,6 +249,9 @@ public class GameController : MonoBehaviour {
 			BEST_SCORE = SESSION_SCORE;
 		}
 
+
+		PlayerPrefs.SetInt("ZONE_CHANGE_EVERY", ZONE_CHANGE_EVERY);
+
 		PlayerPrefs.SetInt("LEVEL", LevelController.LEVEL);
 
 		PlayerPrefs.SetInt("SESSION_SCORE", SESSION_SCORE);
@@ -272,9 +278,9 @@ public class GameController : MonoBehaviour {
 
 		TutorialEnabled = LevelController.LEVEL == 0;
 
+		ZONE_CHANGE_EVERY =  TutorialEnabled ? 8 : (PlayerPrefs.HasKey("ZONE_CHANGE_EVERY") ? PlayerPrefs.GetInt("ZONE_CHANGE_EVERY") + 1 : 8);
 
-		ZONE_CHANGE_EVERY = TutorialEnabled ? 8 :  30;
-
+		ZONE_CHANGE_EVERY = Mathf.Clamp(ZONE_CHANGE_EVERY, 8, 15);
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
 

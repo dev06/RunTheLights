@@ -14,7 +14,7 @@ public class ResetGameObject : MonoBehaviour {
 	BoxCollider collider;
 
 	public bool isProp;
-	private float spawningProb = .2f;
+	private float spawningProb = 0f;
 
 	public void Initalize()
 	{
@@ -66,6 +66,6 @@ public class ResetGameObject : MonoBehaviour {
 		rb.velocity = Vector3.zero;
 
 
-		Toggle(Random.Range(0f, 1f) < (!isProp ? (spawningProb + ((FuryHandler.Instance.FuryTime > 1f) ? .5f : 0f)) : .5f));
+		Toggle(Random.Range(0f, 1f) < (!isProp ? (spawningProb + ((FuryHandler.Instance.FuryTime > 1f) ? 1f : 0f)) : 1f));
 	}
 }

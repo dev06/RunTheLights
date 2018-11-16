@@ -8,7 +8,9 @@ public class LevelController : MonoBehaviour {
 
 	public static int LEVEL = 2;
 
-	public static float LOAD_NEXT_LEVEL_DELAY = 4f; // second delay for loading level;
+	public static int CHANGE_LEVEL_EVERY;
+
+	public static float LOAD_NEXT_LEVEL_DELAY = 3f; // second delay for loading level;
 
 	void Awake ()
 	{
@@ -16,6 +18,14 @@ public class LevelController : MonoBehaviour {
 		{
 			Instance = this;
 		}
+
+	}
+
+	void Start()
+	{
+		CHANGE_LEVEL_EVERY = LEVEL + 6;
+
+		CHANGE_LEVEL_EVERY = Mathf.Clamp(CHANGE_LEVEL_EVERY, 5, 25);
 	}
 
 	void OnEnable()

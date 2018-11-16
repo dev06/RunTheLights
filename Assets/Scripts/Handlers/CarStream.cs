@@ -103,7 +103,7 @@ public class CarStream : MonoBehaviour {
 
 			car.Move(transform.position, transform.GetChild(0).position, direction);
 
-			float furyDelay = (FuryHandler.Instance.FuryTime > 1f) ? Random.Range(.6f, 1f) : Random.Range(1.5f, 3f);
+			float furyDelay = (FuryHandler.Instance.FuryTime > 1f) ? Random.Range(.6f, 1f) : (Random.Range(1f, 3f) * .8f);
 
 			delay = furyDelay * GameController.CAR_STREAM_DELAY;
 

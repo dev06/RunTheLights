@@ -8,9 +8,40 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 	private CameraController cameraController;
 
+	private bool furyHitThresholdReach = true;
+
+	void OnEnable()
+	{
+		EventManager.OnFuryStatus += OnFuryStatus;
+	}
+	void OnDisable()
+	{
+		EventManager.OnFuryStatus -= OnFuryStatus;
+	}
+
 	void Start()
 	{
 		cameraController = CameraController.Instance;
+	}
+
+	void OnFuryStatus(int i)
+	{
+		if (i == 0)
+		{
+			StopCoroutine("IWait");
+			StartCoroutine("IWait");
+		}
+		else
+		{
+			furyHitThresholdReach = false;
+		}
+	}
+
+	IEnumerator IWait()
+	{
+		yield return new WaitForSeconds(.25f);
+
+		furyHitThresholdReach = true;
 	}
 
 	void OnTriggerEnter(Collider col)
@@ -24,21 +55,21 @@ public class PlayerMeshCollider : MonoBehaviour {
 		if (col.gameObject.tag == "Objects/Car")
 		{
 
-			// #if !UNITY_EDITOR
-			// 			Death(col);
-			// #endif
-
 			if (FuryHandler.InFury)
 			{
 				col.transform.GetComponent<Car>().Toggle(false);
 				col.transform.GetComponentInChildren<ParticleSystem>().Play();
 				cameraController.TriggerShake(.75f, 15f);
+				Haptic.Vibrate(HapticIntensity.Medium);
 			}
 			else
 			{
 				if (GameController.Instance.CanDie)
 				{
-					Death(col);
+					if (furyHitThresholdReach)
+					{
+						Death(col);
+					}
 				}
 			}
 		}

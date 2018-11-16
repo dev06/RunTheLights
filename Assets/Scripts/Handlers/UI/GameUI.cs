@@ -61,9 +61,9 @@ public class GameUI : UserInterface {
 
 		if (FuryHandler.InFury)
 		{
-			GameController.SetScore(1 * GameController.CURRENT_ZONE);
+			// GameController.SetScore(1 * GameController.CURRENT_ZONE);
 
-			additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
+			// additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
 
 		}
 
@@ -117,19 +117,6 @@ public class GameUI : UserInterface {
 				GameController.LIGHTS_RAN++;
 				break;
 			}
-
-				// case ProgressionColliderType.Zone:
-				// {
-				// 	additionText.TriggerNextText("+" + (10 * GameController.CURRENT_ZONE) +  " Zone Complete ",  new Color(.5f, .5f, 1f, 1f));
-				// 	GameController.SetScore(10 * GameController.CURRENT_ZONE);
-				// 	GameController.CURRENT_ZONE++;
-				// 	delay = .1f;
-				// 	if (EventManager.OnZoneComplete != null)
-				// 	{
-				// 		EventManager.OnZoneComplete();
-				// 	}
-				// 	break;
-				// }
 		}
 	}
 

@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class ShowcaseHandler : MonoBehaviour {
 
+
 	public Transform showcaseTransform;
+
 	private Vector3 currentPosition;
+
 	private Vector3 lastPosition;
+
 	private ShowcaseModel selectedShowcaseModel;
+
 	private float rot;
+
 	private bool selected;
-	private float distanceOffset = 5f;
+
+	private float distanceOffset = 6f;
+
 	private int selectingIndex;
-	private Vector3 offset = new Vector3(7, 3, 0);
+
+	//camera offset vehicle.
+	private Vector3 offset = new Vector3(9, 3, 0);
+
 	private Vector3 snapPos;
+
 	private int lastSelectedIndex;
+
 	private CameraController cameraController;
 
 	void OnEnable()
@@ -52,8 +65,6 @@ public class ShowcaseHandler : MonoBehaviour {
 			{
 				EventManager.OnShowcaseModelSelected(selectedShowcaseModel);
 			}
-
-
 		}
 	}
 
@@ -64,7 +75,7 @@ public class ShowcaseHandler : MonoBehaviour {
 
 		for (int i = 1; i < transform.childCount; i++)
 		{
-			transform.GetChild(i).localPosition = new Vector3(0, 0, i * distanceOffset);
+			transform.GetChild(i).localPosition = new Vector3(transform.GetChild(i).localPosition.x, 0, i * distanceOffset);
 		}
 	}
 

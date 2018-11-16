@@ -291,7 +291,7 @@ public class SectionContainer : MonoBehaviour {
 			}
 			else
 			{
-				if (GameController.Instance.LightsRanInLevel > GameController.ZONE_CHANGE_EVERY - 3)
+				if (GameController.Instance.LightsRanInLevel > LevelController.CHANGE_LEVEL_EVERY - 3)
 				{
 					nextSection = GetSection(SectionType.Section_10);
 				}

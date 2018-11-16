@@ -26,6 +26,7 @@ public class ShowcaseModel : MonoBehaviour {
 	private MeshRenderer renderer;
 	private bool unlockAll = false;
 
+	public bool forceUnlock;
 	public float speed;
 	public float acceleration;
 	public float deceleration;
@@ -106,7 +107,7 @@ public class ShowcaseModel : MonoBehaviour {
 			return unlocked;
 		}
 
-		if (unlockConditions.Length == 0)
+		if (unlockConditions.Length == 0 || forceUnlock)
 		{
 			unlocked = true;
 			return unlocked;

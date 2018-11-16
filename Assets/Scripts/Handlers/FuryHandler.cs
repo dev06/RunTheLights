@@ -100,7 +100,7 @@ public class FuryHandler : MonoBehaviour {
 
 		if (InFury)
 		{
-			furyTime -= Time.deltaTime * .25f;
+			furyTime -= Time.deltaTime * .35f;
 		}
 
 		if (furyTime <= 0)

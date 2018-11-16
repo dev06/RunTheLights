@@ -41,8 +41,6 @@ public class LevelProgression : MonoBehaviour {
 
 	public void UpdateUI ()
 	{
-		foreground.fillAmount = ((float)GameController.Instance.LightsRanInLevel / (float)GameController.ZONE_CHANGE_EVERY);
+		foreground.fillAmount = ((float)GameController.Instance.LightsRanInLevel / (float)LevelController.CHANGE_LEVEL_EVERY);
 	}
-
-
 }
