@@ -35,8 +35,8 @@ public class LevelProgression : MonoBehaviour {
 
 	private void UpdateLevelProgressionTexts()
 	{
-		currentLevelText.text = LevelController.LEVEL.ToString();
-		nextLevelText.text = (LevelController.LEVEL + 1).ToString();
+		//currentLevelText.text = LevelController.LEVEL.ToString();
+		//nextLevelText.text = (LevelController.LEVEL + 1).ToString();
 	}
 
 	public void UpdateUI ()

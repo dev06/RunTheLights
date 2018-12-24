@@ -9,12 +9,7 @@ public class AdditionTexts : MonoBehaviour {
 
 	void Start()
 	{
-		float range = 100;
-		foreach (Transform t in transform)
-		{
-			t.GetComponent<RectTransform>().anchoredPosition += new Vector2(Random.Range(-range, range), Random.Range(-6.31f, 5.31f));
-			t.GetComponent<Text>().enabled = false;
-		}
+
 	}
 
 	public void TriggerNextText(string text, Color? c = null)

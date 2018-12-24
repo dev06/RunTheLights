@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Car : MonoBehaviour {
 
-	Vector3 targetPosition;
 
 	public bool move;
 
-	int direction;
+	private int direction;
 
 	public float CarSpeed = 100f;
 
+	private Vector3 targetPosition;
+
 	private MeshRenderer mesh;
+
+	private bool carHit;
 
 	void Start ()
 	{
@@ -21,7 +24,7 @@ public class Car : MonoBehaviour {
 		mesh = transform.GetComponentInChildren<MeshRenderer>();
 	}
 
-	// Update is called once per frame
+
 	void Update ()
 	{
 		if (!move) { return; }
@@ -44,6 +47,7 @@ public class Car : MonoBehaviour {
 		{
 			move = false;
 			transform.gameObject.SetActive(false);
+			CarHit = false;
 		}
 	}
 
@@ -59,5 +63,11 @@ public class Car : MonoBehaviour {
 			mesh = transform.GetComponentInChildren<MeshRenderer>();
 		}
 		mesh.enabled = b;
+	}
+
+	public bool CarHit
+	{
+		get {return carHit;}
+		set { this.carHit = value; }
 	}
 }

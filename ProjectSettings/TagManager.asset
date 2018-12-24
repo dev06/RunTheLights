@@ -9,6 +9,8 @@ TagManager:
   - Objects/Player
   - Objects/HitObject
   - Trigger/StopProgressionCollider
+  - Objects/Gear
+  - Trigger/NearMiss
   layers:
   - Default
   - TransparentFX

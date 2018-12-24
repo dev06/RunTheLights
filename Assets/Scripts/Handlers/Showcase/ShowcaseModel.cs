@@ -12,6 +12,73 @@ public enum ModelType
 	Car_8,
 	Car_9,
 }
+
+[System.Serializable]
+public class Attribute
+{
+	public static int MAX_TIER = 5;
+	public ShowcaseModel model;
+	public enum Type
+	{
+		Speed,
+		Durability,
+		furyTime
+	}
+
+	public Type attributeType;
+	[Header("**********Current*********")]
+
+	public float value;
+	public int cost;
+
+	public int tier;
+
+	[Header("**********Default*********")]
+	public float defaultValue;
+	public int defaultCost;
+	public int defaultTier;
+
+	public void AddValue(float value)
+	{
+		this.value += value;
+	}
+
+	public void AddCost(int cost)
+	{
+		this.cost += cost;
+	}
+
+	public void IncrementTier()
+	{
+		tier++;
+		tier = (int)Mathf.Clamp(tier, 0f, 5f);
+	}
+
+	public bool isMaxedOut()
+	{
+		return fill >= 1f;
+	}
+
+	public void SaveValues()
+	{
+		PlayerPrefs.SetFloat(model.modelType + "_" + attributeType    +  "_value", value);
+		PlayerPrefs.SetInt(model.modelType + "_" + attributeType    + "_cost", cost);
+		PlayerPrefs.SetInt(model.modelType + "_" + attributeType    + "_tier", tier);
+
+	}
+
+	public void LoadValues()
+	{
+		value = PlayerPrefs.HasKey(model.modelType + "_" + attributeType +  "_value") ? PlayerPrefs.GetFloat(model.modelType + "_" + attributeType +  "_value") : defaultValue;
+		cost = PlayerPrefs.HasKey(model.modelType + "_" + attributeType +  "_cost") ? PlayerPrefs.GetInt(model.modelType + "_" + attributeType +  "_cost") : defaultCost;
+		tier = PlayerPrefs.HasKey(model.modelType + "_" + attributeType +  "_tier") ? PlayerPrefs.GetInt(model.modelType + "_" + attributeType +  "_tier") : defaultTier;
+	}
+
+	public float fill
+	{
+		get {return ((float)tier / MAX_TIER);}
+	}
+}
 public class ShowcaseModel : MonoBehaviour {
 
 
@@ -27,17 +94,18 @@ public class ShowcaseModel : MonoBehaviour {
 	private bool unlockAll = false;
 
 	public bool forceUnlock;
-	public float speed;
 	public float acceleration;
 	public float deceleration;
-	public float power;
 
-	public float movementMultiplier;
+	public Attribute speed;
+	public Attribute durability;
+	public Attribute furyTime;
+
 	public UnlockConditions[] unlockConditions;
 
 	public Vector3 cameraPositionOffset;
 
-	void Start ()
+	public void Init ()
 	{
 		defaultRotation = transform.localRotation;
 		defaultScale = transform.localScale;
@@ -45,8 +113,24 @@ public class ShowcaseModel : MonoBehaviour {
 		targetRotation = defaultRotation;
 		targetScale = defaultScale;
 
+		speed.model = this;
+		durability.model = this;
+		furyTime.model = this;
+
+		speed.LoadValues();
+		durability.LoadValues();
+		furyTime.LoadValues();
+
 		renderer = GetComponent<MeshRenderer>();
 
+		CheckForUnlocks();
+
+		acceleration = Mathf.Clamp(acceleration, 0, GameController.MAX_CAR_ACC);
+		deceleration = Mathf.Clamp(deceleration, 0, GameController.MAX_CAR_DEC);
+	}
+
+	public void CheckForUnlocks()
+	{
 		bool unlocked = isUnlocked();
 
 		for (int i = 0; i < renderer.materials.Length; i++)
@@ -62,10 +146,6 @@ public class ShowcaseModel : MonoBehaviour {
 			}
 		}
 
-		speed = Mathf.Clamp(speed, 0, GameController.MAX_CAR_SPEED);
-		acceleration = Mathf.Clamp(acceleration, 0, GameController.MAX_CAR_ACC);
-		deceleration = Mathf.Clamp(deceleration, 0, GameController.MAX_CAR_DEC);
-		power = Mathf.Clamp(power, 0, GameController.MAX_CAR_POWER);
 	}
 
 	void Update ()
@@ -82,12 +162,25 @@ public class ShowcaseModel : MonoBehaviour {
 		transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 10f);
 	}
 
+	public float Speed
+	{
+		get { return speed.value; }
+		set { this.speed.value = value;}
+	}
+
 	public void ResetTransform()
 	{
 		targetScale = defaultScale;
 		targetRotation = defaultRotation;
 		rotationSpeed = 0;
 		selected = false;
+	}
+
+	public void Save()
+	{
+		speed.SaveValues();
+		durability.SaveValues();
+		furyTime.SaveValues();
 	}
 
 	public void Select()
@@ -132,11 +225,6 @@ public class ShowcaseModel : MonoBehaviour {
 			Debug.Log(gameObject.name + " | None of the conditions are met");
 		}
 
-		// if (unlockConditions.Length > 0)
-		// {
-		// 	lockMessage = "Either\n" + unlockConditions[0].message + "\nor\n" + unlockConditions[1].message;
-		// }
-
 		lockMessage = unlockConditions[0].message;
 
 		return unlocked;
@@ -161,28 +249,11 @@ public class UnlockConditions
 	{
 		switch (conditionType)
 		{
-			case ConditionType.Distance:
-			{
-				message = "Travel " + target + " meters";
-				return CheckDistance();
-			}
-
-			case ConditionType.Score:
-			{
-				message = "Score " + target + " points";
-				return CheckScore();
-			}
 
 			case ConditionType.GamesPlayed:
 			{
 				message = "Play " + target + " games \n[" + GameController.GAMES_PLAYED + " / " + target + "]";
 				return CheckGamesPlayed();
-			}
-
-			case ConditionType.LightsRan:
-			{
-				message = "Run " + target + " red lights \n[" + GameController.LIGHTS_RAN + " / " + target + "]";
-				return CheckLightsRan();
 			}
 
 			case ConditionType.LevelReach:
@@ -196,25 +267,9 @@ public class UnlockConditions
 		return false;
 	}
 
-
-	public bool CheckScore()
-	{
-		return GameController.BEST_SCORE >= target;
-	}
-
 	public bool CheckGamesPlayed()
 	{
 		return GameController.GAMES_PLAYED >= target;;
-	}
-
-	public bool CheckDistance()
-	{
-		return GameController.BEST_DISTANCE >= target;
-	}
-
-	public bool CheckLightsRan()
-	{
-		return GameController.LIGHTS_RAN >= target;
 	}
 
 	public bool CheckLevelReach()

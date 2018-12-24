@@ -6,6 +6,8 @@ public class ShowcaseUI : MonoBehaviour {
 
 	public CanvasGroup ui_selectButton;
 	public CanvasGroup ui_conditionText;
+	public CanvasGroup ui_upgrades;
+	public VehicleUpgradeHandler upgradeHandler;
 	public Transform selectedButton;
 
 	void OnEnable()
@@ -27,6 +29,8 @@ public class ShowcaseUI : MonoBehaviour {
 
 		ui_selectButton.alpha = unlocked ? 1f : 0f;
 		ui_selectButton.blocksRaycasts = unlocked;
+		ui_upgrades.alpha = unlocked ? 1f : 0f;
+		ui_upgrades.blocksRaycasts = unlocked;
 
 		ui_conditionText.alpha = !unlocked ? 1f : 0f;
 		ui_conditionText.blocksRaycasts = !unlocked;
@@ -34,6 +38,8 @@ public class ShowcaseUI : MonoBehaviour {
 		ui_conditionText.transform.GetComponent<Text>().text = model.lockMessage;
 
 		ToggleActiveSelectButton((model.modelType == GameController.ActiveModel.modelType));
+
+		upgradeHandler.UpdateUpgradeUI(model);
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
@@ -45,7 +51,7 @@ public class ShowcaseUI : MonoBehaviour {
 
 	void ToggleActiveSelectButton(bool b)
 	{
-		selectedButton.GetComponent<Image>().color = b ? new Color(54f / 255f, 124f / 255f, 98f / 255f, 1f) : new Color(1, 1, 1, 1);
+		selectedButton.GetComponent<Image>().color = b ? new Color(0 / 255f, 154f / 255f, 255F / 255f, 1f) : new Color(1, 1, 1, 1);
 
 
 		Text text = selectedButton.GetComponentInChildren<Text>();

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour {
 
+	private static float MIN_SPEED_DROPOFF = .7F;
 
 	public ParticleSystem zoomParticles;
 
@@ -32,6 +33,10 @@ public class GameInput : MonoBehaviour {
 	private float rot;
 
 	private float senstivity = 40;
+
+	private float durability; //used for hud
+
+	private float speedDropOff; //0-1 value that measures the effiency of the car after damage delt
 
 	void OnEnable()
 	{
@@ -122,7 +127,7 @@ public class GameInput : MonoBehaviour {
 		{
 			timer += Time.deltaTime;
 
-			velocity = selectedModel.speed;
+			velocity = selectedModel.Speed;
 
 			Section.VELOCITY = velocity;
 
@@ -135,6 +140,10 @@ public class GameInput : MonoBehaviour {
 	public void MovePlayer()
 	{
 		if (canSteer == false) { return; }
+
+		speedDropOff = VehicleDurability / GameController.ActiveModel.durability.value;
+
+		speedDropOff = Mathf.Clamp(speedDropOff, MIN_SPEED_DROPOFF, 1f);
 
 		if (Input.GetMouseButtonDown(0))
 		{
@@ -156,37 +165,39 @@ public class GameInput : MonoBehaviour {
 
 		}
 
-		if (!pressed) { return; }
+		if (!pressed && !FuryHandler.InFury) { return; }
 
-		if (Input.GetMouseButton(0))
+		if (FuryHandler.InFury)
 		{
-
-			velocity += Time.deltaTime * selectedModel.acceleration;
-
+			velocity = speedDropOff * selectedModel.Speed * 1.5f;
 			Control();
 		}
 		else
 		{
-			velocity -= Time.deltaTime * selectedModel.deceleration;
+			if (Input.GetMouseButton(0))
+			{
+
+				velocity += Time.deltaTime * selectedModel.acceleration;
+
+				Control();
+			}
+			else
+			{
+				velocity -= Time.deltaTime * selectedModel.deceleration;
+			}
+
+			velocity = Mathf.Clamp(velocity, 0, speedDropOff * selectedModel.Speed * (FuryHandler.InFury ? 1.5f : 1f));
 		}
 
-
-		velocity = Mathf.Clamp(velocity, 0, selectedModel.speed * (FuryHandler.InFury ? 1.5f : 1f));
-
-
 		Section.VELOCITY = velocity;
-
-
-		GameController.GAME_DISTANCE += velocity * .02f;
-		GameController.GAME_DISTANCE = Mathf.Round(GameController.GAME_DISTANCE * 10f) / 10f;
-		GameController.GAME_DISTANCE = Mathf.Clamp(GameController.GAME_DISTANCE, 0, GameController.GAME_DISTANCE);
 	}
 
 
 	void Control()
 	{
 
-		if (!pressed) { return; }
+		if (!Input.GetMouseButton(0)) return;
+		if (!FuryHandler.InFury && !pressed) { return; }
 
 
 		currentPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -236,8 +247,6 @@ public class GameInput : MonoBehaviour {
 
 		GameController.ActiveModel = model;
 
-		GameController.MOVEMENT_MULTIPLIER = model.movementMultiplier;
-
 
 		CameraController.Instance.SetCameraHeightOffset(model.cameraPositionOffset);
 
@@ -251,4 +260,9 @@ public class GameInput : MonoBehaviour {
 	}
 
 
+	public float VehicleDurability
+	{
+		get { return durability;}
+		set { this.durability = value; }
+	}
 }

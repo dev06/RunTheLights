@@ -23,39 +23,19 @@ public class GameController : MonoBehaviour {
 
 	public static readonly int MIN_CARS_PER_STREAM = 2;
 
-	public static float STEER_INTENSITY;
-
-	public static float MOVEMENT_MULTIPLIER;
-
 	public static float CAR_STREAM_DELAY;
 
 	public GameObject Dummy;
 
 	public static bool GameOver;
 
-	public static int CURRENT_ZONE;
-
-	public static int POOLED_SECTION = 0;
-
 	public static int ZONE_CHANGE_EVERY = 5;
-
-	public static float DISTANCE_TRAVELED = 0;
-
-	public static int SCORE = 0;
 
 	public static int SESSION_SCORE = 0;
 
-	public static float BEST_DISTANCE = 0;
-
 	public static int BEST_SCORE = 0;
 
-	public static int LIGHTS_RAN = 0;
-
 	public static bool INSHOWCASE = false;
-
-	public static int GAME_SCORE = 0;
-
-	public static float GAME_DISTANCE = 0;
 
 	public static int SELECTED_MODEL_INDEX = 0;
 
@@ -75,6 +55,13 @@ public class GameController : MonoBehaviour {
 
 	public int LightsRanInLevel;
 
+	public int gearsCollected; //per session
+
+	public int furyBonus; // per session
+
+	public float damageDone; // per session
+
+
 	void OnValidate()
 	{
 		if (DeleteSave)
@@ -87,10 +74,13 @@ public class GameController : MonoBehaviour {
 
 	void Awake()
 	{
+
+
 		if (Instance == null)
 		{
 			Instance = this;
 		}
+
 		Application.targetFrameRate = 60;
 
 		if (!sdk_init)
@@ -103,21 +93,11 @@ public class GameController : MonoBehaviour {
 
 		GameOver = false;
 
-		POOLED_SECTION = 0;
-
-		CURRENT_ZONE = 1;
-
-		DISTANCE_TRAVELED = 0;
-
-		SCORE = 0;
-
-		GAME_SCORE = 0;
-
-		GAME_DISTANCE = 0;
-
 		GAMES_PLAYED = 0;
 
 		SELECTED_MODEL_INDEX = 0;
+
+		SESSION_SCORE = 0;
 
 		INSHOWCASE = false;
 
@@ -159,6 +139,7 @@ public class GameController : MonoBehaviour {
 		EventManager.OnGameStart += OnGameStart;
 
 		EventManager.OnLevelComplete += OnLevelComplete;
+
 	}
 
 	void OnDisable()
@@ -170,6 +151,8 @@ public class GameController : MonoBehaviour {
 		EventManager.OnGameStart -= OnGameStart;
 
 		EventManager.OnLevelComplete -= OnLevelComplete;
+
+
 	}
 
 	void OnZoneComplete()
@@ -177,8 +160,6 @@ public class GameController : MonoBehaviour {
 		CAR_STREAM_DELAY -= .2f;
 
 		CAR_STREAM_DELAY = Mathf.Clamp(CAR_STREAM_DELAY, 1f , CAR_STREAM_DELAY);
-
-		GameAnalytics.NewDesignEvent ("ZONE_PROGRESSION_" + CURRENT_ZONE, CURRENT_ZONE);
 	}
 
 	void OnLevelComplete()
@@ -188,15 +169,30 @@ public class GameController : MonoBehaviour {
 			TutorialEnabled = false;
 		}
 
-		// ZONE_CHANGE_EVERY++;
-
-		// ZONE_CHANGE_EVERY = Mathf.Clamp(ZONE_CHANGE_EVERY, 5, 30);
-
 		PlayerPrefs.SetInt("ZONE_CHANGE_EVERY", ZONE_CHANGE_EVERY);
 	}
 
+	void OnGameStart()
+	{
+		GAMES_PLAYED++;
+	}
+
+
+	void OnGameOver()
+	{
+		Haptic.VibrateHandheld();
+		Save();
+		StopCoroutine("IOnDeath");
+		StartCoroutine("IOnDeath");
+		SESSION_SCORE = 0;
+	}
+
+
 	void Start()
 	{
+		LevelController.Instance.Init();
+
+		FindObjectOfType<ShowcaseHandler>().Init();
 
 		UserInterface[] ui = FindObjectsOfType<UserInterface>();
 
@@ -216,24 +212,6 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	void OnGameStart()
-	{
-		GAMES_PLAYED++;
-		GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
-	}
-
-
-	void OnGameOver()
-	{
-		GameAnalytics.NewProgressionEvent (GAProgressionStatus.Complete, "game", GAME_SCORE); // with score
-		Haptic.VibrateHandheld();
-		Save();
-		StopCoroutine("IOnDeath");
-		StartCoroutine("IOnDeath");
-		SESSION_SCORE = 0;
-	}
-
-
 	IEnumerator IOnDeath()
 	{
 		yield return new WaitForSeconds(2.5f);
@@ -242,8 +220,6 @@ public class GameController : MonoBehaviour {
 
 	public void Save()
 	{
-
-
 		if (SESSION_SCORE > BEST_SCORE)
 		{
 			BEST_SCORE = SESSION_SCORE;
@@ -251,8 +227,6 @@ public class GameController : MonoBehaviour {
 
 
 		PlayerPrefs.SetInt("ZONE_CHANGE_EVERY", ZONE_CHANGE_EVERY);
-
-		PlayerPrefs.SetInt("LEVEL", LevelController.LEVEL);
 
 		PlayerPrefs.SetInt("SESSION_SCORE", SESSION_SCORE);
 
@@ -262,21 +236,13 @@ public class GameController : MonoBehaviour {
 
 		PlayerPrefs.SetInt("GAMES_PLAYED", GAMES_PLAYED);
 
-		PlayerPrefs.SetInt("LIGHTS_RAN", LIGHTS_RAN);
-
 		PlayerPrefs.SetInt("APP_OPENED_COUNT", APP_OPENED_COUNT);
-
-
-
-
 	}
 
 	void Load()
 	{
 
-		LevelController.LEVEL =  PlayerPrefs.HasKey("LEVEL") ? PlayerPrefs.GetInt("LEVEL") : 0;
-
-		TutorialEnabled = LevelController.LEVEL == 0;
+		TutorialEnabled = false ;
 
 		ZONE_CHANGE_EVERY =  TutorialEnabled ? 8 : (PlayerPrefs.HasKey("ZONE_CHANGE_EVERY") ? PlayerPrefs.GetInt("ZONE_CHANGE_EVERY") + 1 : 8);
 
@@ -289,8 +255,6 @@ public class GameController : MonoBehaviour {
 		GAMES_PLAYED = PlayerPrefs.GetInt("GAMES_PLAYED");
 
 		Haptic.Enabled = PlayerPrefs.HasKey("Vibration") ? bool.Parse(PlayerPrefs.GetString("Vibration")) : true;
-
-		LIGHTS_RAN = PlayerPrefs.HasKey("LIGHTS_RAN") ? PlayerPrefs.GetInt("LIGHTS_RAN") : 0;
 
 		APP_OPENED_COUNT = PlayerPrefs.GetInt("APP_OPENED_COUNT");
 
@@ -305,5 +269,5 @@ public class GameController : MonoBehaviour {
 
 		Haptic.Vibrate(HapticIntensity.Medium);
 	}
-
 }
+

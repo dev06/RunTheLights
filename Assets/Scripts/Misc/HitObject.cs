@@ -45,7 +45,8 @@ public class HitObject : MonoBehaviour
 		if (col.gameObject.tag != "Objects/Player") return;
 		if (rb == null) return;
 
-		rb.velocity += new Vector3(0, GameController.ActiveModel.power,  GameController.ActiveModel.power * 1.2f);
+		float power = 7;
+		rb.velocity += new Vector3(0, power, power * 1.2f);
 		rb.AddTorque(new Vector3(Random.Range(-40f, 40f), Random.Range(-40f, 40f), Random.Range(-40f, 40f)));
 
 

@@ -69,12 +69,13 @@ public class ShowcaseHandler : MonoBehaviour {
 	}
 
 
-	void Start()
+	public void Init()
 	{
 		cameraController = CameraController.Instance;
 
-		for (int i = 1; i < transform.childCount; i++)
+		for (int i = 0; i < transform.childCount; i++)
 		{
+			transform.GetChild(i).GetComponent<ShowcaseModel>().Init();
 			transform.GetChild(i).localPosition = new Vector3(transform.GetChild(i).localPosition.x, 0, i * distanceOffset);
 		}
 	}

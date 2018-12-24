@@ -10,7 +10,14 @@ public enum ButtonID
 	Showcase,
 	Back,
 	SelectModel,
-	VibrateToggle
+	VibrateToggle,
+	UpgradeSpeed,
+	UpgradeDurability,
+	UpgradeFuryTime,
+	Next_Stats,
+	Next_Challenges,
+	ToMenu,
+	MapSelect,
 }
 public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 

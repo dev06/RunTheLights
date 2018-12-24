@@ -15,11 +15,7 @@ public class CarModelHandler : MonoBehaviour {
 
 	public ParticleSystem[] exhaust;
 
-	float startSize;
-	float startLife;
-
-	float furySize;
-	float furyLife;
+	private bool pressed;
 
 	void OnEnable () {
 		EventManager.OnFingerUp += OnFingerUp;
@@ -35,68 +31,43 @@ public class CarModelHandler : MonoBehaviour {
 
 	void Start()
 	{
-		startSize = Random.Range(.2f, .5f);
-		startLife = Random.Range(.1f, .15f);
-
-		furySize = Random.Range(.4f, .5f);
-		furyLife = Random.Range(.7f, 1f);
 		ToggleThrust(false);
 	}
 
 	void OnFingerUp()
 	{
-		ToggleThrust(false);
+		pressed = false;
+
+		if (!FuryHandler.InFury)
+		{
+			ToggleThrust(false);
+		}
 	}
 
 	void OnFuryStatus(int i)
 	{
-
-		ToggleThrust((i == 1) ? ThrustType.Fury : ThrustType.Default);
-		// var main0 = exhaust[0].main;
-		// var main1 = exhaust[1].main;
-		// if (i == 0)
-		// {
-		// 	main0.startSize = startSize;
-		// 	main1.startSize = startSize;
-
-		// 	main0.startLifetime = startLife;
-		// 	main1.startLifetime = startLife;
-		// }
-		// else
-		// {
-
-		// 	main0.startSize = furySize;
-		// 	main1.startSize = furySize;
-
-		// 	main0.startLifetime = furyLife;
-		// 	main1.startLifetime = furyLife;
-		// }
+		if (i == 1)
+		{
+			ToggleThrust(ThrustType.Fury);
+		}
+		else
+		{
+			if (pressed)
+			{
+				ToggleThrust(ThrustType.Default);
+			}
+			else
+			{
+				ToggleThrust(false);
+			}
+		}
 	}
 
 	void OnFingerDown()
 	{
-		ToggleThrust(FuryHandler.InFury ? ThrustType.Fury : ThrustType.Default);
-
-		// var main0 = exhaust[0].main;
-		// var main1 = exhaust[1].main;
-		// if (FuryHandler.InFury == false)
-		// {
-		// 	main0.startSize = startSize;
-		// 	main1.startSize = startSize;
-
-		// 	main0.startLifetime = startLife;
-		// 	main1.startLifetime = startLife;
-
-		// }
-		// else
-		// {
-
-		// 	main0.startSize = furySize;
-		// 	main1.startSize = furySize;
-
-		// 	main0.startLifetime = furyLife;
-		// 	main1.startLifetime = furyLife;
-		// }
+		pressed = true;
+		if (FuryHandler.InFury) return;
+		ToggleThrust(ThrustType.Default);
 	}
 
 

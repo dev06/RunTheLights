@@ -38,6 +38,7 @@ public class CameraController : MonoBehaviour {
 
 	private bool inStopZone;
 	private bool isCameraDetached;
+	private bool pressed;
 
 	public BloomOptimized bloom;
 
@@ -70,6 +71,8 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnFingerDown += OnFingerDown;
 		EventManager.OnLevelComplete += OnLevelComplete;
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
+
+		EventManager.OnFuryStatus += OnFuryStatus;
 	}
 	void OnDisable()
 	{
@@ -81,6 +84,8 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnFingerDown -= OnFingerDown;
 		EventManager.OnLevelComplete -= OnLevelComplete;
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
+
+		EventManager.OnFuryStatus -= OnFuryStatus;
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
@@ -91,13 +96,35 @@ public class CameraController : MonoBehaviour {
 
 	void OnFingerDown()
 	{
-		float multiplier = FuryHandler.InFury ? 2f : 1f;
+		pressed = true;
+		if (FuryHandler.InFury) return;
+		float multiplier = 1f;
 		TriggerPull(-2f * multiplier, 20f * multiplier);
 		startIntensity = .1f;
 	}
 
+	void OnFuryStatus(int i)
+	{
+		if ( i == 1)
+		{
+			float multiplier = (i == 1) ? 2f : 1f;
+			TriggerPull(-2f * multiplier, 20f * multiplier);
+			startIntensity = .1f;
+		}
+
+		if (i == 0)
+		{
+			if (!pressed)
+			{
+				TriggerPull(0, 20f);
+			}
+		}
+	}
+
 	void OnFingerUp()
 	{
+		pressed = false;
+		if (FuryHandler.InFury) return;
 		TriggerPull(0, 20f);
 	}
 
@@ -158,7 +185,7 @@ public class CameraController : MonoBehaviour {
 
 				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
-				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.speed) ? .05f : 0f;
+				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.Speed) ? .05f : 0f;
 
 				transform.localPosition = heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 			}

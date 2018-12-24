@@ -66,6 +66,8 @@ public class Section : MonoBehaviour {
 
 	public Transform hitObjects;
 
+	public Transform gears;
+
 	private List<ResetGameObject> resetObjects;
 
 	private Vector3 targetConnectorPosition;
@@ -183,6 +185,13 @@ public class Section : MonoBehaviour {
 			}
 		}
 
+		if (gears != null)
+		{
+			foreach (Transform t in gears)
+			{
+				t.GetComponent<Gear>().Toggle(true);
+			}
+		}
 
 		this.attachedSection = s;
 

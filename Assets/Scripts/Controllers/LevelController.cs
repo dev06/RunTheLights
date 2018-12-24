@@ -10,7 +10,8 @@ public class LevelController : MonoBehaviour {
 
 	public static int CHANGE_LEVEL_EVERY;
 
-	public static float LOAD_NEXT_LEVEL_DELAY = 3f; // second delay for loading level;
+	[HideInInspector]
+	public float current_exp, target_exp;
 
 	void Awake ()
 	{
@@ -18,14 +19,17 @@ public class LevelController : MonoBehaviour {
 		{
 			Instance = this;
 		}
-
 	}
 
-	void Start()
+	public void Init()
 	{
-		CHANGE_LEVEL_EVERY = LEVEL + 6;
+		CHANGE_LEVEL_EVERY = 10;
 
-		CHANGE_LEVEL_EVERY = Mathf.Clamp(CHANGE_LEVEL_EVERY, 5, 25);
+		current_exp = PlayerPrefs.HasKey("current_exp") ? PlayerPrefs.GetFloat("current_exp") : 0f;
+
+		target_exp = PlayerPrefs.HasKey("target_exp") ? PlayerPrefs.GetFloat("target_exp") : 10f;
+
+		LEVEL = PlayerPrefs.HasKey("LEVEL") ? PlayerPrefs.GetInt("LEVEL") : 0;
 	}
 
 	void OnEnable()
@@ -39,28 +43,36 @@ public class LevelController : MonoBehaviour {
 
 	private void OnLevelComplete()
 	{
-		LEVEL++;
-
 		GameController.Instance.Save();
-
-		StopCoroutine("ILoadNextLevel");
-
-		StartCoroutine("ILoadNextLevel");
 	}
 
-
-	private IEnumerator ILoadNextLevel()
+	public void AddExperience(float exp)
 	{
-		yield return new WaitForSeconds(LOAD_NEXT_LEVEL_DELAY);
+		current_exp += exp;
 
-		UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+		if (current_exp >= target_exp)
+		{
+			LEVEL++;
+			target_exp += 10;
+			current_exp = 0;
+		}
+
+		PlayerPrefs.SetFloat("current_exp", current_exp);
+		PlayerPrefs.SetFloat("target_exp", target_exp);
+		PlayerPrefs.SetInt("LEVEL", LEVEL);
 	}
+
+	public float GetProgress()
+	{
+		return current_exp / target_exp;
+	}
+
 
 	public SectionCategory GetSectionCategoryFromLevel()
 	{
-		SectionCategory cat = SectionCategory.None;
-		cat = (SectionCategory)((LEVEL % 4) + 1);
-		return cat;
+		int index = (int)MapSelectUI.SelectedMap.type;
+
+		return (SectionCategory)index;
 	}
 
 

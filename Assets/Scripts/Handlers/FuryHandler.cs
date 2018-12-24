@@ -30,6 +30,8 @@ public class FuryHandler : MonoBehaviour {
 
 	private FuryMeter furyMeter;
 
+	private bool waitForFury;
+
 	void Awake()
 	{
 		if (Instance == null)
@@ -47,7 +49,13 @@ public class FuryHandler : MonoBehaviour {
 
 		EventManager.OnProgressionColliderHit += OnProgressionColliderHit;
 
+		EventManager.OnProgressionColliderExit += OnProgressionColliderExit;
+
 		EventManager.OnLevelComplete += OnLevelComplete;
+
+		EventManager.OnVehicleHit += OnVehicleHit;
+
+		EventManager.OnHitObject += OnHitObject;
 	}
 
 
@@ -60,7 +68,13 @@ public class FuryHandler : MonoBehaviour {
 
 		EventManager.OnProgressionColliderHit -= OnProgressionColliderHit;
 
+		EventManager.OnProgressionColliderExit -= OnProgressionColliderExit;
+
 		EventManager.OnLevelComplete -= OnLevelComplete;
+
+		EventManager.OnVehicleHit -= OnVehicleHit;
+
+		EventManager.OnHitObject -= OnHitObject;
 	}
 
 	void Start()
@@ -72,9 +86,23 @@ public class FuryHandler : MonoBehaviour {
 		InFury = false;
 	}
 
+	void OnHitObject()
+	{
+		if (InFury)
+		{
+			GameController.Instance.furyBonus++;
+		}
+	}
+
 	void OnLevelComplete()
 	{
 		levelJustCompleted = true;
+	}
+
+	void OnVehicleHit()
+	{
+		ResetValues();
+		waitForFury = true;
 	}
 
 	void Update()
@@ -100,7 +128,7 @@ public class FuryHandler : MonoBehaviour {
 
 		if (InFury)
 		{
-			furyTime -= Time.deltaTime * .35f;
+			furyTime -=  (Time.deltaTime * 3) / GameController.ActiveModel.furyTime.value;
 		}
 
 		if (furyTime <= 0)
@@ -119,10 +147,20 @@ public class FuryHandler : MonoBehaviour {
 		StartCoroutine("ICheck", type);
 	}
 
+	void OnProgressionColliderExit(ProgressionColliderType type)
+	{
+		if (GameController.TutorialEnabled) return;
+
+		if (type == ProgressionColliderType.Intersection)
+		{
+			waitForFury = false;
+		}
+	}
+
+
 	IEnumerator ICheck(ProgressionColliderType type)
 	{
 		yield return new WaitForEndOfFrame();
-
 
 		if (type == ProgressionColliderType.Intersection)
 		{
@@ -131,7 +169,7 @@ public class FuryHandler : MonoBehaviour {
 				Haptic.Instance.VibrateTwice(.15f, HapticIntensity.Light);
 			}
 
-			if (canRegisterFury)
+			if (canRegisterFury && !waitForFury)
 			{
 				furyStep++;
 
@@ -150,7 +188,7 @@ public class FuryHandler : MonoBehaviour {
 				StartFury();
 			}
 
-			if (!InFury)
+			if (!InFury && FuryStep >= 1)
 			{
 				furyMeter.TriggerAnimation();
 			}

@@ -20,6 +20,10 @@ public class EventManager : MonoBehaviour {
 	public static Gameplay OnFingerDown;
 	public static Gameplay OnFingerUp;
 	public static Gameplay OnLevelComplete;
+	public static Gameplay OnGearTriggerHit;
+	public static Gameplay OnVehicleHit;
+	public static Gameplay OnNearMiss;
+	public static Gameplay OnRestartGame;
 
 	public delegate void Fury(int i);
 	public static Fury OnFuryStatus;
@@ -28,7 +32,7 @@ public class EventManager : MonoBehaviour {
 
 	public delegate void ProgressionCollider(ProgressionColliderType type);
 	public static ProgressionCollider OnProgressionColliderHit;
-
+	public static ProgressionCollider OnProgressionColliderExit;
 
 	public delegate void ButtonClick(ButtonID id);
 	public static ButtonClick OnButtonClick;
@@ -38,7 +42,15 @@ public class EventManager : MonoBehaviour {
 	public static Showcase OnShowcaseModelHover;
 	public static Showcase OnShowcaseModelSelected;
 
+	public delegate void MapSelect(Map map);
+	public static MapSelect OnMapSelected;
+
+
 	public delegate void Tutorial(int step);
 	public static Tutorial OnTutorialStep;
+
+
+	public delegate void LogMapStats(MapUnlockConditions.SpecialConditionType t, int value);
+	public static LogMapStats OnLogMapStat;
 
 }

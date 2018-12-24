@@ -53,10 +53,6 @@ public class TutorialHandler : MonoBehaviour {
 
 	void Toggle(bool b)
 	{
-		if (b)
-		{
-			if (!GameController.TutorialEnabled) return;
-		}
 		canvasGroup.alpha = b ? 1 : 0f;
 		canvasGroup.blocksRaycasts = b;
 	}
@@ -73,6 +69,7 @@ public class TutorialHandler : MonoBehaviour {
 		}
 
 		Toggle(GameController.TutorialEnabled);
+		TutorialStatus = GameController.TutorialEnabled;
 
 	}
 

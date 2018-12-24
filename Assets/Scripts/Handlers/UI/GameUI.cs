@@ -4,14 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameUI : UserInterface {
 
-	public Text furyPop;
+	public Image furyPop;
 	public Text scoreText;
-	public Text distanceText;
+	public Text gearsText;
+	public Text durabilityText;
 	public AdditionTexts additionText;
+	public AdditionTexts nearMisses;
 	public LevelProgression levelProgression;
+	public Image damageOverlay;
 	private bool isToggled;
 	private bool disableAdditionalTexts;
 	private Animation furyPopAnim;
+	private GameInput player;
 
 	public override void Init()
 	{
@@ -19,6 +23,7 @@ public class GameUI : UserInterface {
 		Toggle(false);
 		scoreText.text = GameController.SESSION_SCORE.ToString();
 		furyPopAnim = furyPop.transform.GetComponent<Animation>();
+		player = FindObjectOfType<GameInput>();
 	}
 
 	void OnEnable()
@@ -32,6 +37,14 @@ public class GameUI : UserInterface {
 		EventManager.OnLevelComplete += OnLevelComplete;
 
 		EventManager.OnFuryStatus += OnFuryStatus;
+
+		EventManager.OnGearTriggerHit += OnGearTriggerHit;
+
+		EventManager.OnVehicleHit += OnVehicleHit;
+
+		EventManager.OnGameStart += OnGameStart;
+
+		EventManager.OnNearMiss += OnNearMiss;
 	}
 	void OnDisable()
 	{
@@ -44,6 +57,41 @@ public class GameUI : UserInterface {
 		EventManager.OnLevelComplete -= OnLevelComplete;
 
 		EventManager.OnFuryStatus -= OnFuryStatus;
+
+		EventManager.OnGearTriggerHit -= OnGearTriggerHit;
+
+		EventManager.OnVehicleHit -= OnVehicleHit;
+
+		EventManager.OnGameStart -= OnGameStart;
+
+		EventManager.OnNearMiss -= OnNearMiss;
+	}
+
+	void OnNearMiss()
+	{
+		int multiplier = FuryHandler.InFury ? 2 : 1;
+		GameController.SetScore(1 * multiplier);
+		nearMisses.TriggerNextText("+" + (1 * multiplier) + " Near Miss!", Color.white) ;
+	}
+
+	void OnGearTriggerHit()
+	{
+		gearsText.text = GameController.Instance.gearsCollected.ToString();
+	}
+
+	void OnVehicleHit()
+	{
+		durabilityText.text = player.VehicleDurability.ToString();
+
+		StopCoroutine("ITriggerDamageOverlay");
+
+		StartCoroutine("ITriggerDamageOverlay");
+	}
+
+	void OnGameStart()
+	{
+		durabilityText.text  = GameController.ActiveModel.durability.value.ToString();
+		gearsText.text = "" + 0;
 	}
 
 	void OnHitObject()
@@ -61,16 +109,7 @@ public class GameUI : UserInterface {
 
 		if (FuryHandler.InFury)
 		{
-			// GameController.SetScore(1 * GameController.CURRENT_ZONE);
-
-			// additionText.TriggerNextText("+" + (1 * GameController.CURRENT_ZONE));
-
-		}
-
-		if (FuryHandler.InFury)
-		{
 			Haptic.Vibrate(HapticIntensity.Medium);
-
 		}
 	}
 
@@ -99,22 +138,33 @@ public class GameUI : UserInterface {
 	{
 		levelProgression.UpdateUI();
 		disableAdditionalTexts = true;
+		furyPop.transform.gameObject.SetActive(false);
 	}
 
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
 		if (disableAdditionalTexts) { return; }
+
 		if (GameController.TutorialEnabled) { return; }
+
 		float delay = 0f;
+
 		switch (type)
 		{
 			case ProgressionColliderType.Intersection:
 			{
 				int multiplier = FuryHandler.InFury ? 2 : 1;
-				additionText.TriggerNextText("+" + (LevelController.LEVEL * multiplier)  + " Ran Light!", new Color(1f, .5f, .5f, 1f));
-				GameController.SetScore(LevelController.LEVEL * multiplier);
+
+				additionText.TriggerNextText("+" + (5 * multiplier)  + " Ran Light!", new Color(1f, .5f, .5f, 1f));
+
+				GameController.SetScore(5 * multiplier);
+
 				delay = .06f;
-				GameController.LIGHTS_RAN++;
+
+				if (EventManager.OnLogMapStat != null)
+				{
+					EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.RanLights, 1);
+				}
 				break;
 			}
 		}
@@ -127,8 +177,15 @@ public class GameUI : UserInterface {
 		isToggled = b;
 	}
 
-	void Update()
+	IEnumerator ITriggerDamageOverlay()
 	{
-		distanceText.text = GameController.GAME_DISTANCE.ToString("F0") + "m";
+		damageOverlay.color = new Color(1, 0, 0, .75F);
+		float red = damageOverlay.color.r;
+		while (red >= 0)
+		{
+			red -= Time.deltaTime * 1.5f;
+			damageOverlay.color = new Color(red, 0, 0, .75F);
+			yield return null;
+		}
 	}
 }

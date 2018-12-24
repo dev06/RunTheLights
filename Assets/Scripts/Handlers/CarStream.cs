@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarStream : MonoBehaviour {
 
+	public static bool activateCars = true;
 	private Section parentSection;
 
 	public List<Transform> cars = new List<Transform>();
@@ -79,6 +80,8 @@ public class CarStream : MonoBehaviour {
 		{
 			if (!TutorialHandler.ActivateTutorialCars) return;
 		}
+
+		if (!activateCars) return;
 
 		if (moveCars)
 		{

@@ -7,14 +7,18 @@ public class MenuUI : UserInterface {
 
 	public CanvasGroup regularUI, showcaseUI;
 
-	public Text vibrationText;
+	public Image vibrationImage;
 
+	public Sprite vibrateOn, vibrateOff;
+
+	public Text levelText;
+	public Image fill;
 
 	public override void Init()
 	{
 		base.Init();
 		ToggleShowcaseUI(false);
-		vibrationText.text = "Vibrate:\n" + (Haptic.Enabled ? "on" : "off");
+		vibrationImage.sprite = Haptic.Enabled ? vibrateOn : vibrateOff;
 	}
 
 	void OnEnable()
@@ -26,6 +30,12 @@ public class MenuUI : UserInterface {
 	{
 		EventManager.OnButtonClick -= OnButtonClick;
 		EventManager.OnHitObject -= OnHitObject;
+	}
+
+	void Start()
+	{
+		levelText.text = "Level " + LevelController.LEVEL;
+		fill.fillAmount = LevelController.Instance.GetProgress();
 	}
 
 	void OnButtonClick(ButtonID buttonID)
@@ -43,7 +53,7 @@ public class MenuUI : UserInterface {
 		if (buttonID == ButtonID.VibrateToggle)
 		{
 			GameController.Instance.ToggleVibration(!Haptic.Enabled);
-			vibrationText.text = "Vibrate:\n" + (Haptic.Enabled ? "on" : "off");
+			vibrationImage.sprite = Haptic.Enabled ? vibrateOn : vibrateOff;
 		}
 	}
 

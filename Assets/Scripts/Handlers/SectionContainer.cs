@@ -24,11 +24,15 @@ public class SectionContainer : MonoBehaviour {
 	void OnEnable()
 	{
 		EventManager.OnProgressionColliderHit += OnProgressionColliderHit;
+
+		EventManager.OnMapSelected += OnMapSelected;
 	}
 
 	void OnDisable()
 	{
 		EventManager.OnProgressionColliderHit -= OnProgressionColliderHit;
+
+		EventManager.OnMapSelected -= OnMapSelected;
 	}
 
 	void Awake()
@@ -39,6 +43,17 @@ public class SectionContainer : MonoBehaviour {
 	void Start ()
 	{
 		SpawnSection();
+	}
+
+	void OnMapSelected(Map map)
+	{
+		int childCount = transform.childCount;
+		for (int i = 0; i < childCount; i++)
+		{
+			transform.GetChild(0).gameObject.SetActive(false);
+			transform.GetChild(0).SetParent(reservedTransform);
+		}
+		RepositionSections();
 	}
 
 
@@ -117,6 +132,8 @@ public class SectionContainer : MonoBehaviour {
 	private void RepositionSections()
 	{
 
+
+
 		List<Section> queue = new List<Section>();
 
 		int r = Random.Range(0, reservedTransform.childCount);
@@ -185,9 +202,7 @@ public class SectionContainer : MonoBehaviour {
 
 			sections.Add(queue[i]);
 
-
 		}
-
 	}
 
 
@@ -250,9 +265,6 @@ public class SectionContainer : MonoBehaviour {
 
 	public void PoolSection(Section section)
 	{
-
-		GameController.POOLED_SECTION++;
-
 		section.transform.gameObject.SetActive(false);
 
 		if (section.type != SectionType.Section_0)

@@ -19,4 +19,12 @@ public class ProgressionCollider : MonoBehaviour {
 			EventManager.OnProgressionColliderHit(colliderType);
 		}
 	}
+
+	void OnTriggerExit(Collider col)
+	{
+		if (EventManager.OnProgressionColliderExit != null)
+		{
+			EventManager.OnProgressionColliderExit(colliderType);
+		}
+	}
 }
