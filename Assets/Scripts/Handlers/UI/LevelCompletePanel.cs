@@ -11,6 +11,7 @@ public class LevelCompletePanel : MonoBehaviour {
 		Stats,
 		Challenges,
 		Level,
+		TutorialComplete,
 	}
 
 
@@ -30,7 +31,8 @@ public class LevelCompletePanel : MonoBehaviour {
 		canvasGroup.alpha = b ? 1 : 0;
 		canvasGroup.blocksRaycasts = b;
 
-		UpdateValues();
+		if (b)
+			UpdateValues();
 	}
 
 	public virtual void UpdateValues()

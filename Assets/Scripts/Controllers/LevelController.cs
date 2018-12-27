@@ -52,9 +52,10 @@ public class LevelController : MonoBehaviour {
 
 		if (current_exp >= target_exp)
 		{
+			float difference = current_exp - target_exp;
 			LEVEL++;
 			target_exp += 10;
-			current_exp = 0;
+			current_exp = difference;
 		}
 
 		PlayerPrefs.SetFloat("current_exp", current_exp);

@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class LevelCompleteUI : UserInterface {
 
-	public LevelCompletePanel stats, challenges, level;
+	public LevelCompletePanel stats, challenges, level, tutorialComplete;
+
+	public Text titleText;
+
+	private bool tutorialEnabled;
 
 
 	void OnEnable()
@@ -34,17 +38,11 @@ public class LevelCompleteUI : UserInterface {
 
 		challenges.Toggle(false);
 
-		level.Toggle(true);
-	}
+		level.Toggle(false);
 
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			StopCoroutine("IDisplayLevelCompleteUI");
+		tutorialComplete.Toggle(false);
 
-			StartCoroutine("IDisplayLevelCompleteUI");
-		}
+		tutorialEnabled = GameController.TutorialEnabled;
 	}
 
 
@@ -54,6 +52,8 @@ public class LevelCompleteUI : UserInterface {
 		stats.Toggle(stats.type == pt);
 		challenges.Toggle(challenges.type == pt);
 		level.Toggle(level.type == pt);
+		tutorialComplete.Toggle(tutorialComplete.type == pt);
+		titleText.text = tutorialEnabled ? "Tutorial Complete!" :  GameController.SESSION_SCORE.ToString();
 	}
 
 	private void OnLevelComplete()
@@ -61,6 +61,7 @@ public class LevelCompleteUI : UserInterface {
 		StopCoroutine("IDisplayLevelCompleteUI");
 
 		StartCoroutine("IDisplayLevelCompleteUI");
+
 	}
 
 	private void OnButtonClick(ButtonID id)
@@ -70,7 +71,7 @@ public class LevelCompleteUI : UserInterface {
 			case ButtonID.Next_Stats:
 			{
 
-				if (MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock != null && MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock.isUnlocked == false)
+				if (MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock != null && MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock.isUnlocked == false && !tutorialEnabled)
 				{
 					TogglePanel(LevelCompletePanel.PanelType.Challenges);
 				}
@@ -85,6 +86,11 @@ public class LevelCompleteUI : UserInterface {
 				TogglePanel(LevelCompletePanel.PanelType.Level);
 				break;
 			}
+			case ButtonID.Next_TutorialComplete:
+			{
+				TogglePanel(LevelCompletePanel.PanelType.Level);
+				break;
+			}
 		}
 	}
 
@@ -92,6 +98,7 @@ public class LevelCompleteUI : UserInterface {
 	{
 		yield return new WaitForSeconds(2f);
 
-		TogglePanel(LevelCompletePanel.PanelType.Stats);
+		LevelCompletePanel.PanelType openPanel = tutorialEnabled ? LevelCompletePanel.PanelType.TutorialComplete : LevelCompletePanel.PanelType.Stats;
+		TogglePanel(openPanel);
 	}
 }

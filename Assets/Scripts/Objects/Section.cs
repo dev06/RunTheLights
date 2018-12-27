@@ -78,11 +78,15 @@ public class Section : MonoBehaviour {
 	void OnEnable()
 	{
 		EventManager.OnLevelComplete += OnLevelComplete;
+
+		EventManager.OnTutorialStep += OnTutorialStep;
 	}
 
 	void OnDisable()
 	{
 		EventManager.OnLevelComplete -= OnLevelComplete;
+
+		EventManager.OnTutorialStep -= OnTutorialStep;
 	}
 
 	public void Init()
@@ -95,7 +99,7 @@ public class Section : MonoBehaviour {
 
 		targetConnectorPosition = transform.position;
 
-		//Buildings.SetActive(EnalbedProps);
+		ToggleGears(false);
 	}
 
 	private void FillHitObjects()
@@ -185,13 +189,18 @@ public class Section : MonoBehaviour {
 			}
 		}
 
-		if (gears != null)
+		if (GameController.TutorialEnabled == false)
 		{
-			foreach (Transform t in gears)
+			ToggleGears(true);
+		}
+		else
+		{
+			if (TutorialHandler.Instance.CurrentStep >= 2)
 			{
-				t.GetComponent<Gear>().Toggle(true);
+				ToggleGears(true);
 			}
 		}
+
 
 		this.attachedSection = s;
 
@@ -219,5 +228,20 @@ public class Section : MonoBehaviour {
 	private void OnLevelComplete()
 	{
 		canPoolSection = false;
+	}
+
+	void OnTutorialStep(int step)
+	{
+
+	}
+
+	private void ToggleGears(bool b)
+	{
+		if (gears == null) return;
+
+		foreach (Transform t in gears)
+		{
+			t.GetComponent<Gear>().Toggle(b);
+		}
 	}
 }

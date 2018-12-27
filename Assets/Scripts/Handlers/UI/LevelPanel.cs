@@ -38,7 +38,7 @@ public class LevelPanel : LevelCompletePanel {
 
 	void OnLevelComplete()
 	{
-		LevelController.Instance.AddExperience(5);
+		LevelController.Instance.AddExperience(7);
 
 		levelText.text = "Level " + LevelController.LEVEL;
 

@@ -16,6 +16,7 @@ public class GameUI : UserInterface {
 	private bool disableAdditionalTexts;
 	private Animation furyPopAnim;
 	private GameInput player;
+	private CameraController camera;
 
 	public override void Init()
 	{
@@ -24,6 +25,7 @@ public class GameUI : UserInterface {
 		scoreText.text = GameController.SESSION_SCORE.ToString();
 		furyPopAnim = furyPop.transform.GetComponent<Animation>();
 		player = FindObjectOfType<GameInput>();
+		camera = Camera.main.GetComponent<CameraController>();
 	}
 
 	void OnEnable()
@@ -165,6 +167,9 @@ public class GameUI : UserInterface {
 				{
 					EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.RanLights, 1);
 				}
+
+				camera.TriggerAnimation();
+
 				break;
 			}
 		}

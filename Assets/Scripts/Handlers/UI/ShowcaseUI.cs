@@ -9,18 +9,37 @@ public class ShowcaseUI : MonoBehaviour {
 	public CanvasGroup ui_upgrades;
 	public VehicleUpgradeHandler upgradeHandler;
 	public Transform selectedButton;
+	public Text totalGearsCollected;
 
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelHover += OnShowcaseModelHover;
 
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
+
+		EventManager.OnShowcaseEnable += OnShowcaseEnable;
+
+		EventManager.OnVehicleUpgrade += OnVehicleUpgrade;
 	}
 	void OnDisable()
 	{
 		EventManager.OnShowcaseModelHover -= OnShowcaseModelHover;
 
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
+
+		EventManager.OnShowcaseEnable -= OnShowcaseEnable;
+
+		EventManager.OnVehicleUpgrade -= OnVehicleUpgrade;
+	}
+
+	void OnShowcaseEnable()
+	{
+		totalGearsCollected.text = GameController.Instance.GearsRemaining.ToString();
+	}
+
+	void OnVehicleUpgrade(Attribute a)
+	{
+		totalGearsCollected.text = GameController.Instance.GearsRemaining.ToString();
 	}
 
 	void OnShowcaseModelHover(ShowcaseModel model)

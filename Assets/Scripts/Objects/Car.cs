@@ -11,11 +11,15 @@ public class Car : MonoBehaviour {
 
 	public float CarSpeed = 100f;
 
+	public Transform smoke;
+
 	private Vector3 targetPosition;
 
 	private MeshRenderer mesh;
 
+
 	private bool carHit;
+
 
 	void Start ()
 	{
@@ -27,6 +31,8 @@ public class Car : MonoBehaviour {
 
 	void Update ()
 	{
+
+
 		if (!move) { return; }
 
 		transform.Translate(direction * Vector3.right * Time.deltaTime * CarSpeed, Space.World);
@@ -41,6 +47,7 @@ public class Car : MonoBehaviour {
 		this.direction = direction;
 	}
 
+
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "Trigger/Carpool")
@@ -49,11 +56,6 @@ public class Car : MonoBehaviour {
 			transform.gameObject.SetActive(false);
 			CarHit = false;
 		}
-	}
-
-	public void SetMove(bool b)
-	{
-		move = b;
 	}
 
 	public void Toggle(bool b)

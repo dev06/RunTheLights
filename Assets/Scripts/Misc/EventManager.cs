@@ -25,6 +25,7 @@ public class EventManager : MonoBehaviour {
 	public static Gameplay OnNearMiss;
 	public static Gameplay OnRestartGame;
 
+
 	public delegate void Fury(int i);
 	public static Fury OnFuryStatus;
 
@@ -53,4 +54,9 @@ public class EventManager : MonoBehaviour {
 	public delegate void LogMapStats(MapUnlockConditions.SpecialConditionType t, int value);
 	public static LogMapStats OnLogMapStat;
 
+	public delegate void UpgradeVehicle(Attribute a);
+	public static UpgradeVehicle OnVehicleUpgrade;
+
 }
+
+

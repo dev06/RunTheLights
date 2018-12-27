@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class TutorialHandler : MonoBehaviour {
 
+	public static TutorialHandler Instance;
 
 	public static bool ActivateTutorialCars;
 
@@ -11,7 +12,7 @@ public class TutorialHandler : MonoBehaviour {
 
 	public Text tutorialText;
 
-	public Text tutorialTitle;
+	public Image fillImage;
 
 	private int currentStep;
 
@@ -21,34 +22,80 @@ public class TutorialHandler : MonoBehaviour {
 
 	private float dragTimer;
 
+	private int gearCollected;
+
 	private CanvasGroup canvasGroup;
+
+	private float stepProgress;
+
+	private bool gameStarted;
+
+	void Awake()
+	{
+		if (Instance == null)
+		{
+			Instance = this;
+		}
+		else
+		{
+			DestroyImmediate(gameObject);
+		}
+
+		if (GameController.TutorialEnabled)
+		{
+			ActivateTutorialCars = false;
+			TutorialStatus = true;
+		}
+	}
 
 	void OnEnable()
 	{
 		EventManager.OnTutorialStep += OnTutorialStep;
 		EventManager.OnShowcaseEnable += OnShowcaseEnable;
 		EventManager.OnShowcaseDisable += OnShowcaseDisable;
+		EventManager.OnGearTriggerHit += OnGearTriggerHit;
+		EventManager.OnGameStart += OnGameStart;
+		EventManager.OnFingerUp += OnFingerUp;
+		EventManager.OnFingerDown += OnFingerDown;
+
 	}
 	void OnDisable()
 	{
 		EventManager.OnTutorialStep -= OnTutorialStep;
 		EventManager.OnShowcaseEnable -= OnShowcaseEnable;
 		EventManager.OnShowcaseDisable -= OnShowcaseDisable;
+		EventManager.OnGearTriggerHit -= OnGearTriggerHit;
+		EventManager.OnGameStart -= OnGameStart;
+		EventManager.OnFingerUp -= OnFingerUp;
+		EventManager.OnFingerDown -= OnFingerDown;
+
 	}
 
 	void OnTutorialStep(int step)
 	{
-
+		//	Debug.Log(step);
 	}
 
-
+	void OnGearTriggerHit()
+	{
+		gearCollected++;
+	}
+	void OnFingerDown()
+	{
+		//	pointerUpTimer = 0;
+	}
+	void OnFingerUp()
+	{
+		//	pointerDownTimer = 0;
+	}
 	void OnShowcaseEnable()
 	{
 		Toggle(false);
 	}
 	void OnShowcaseDisable()
 	{
-		Toggle(true);
+		if (gameStarted == false) return;
+		Toggle(GameController.TutorialEnabled);
 	}
 
 	void Toggle(bool b)
@@ -62,60 +109,119 @@ public class TutorialHandler : MonoBehaviour {
 
 		canvasGroup = GetComponent<CanvasGroup>();
 
-		if (GameController.TutorialEnabled)
-		{
-			ActivateTutorialCars = false;
-			TutorialStatus = true;
-		}
+		Toggle(false);
 
-		Toggle(GameController.TutorialEnabled);
-		TutorialStatus = GameController.TutorialEnabled;
-
+		tutorialText.text = "Keep holding to go";
 	}
 
-	void Update ()
+	void OnGameStart()
 	{
-		if (currentStep == 0)
-		{
-			if (Section.VELOCITY > 15f)
-			{
-				pointerDownTimer += Time.deltaTime;
+		Toggle(GameController.TutorialEnabled);
+		TutorialStatus = GameController.TutorialEnabled;
+	}
+	bool triggered;
 
-				if (pointerDownTimer > 3f)
+
+	void Update()
+	{
+		tutorialText.text = "";
+
+		switch (currentStep)
+		{
+			case 0:
+			{
+				tutorialText.text = "Hold to go!";
+
+				if (Section.VELOCITY > 15f)
 				{
-					tutorialText.text = "Drag to steer the car!";
+					pointerDownTimer += Time.deltaTime;
+
+					if (pointerDownTimer >= 3f)
+					{
+						currentStep++;
+					}
+				}
+
+				stepProgress = pointerDownTimer / 3f;
+
+				break;
+			}
+
+			case 1:
+			{
+				tutorialText.text = "Drag to steer";
+
+				if (Section.VELOCITY > 0)
+				{
+					dragTimer += Time.deltaTime;
+
+					if (dragTimer >= 3f)
+					{
+						currentStep++;
+					}
+				}
+
+				stepProgress = dragTimer / 3f;
+				break;
+			}
+
+			case 2:
+			{
+				tutorialText.text = "Collect the gears";
+
+				if (!triggered)
+				{
+					if (EventManager.OnTutorialStep != null)
+						EventManager.OnTutorialStep(currentStep);
+
+					triggered = true;
+				}
+
+				if (gearCollected >= 20)
+				{
 					currentStep++;
 				}
-			}
-		}
 
-		if (currentStep == 1)
-		{
-
-			dragTimer += Time.deltaTime;
-
-			if (dragTimer > 7f)
-			{
-				tutorialText.text = "Let go to decelerate";
-				currentStep++;
+				stepProgress = (float)gearCollected / 20f;
+				break;
 			}
 
-		}
-
-		if (currentStep == 2)
-		{
-			if (Section.VELOCITY <= 0)
+			case 3:
 			{
-				pointerUpTimer += Time.deltaTime;
+				tutorialText.text = "Let go to stop";
 
-				if (pointerUpTimer > 1f)
+				if (Section.VELOCITY <= 0)
 				{
-					tutorialText.text = "Avoid cars at intersection";
-					TutorialHandler.ActivateTutorialCars = true;
-					TutorialStatus = false;
-					currentStep++;
+					pointerUpTimer += Time.deltaTime;
+
+					if (pointerUpTimer >= 3)
+					{
+						currentStep++;
+					}
 				}
+
+				stepProgress = pointerUpTimer / 3f;
+				break;
 			}
+
+			case 4:
+			{
+				tutorialText.text = "Avoid cars at intersection";
+
+				TutorialHandler.ActivateTutorialCars = true;
+				TutorialStatus = false;
+				stepProgress = 1f;
+				break;
+			}
+
+
 		}
+		fillImage.fillAmount = stepProgress;
+	}
+
+	public int CurrentStep
+	{
+		get { return currentStep; }
+		set {this.currentStep = value; }
 	}
 }

@@ -44,6 +44,7 @@ public class GameInput : MonoBehaviour {
 		EventManager.OnGameStart += OnGameStart;
 		EventManager.OnLevelComplete += OnLevelComplete;
 		EventManager.OnFuryStatus += OnFuryStatus;
+
 	}
 
 	void OnDisable()
@@ -52,6 +53,7 @@ public class GameInput : MonoBehaviour {
 		EventManager.OnGameStart -= OnGameStart;
 		EventManager.OnLevelComplete -= OnLevelComplete;
 		EventManager.OnFuryStatus -= OnFuryStatus;
+
 	}
 
 	void Start()
@@ -165,6 +167,9 @@ public class GameInput : MonoBehaviour {
 
 		}
 
+
+
+
 		if (!pressed && !FuryHandler.InFury) { return; }
 
 		if (FuryHandler.InFury)
@@ -178,6 +183,8 @@ public class GameInput : MonoBehaviour {
 			{
 
 				velocity += Time.deltaTime * selectedModel.acceleration;
+
+
 
 				Control();
 			}
@@ -195,8 +202,16 @@ public class GameInput : MonoBehaviour {
 
 	void Control()
 	{
+		if (GameController.TutorialEnabled)
+		{
+			if (TutorialHandler.Instance.CurrentStep < 1)
+			{
+				return;
+			}
+		}
 
 		if (!Input.GetMouseButton(0)) return;
+
 		if (!FuryHandler.InFury && !pressed) { return; }
 
 
@@ -213,7 +228,7 @@ public class GameInput : MonoBehaviour {
 
 		rot = Mathf.Clamp(rot, -1f, 1f);
 
-		transform.position = new Vector3(rot, transform.position.y, transform.position.z);
+		transform.position = Vector3.Lerp(transform.position, new Vector3(rot, transform.position.y, transform.position.z), Time.deltaTime * 10f);
 
 
 		lastPosition = currentPosition;

@@ -59,6 +59,24 @@ public class Attribute
 		return fill >= 1f;
 	}
 
+	public bool canPurchase()
+	{
+		bool cp = GameController.Instance.GearsRemaining >= cost;
+
+		if (cp)
+		{
+
+			GameController.Instance.GearsRemaining -= cost;
+
+			if (EventManager.OnVehicleUpgrade != null)
+			{
+				EventManager.OnVehicleUpgrade(this);
+			}
+		}
+
+		return cp;
+	}
+
 	public void SaveValues()
 	{
 		PlayerPrefs.SetFloat(model.modelType + "_" + attributeType    +  "_value", value);

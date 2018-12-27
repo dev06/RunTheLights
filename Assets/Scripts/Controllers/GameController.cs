@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance;
 
+	public bool TriggerTutorial;
+
 	public bool DeleteSave;
 
 	public bool CanDie = true;
@@ -28,8 +30,6 @@ public class GameController : MonoBehaviour {
 	public GameObject Dummy;
 
 	public static bool GameOver;
-
-	public static int ZONE_CHANGE_EVERY = 5;
 
 	public static int SESSION_SCORE = 0;
 
@@ -55,11 +55,13 @@ public class GameController : MonoBehaviour {
 
 	public int LightsRanInLevel;
 
+	public int gearsRemaining;
+
 	public int gearsCollected; //per session
 
 	public int furyBonus; // per session
 
-	public float damageDone; // per session
+	public int damageDone; // per session
 
 
 	void OnValidate()
@@ -167,9 +169,8 @@ public class GameController : MonoBehaviour {
 		if (TutorialEnabled)
 		{
 			TutorialEnabled = false;
+			PlayerPrefs.SetString("TutorialEnabled", TutorialEnabled.ToString());
 		}
-
-		PlayerPrefs.SetInt("ZONE_CHANGE_EVERY", ZONE_CHANGE_EVERY);
 	}
 
 	void OnGameStart()
@@ -202,6 +203,17 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (EventManager.OnRestartGame != null)
+			{
+				EventManager.OnRestartGame();
+			}
+		}
+	}
+
 	public static void SetScore(int addition)
 	{
 		SESSION_SCORE += addition;
@@ -210,6 +222,18 @@ public class GameController : MonoBehaviour {
 		{
 			EventManager.OnUpdateUI();
 		}
+	}
+
+	public int GearsRemaining
+	{
+		get
+		{
+			if (gearsRemaining > 0)
+				return gearsRemaining;
+			else
+				return 0;
+		}
+		set { this.gearsRemaining = value; }
 	}
 
 	IEnumerator IOnDeath()
@@ -225,9 +249,6 @@ public class GameController : MonoBehaviour {
 			BEST_SCORE = SESSION_SCORE;
 		}
 
-
-		PlayerPrefs.SetInt("ZONE_CHANGE_EVERY", ZONE_CHANGE_EVERY);
-
 		PlayerPrefs.SetInt("SESSION_SCORE", SESSION_SCORE);
 
 		PlayerPrefs.SetInt("BEST_SCORE", BEST_SCORE);
@@ -242,11 +263,9 @@ public class GameController : MonoBehaviour {
 	void Load()
 	{
 
-		TutorialEnabled = false ;
+		TutorialEnabled = PlayerPrefs.HasKey("TutorialEnabled") ?  bool.Parse(PlayerPrefs.GetString("TutorialEnabled")) : TriggerTutorial;
 
-		ZONE_CHANGE_EVERY =  TutorialEnabled ? 8 : (PlayerPrefs.HasKey("ZONE_CHANGE_EVERY") ? PlayerPrefs.GetInt("ZONE_CHANGE_EVERY") + 1 : 8);
-
-		ZONE_CHANGE_EVERY = Mathf.Clamp(ZONE_CHANGE_EVERY, 8, 15);
+		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 500;
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
 

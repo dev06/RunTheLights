@@ -46,6 +46,12 @@ public class CameraController : MonoBehaviour {
 
 	private float continuousShakeIntensity = .05f;
 
+	private GameInput player;
+
+
+	private Animation animation;
+
+
 
 	void Awake()
 	{
@@ -99,7 +105,7 @@ public class CameraController : MonoBehaviour {
 		pressed = true;
 		if (FuryHandler.InFury) return;
 		float multiplier = 1f;
-		TriggerPull(-2f * multiplier, 20f * multiplier);
+		TriggerPull(-2f, 10f);
 		startIntensity = .1f;
 	}
 
@@ -116,7 +122,7 @@ public class CameraController : MonoBehaviour {
 		{
 			if (!pressed)
 			{
-				TriggerPull(0, 20f);
+				TriggerPull(0, 15f);
 			}
 		}
 	}
@@ -125,7 +131,7 @@ public class CameraController : MonoBehaviour {
 	{
 		pressed = false;
 		if (FuryHandler.InFury) return;
-		TriggerPull(0, 20f);
+		TriggerPull(0, 15f);
 	}
 
 	void OnLevelComplete()
@@ -167,9 +173,13 @@ public class CameraController : MonoBehaviour {
 		defaultFOV = Camera.main.fieldOfView;
 		stopFOV = defaultFOV + 35f;
 		targetFOV = defaultFOV;
+
+		player = FindObjectOfType<GameInput>();
+		animation = GetComponent<Animation>();
 	}
 
 	float s = 0, vv;
+	Vector3 lerpVector;
 	void Update ()
 	{
 
@@ -187,7 +197,16 @@ public class CameraController : MonoBehaviour {
 
 				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.Speed) ? .05f : 0f;
 
-				transform.localPosition = heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+				Vector3 target =  player.transform.position +  heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
+
+				lerpVector = Vector3.Lerp(lerpVector, target, Time.deltaTime * 30f);
+
+				lerpVector.y = target.y;
+
+				lerpVector.z = target.z;
+
+				transform.position = lerpVector;
+
 			}
 			else
 			{
@@ -197,6 +216,7 @@ public class CameraController : MonoBehaviour {
 		}
 		else
 		{
+
 			transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f);
 			fovThreshold = 0;
 			targetFOV = defaultFOV;
@@ -299,6 +319,11 @@ public class CameraController : MonoBehaviour {
 	{
 		transform.SetParent(null);
 		isCameraDetached = true;
+	}
+
+	public void TriggerAnimation()
+	{
+		animation.Play();
 	}
 
 	public float BloomIntensity

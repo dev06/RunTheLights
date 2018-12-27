@@ -109,8 +109,6 @@ public class CarStream : MonoBehaviour {
 			float furyDelay = (FuryHandler.Instance.FuryTime > 1f) ? Random.Range(.6f, 1f) : (Random.Range(1f, 3f) * .8f);
 
 			delay = furyDelay * GameController.CAR_STREAM_DELAY;
-
-
 		}
 
 		currentCarIndex++;
@@ -121,33 +119,4 @@ public class CarStream : MonoBehaviour {
 		}
 	}
 
-	private void PlaceCarsAtStopPoint()
-	{
-		if (moveCars) { return; }
-
-		for (int i = 0; i < cars.Count; i++)
-		{
-
-			cars[i].GetComponent<Car>().SetMove(false);
-
-			if (i < cars.Count / 3)
-			{
-				Vector3 position = stoppoint.position;
-
-				cars[i].gameObject.SetActive(true);
-
-				cars[i].transform.position = position + new Vector3(-direction * i * 40f, transform.position.y, 0);
-			}
-		}
-	}
-
-	private void SetMove(bool b)
-	{
-		moveCars = b;
-
-		for (int i = 0; i < cars.Count; i++)
-		{
-			cars[i].GetComponent<Car>().SetMove(moveCars);
-		}
-	}
 }

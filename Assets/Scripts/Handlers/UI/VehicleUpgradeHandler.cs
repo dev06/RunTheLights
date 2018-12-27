@@ -46,8 +46,8 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 		{
 			case ButtonID.UpgradeSpeed:
 			{
-				if (hoveringVehicle.speed.isMaxedOut()) break;
-				hoveringVehicle.speed.AddValue(10);
+				if (hoveringVehicle.speed.isMaxedOut() || !hoveringVehicle.speed.canPurchase()) break;
+				hoveringVehicle.speed.AddValue(2);
 				hoveringVehicle.speed.AddCost(20);
 				hoveringVehicle.speed.IncrementTier();
 				break;
@@ -55,7 +55,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 
 			case ButtonID.UpgradeDurability:
 			{
-				if (hoveringVehicle.durability.isMaxedOut()) break;
+				if (hoveringVehicle.durability.isMaxedOut()  || !hoveringVehicle.durability.canPurchase()) break;
 				hoveringVehicle.durability.AddValue(1);
 				hoveringVehicle.durability.AddCost(20);
 				hoveringVehicle.durability.IncrementTier();
@@ -63,7 +63,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 			}
 			case ButtonID.UpgradeFuryTime:
 			{
-				if (hoveringVehicle.furyTime.isMaxedOut()) break;
+				if (hoveringVehicle.furyTime.isMaxedOut() || !hoveringVehicle.furyTime.canPurchase()) break;
 				hoveringVehicle.furyTime.AddValue(1);
 				hoveringVehicle.furyTime.AddCost(20);
 				hoveringVehicle.furyTime.IncrementTier();

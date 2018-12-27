@@ -18,6 +18,7 @@ public enum ButtonID
 	Next_Challenges,
 	ToMenu,
 	MapSelect,
+	Next_TutorialComplete,
 }
 public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 

@@ -11,7 +11,7 @@ public class MenuUI : UserInterface {
 
 	public Sprite vibrateOn, vibrateOff;
 
-	public Text levelText;
+	public Text levelText, totalGearsText;
 	public Image fill;
 
 	public override void Init()
@@ -34,8 +34,7 @@ public class MenuUI : UserInterface {
 
 	void Start()
 	{
-		levelText.text = "Level " + LevelController.LEVEL;
-		fill.fillAmount = LevelController.Instance.GetProgress();
+		UpdateUI();
 	}
 
 	void OnButtonClick(ButtonID buttonID)
@@ -89,10 +88,20 @@ public class MenuUI : UserInterface {
 
 		regularUI.alpha = b ? 0 : 1;
 		regularUI.blocksRaycasts = !b;
+
+		UpdateUI();
 	}
 
 	private void OnHitObject()
 	{
 		Toggle(false);
 	}
+
+	private void UpdateUI()
+	{
+		levelText.text = "Level " + LevelController.LEVEL;
+		totalGearsText.text = GameController.Instance.GearsRemaining.ToString();
+		fill.fillAmount = LevelController.Instance.GetProgress();
+	}
+
 }

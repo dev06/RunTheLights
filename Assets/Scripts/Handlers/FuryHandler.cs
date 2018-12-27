@@ -84,6 +84,8 @@ public class FuryHandler : MonoBehaviour {
 		furyMeter = FindObjectOfType<FuryMeter>();
 
 		InFury = false;
+
+
 	}
 
 	void OnHitObject()
@@ -287,4 +289,6 @@ public class FuryHandler : MonoBehaviour {
 	{
 		get {return furyTime;}
 	}
+
+
 }
