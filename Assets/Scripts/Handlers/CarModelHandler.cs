@@ -21,12 +21,14 @@ public class CarModelHandler : MonoBehaviour {
 		EventManager.OnFingerUp += OnFingerUp;
 		EventManager.OnFingerDown += OnFingerDown;
 		EventManager.OnFuryStatus += OnFuryStatus;
+		EventManager.OnMiniBoost += OnMiniBoost;
 	}
 
 	void OnDisable () {
 		EventManager.OnFingerUp -= OnFingerUp;
 		EventManager.OnFingerDown -= OnFingerDown;
 		EventManager.OnFuryStatus -= OnFuryStatus;
+		EventManager.OnMiniBoost -= OnMiniBoost;
 	}
 
 	void Start()
@@ -41,6 +43,26 @@ public class CarModelHandler : MonoBehaviour {
 		if (!FuryHandler.InFury)
 		{
 			ToggleThrust(false);
+		}
+	}
+
+	void OnMiniBoost(int i)
+	{
+		if (FuryHandler.InFury) return;
+		if (i == 1)
+		{
+			ToggleThrust(ThrustType.Fury);
+		}
+		else
+		{
+			if (pressed)
+			{
+				ToggleThrust(ThrustType.Default);
+			}
+			else
+			{
+				ToggleThrust(false);
+			}
 		}
 	}
 

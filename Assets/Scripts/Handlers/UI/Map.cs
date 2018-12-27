@@ -8,6 +8,7 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 	public bool isUnlocked;
 	public MapUnlockConditions mapUnlockConditions;
 	public MapStatistics mapStats;
+	public float carDelay;
 	private Toggle toggle;
 
 	private MapSelectUI mapSelectUI;

@@ -6,6 +6,8 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 	public ParticleSystem explosion;
 
+	public Transform trail;
+
 	private CameraController cameraController;
 
 	private bool furyHitThresholdReach = true;
@@ -19,6 +21,8 @@ public class PlayerMeshCollider : MonoBehaviour {
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
 
 		EventManager.OnGameStart += OnGameStart;
+
+
 	}
 	void OnDisable()
 	{
@@ -27,6 +31,8 @@ public class PlayerMeshCollider : MonoBehaviour {
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
 
 		EventManager.OnGameStart -= OnGameStart;
+
+
 	}
 
 	void Start()
@@ -36,8 +42,11 @@ public class PlayerMeshCollider : MonoBehaviour {
 		player = FindObjectOfType<GameInput>();
 
 		player.VehicleDurability = GameController.ActiveModel.durability.value;
-
 	}
+
+
+
+
 
 	void OnFuryStatus(int i)
 	{

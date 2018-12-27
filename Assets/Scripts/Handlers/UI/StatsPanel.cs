@@ -34,5 +34,6 @@ public class StatsPanel : LevelCompletePanel {
 		MapSelectUI.SelectedMap.UpdateValues();
 		score.text = GameController.SESSION_SCORE.ToString();
 		PlayerPrefs.SetInt("GearsRemaining", GameController.Instance.GearsRemaining);
+
 	}
 }

@@ -143,6 +143,8 @@ public class GameUI : UserInterface {
 		furyPop.transform.gameObject.SetActive(false);
 	}
 
+	bool active;
+
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
 		if (disableAdditionalTexts) { return; }
@@ -168,11 +170,37 @@ public class GameUI : UserInterface {
 					EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.RanLights, 1);
 				}
 
-				camera.TriggerAnimation();
+				if (!active && !FuryHandler.InFury)
+				{
+					if (EventManager.OnMiniBoost != null)
+					{
+						EventManager.OnMiniBoost(1);
+					}
+
+
+
+					StopCoroutine("IStopMiniBoost");
+
+					StartCoroutine("IStopMiniBoost");
+					active = true;
+				}
+
 
 				break;
 			}
 		}
+	}
+
+	IEnumerator IStopMiniBoost()
+	{
+		yield return new WaitForSeconds(.5f);
+
+		if (EventManager.OnMiniBoost != null)
+		{
+			EventManager.OnMiniBoost(0);
+		}
+
+		active = false;
 	}
 
 	public override void Toggle(bool b)

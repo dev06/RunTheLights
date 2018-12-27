@@ -108,7 +108,7 @@ public class CarStream : MonoBehaviour {
 
 			float furyDelay = (FuryHandler.Instance.FuryTime > 1f) ? Random.Range(.6f, 1f) : (Random.Range(1f, 3f) * .8f);
 
-			delay = furyDelay * GameController.CAR_STREAM_DELAY;
+			delay = furyDelay * MapSelectUI.SelectedMap.carDelay;
 		}
 
 		currentCarIndex++;

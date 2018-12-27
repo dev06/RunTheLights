@@ -79,6 +79,7 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
 
 		EventManager.OnFuryStatus += OnFuryStatus;
+		EventManager.OnMiniBoost += OnMiniBoost;
 	}
 	void OnDisable()
 	{
@@ -90,8 +91,8 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnFingerDown -= OnFingerDown;
 		EventManager.OnLevelComplete -= OnLevelComplete;
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
-
 		EventManager.OnFuryStatus -= OnFuryStatus;
+		EventManager.OnMiniBoost -= OnMiniBoost;
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
@@ -126,6 +127,21 @@ public class CameraController : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnMiniBoost(int i)
+	{
+		if (FuryHandler.InFury) return;
+		if (i == 1)
+		{
+			TriggerPull(-3f, 10f);
+			TriggerShake(.5f, 15f);
+		}
+		else
+		{
+			TriggerPull(0, 30f);
+		}
+	}
+
 
 	void OnFingerUp()
 	{
@@ -195,7 +211,7 @@ public class CameraController : MonoBehaviour {
 
 				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
-				continuousShakeIntensity = (FuryHandler.InFury && Section.VELOCITY >= GameController.ActiveModel.Speed) ? .05f : 0f;
+				continuousShakeIntensity = (FuryHandler.InFury) ? .25f : 0f;
 
 				Vector3 target =  player.transform.position +  heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 

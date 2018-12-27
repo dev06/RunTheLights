@@ -262,7 +262,6 @@ public class GameController : MonoBehaviour {
 
 	void Load()
 	{
-
 		TutorialEnabled = PlayerPrefs.HasKey("TutorialEnabled") ?  bool.Parse(PlayerPrefs.GetString("TutorialEnabled")) : TriggerTutorial;
 
 		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 500;

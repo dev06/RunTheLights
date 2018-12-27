@@ -28,6 +28,8 @@ public class EventManager : MonoBehaviour {
 
 	public delegate void Fury(int i);
 	public static Fury OnFuryStatus;
+	public static Fury OnMiniBoost;
+
 
 
 

@@ -38,12 +38,15 @@ public class GameInput : MonoBehaviour {
 
 	private float speedDropOff; //0-1 value that measures the effiency of the car after damage delt
 
+	private float miniBoostSpeed, miniBoostSpeedVel;
+
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelSelected += OnShowcaseModelSelected;
 		EventManager.OnGameStart += OnGameStart;
 		EventManager.OnLevelComplete += OnLevelComplete;
 		EventManager.OnFuryStatus += OnFuryStatus;
+		EventManager.OnMiniBoost += OnMiniBoost;
 
 	}
 
@@ -53,6 +56,7 @@ public class GameInput : MonoBehaviour {
 		EventManager.OnGameStart -= OnGameStart;
 		EventManager.OnLevelComplete -= OnLevelComplete;
 		EventManager.OnFuryStatus -= OnFuryStatus;
+		EventManager.OnMiniBoost -= OnMiniBoost;
 
 	}
 
@@ -89,6 +93,16 @@ public class GameInput : MonoBehaviour {
 
 
 		MovePlayer();
+	}
+
+	void OnMiniBoost(int i)
+	{
+		if (FuryHandler.InFury) return;
+
+		if (i == 1)
+		{
+			miniBoostSpeed = 2.5f;
+		}
 	}
 
 	void OnGameStart()
@@ -193,7 +207,9 @@ public class GameInput : MonoBehaviour {
 				velocity -= Time.deltaTime * selectedModel.deceleration;
 			}
 
-			velocity = Mathf.Clamp(velocity, 0, speedDropOff * selectedModel.Speed * (FuryHandler.InFury ? 1.5f : 1f));
+			miniBoostSpeed = Mathf.SmoothDamp(miniBoostSpeed, 1f, ref miniBoostSpeedVel, Time.deltaTime * 10f);
+
+			velocity = Mathf.Clamp(velocity, 0, speedDropOff * selectedModel.Speed * (FuryHandler.InFury ? 1.5f : 1f) * miniBoostSpeed);
 		}
 
 		Section.VELOCITY = velocity;

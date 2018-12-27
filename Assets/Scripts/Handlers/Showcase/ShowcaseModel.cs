@@ -72,6 +72,8 @@ public class Attribute
 			{
 				EventManager.OnVehicleUpgrade(this);
 			}
+
+			PlayerPrefs.SetInt("GearsRemaining", GameController.Instance.GearsRemaining);
 		}
 
 		return cp;
