@@ -9,6 +9,9 @@ public class LevelPanel : LevelCompletePanel {
 	public Text levelText;
 	public Image fill;
 
+	private float targetFill;
+	private LevelController level;
+
 	void OnEnable()
 	{
 		EventManager.OnButtonClick += OnButtonClick;
@@ -30,6 +33,10 @@ public class LevelPanel : LevelCompletePanel {
 			return;
 		}
 
+		PlayerPrefs.SetFloat("current_exp", LevelController.Instance.CurrentExp);
+		PlayerPrefs.SetFloat("target_exp", LevelController.Instance.TargetExp);
+		PlayerPrefs.SetInt("LEVEL", LevelController.LEVEL);
+
 		if (EventManager.OnRestartGame != null)
 		{
 			EventManager.OnRestartGame();
@@ -38,15 +45,58 @@ public class LevelPanel : LevelCompletePanel {
 
 	void OnLevelComplete()
 	{
-		LevelController.Instance.AddExperience(7);
 
 		levelText.text = "Level " + LevelController.LEVEL;
 
-		fill.fillAmount = LevelController.Instance.GetProgress();
+		targetFill =  LevelController.Instance.GetProgress();
+		fill.fillAmount = targetFill;
 	}
 
 	public override void UpdateValues()
 	{
 		base.UpdateValues();
+
+		StopCoroutine("IAnim");
+		StartCoroutine("IAnim");
+	}
+
+	void Update()
+	{
+		if (!isOn) return;
+
+		if (level == null)
+		{
+			level = LevelController.Instance;
+		}
+
+		fill.fillAmount = Mathf.Lerp(fill.fillAmount, targetFill, Time.deltaTime * 3f);
+
+		if (fill.fillAmount >= .99f)
+		{
+			fill.fillAmount = 0f;
+
+			LevelController.Instance.CheckForLevelIncrement();
+
+			targetFill = LevelController.Instance.GetProgress();
+
+			levelText.text = "Level " + LevelController.LEVEL;
+
+			animation.Play("LevelPanel_NextLevelPop");
+		}
+
+	}
+
+
+
+	IEnumerator IAnim()
+	{
+		yield return new WaitForSeconds(.5f);
+
+
+		LevelController.Instance.AddExperience(7);
+
+		targetFill = LevelController.Instance.GetProgress();
+
+		animation.Play("LevelPanel");
 	}
 }

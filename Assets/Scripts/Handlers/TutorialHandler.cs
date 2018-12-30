@@ -57,6 +57,7 @@ public class TutorialHandler : MonoBehaviour {
 		EventManager.OnGameStart += OnGameStart;
 		EventManager.OnFingerUp += OnFingerUp;
 		EventManager.OnFingerDown += OnFingerDown;
+		EventManager.OnLevelComplete += OnLevelComplete;
 
 	}
 	void OnDisable()
@@ -68,12 +69,18 @@ public class TutorialHandler : MonoBehaviour {
 		EventManager.OnGameStart -= OnGameStart;
 		EventManager.OnFingerUp -= OnFingerUp;
 		EventManager.OnFingerDown -= OnFingerDown;
+		EventManager.OnLevelComplete -= OnLevelComplete;
 
 	}
 
 	void OnTutorialStep(int step)
 	{
 		//	Debug.Log(step);
+	}
+
+	void OnLevelComplete()
+	{
+		currentStep++;
 	}
 
 	void OnGearTriggerHit()
@@ -101,7 +108,8 @@ public class TutorialHandler : MonoBehaviour {
 	void Toggle(bool b)
 	{
 		canvasGroup.alpha = b ? 1 : 0f;
-		canvasGroup.blocksRaycasts = b;
+		canvasGroup.blocksRaycasts = false;
+		if (b) GetComponent<Animation>().Play();
 	}
 
 	void Start ()
@@ -211,6 +219,12 @@ public class TutorialHandler : MonoBehaviour {
 				TutorialHandler.ActivateTutorialCars = true;
 				TutorialStatus = false;
 				stepProgress = 1f;
+				break;
+			}
+
+			case 5:
+			{
+				tutorialText.text = "Good Job!";
 				break;
 			}
 

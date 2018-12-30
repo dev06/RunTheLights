@@ -105,7 +105,6 @@ public class CameraController : MonoBehaviour {
 	{
 		pressed = true;
 		if (FuryHandler.InFury) return;
-		float multiplier = 1f;
 		TriggerPull(-2f, 10f);
 		startIntensity = .1f;
 	}
@@ -133,12 +132,12 @@ public class CameraController : MonoBehaviour {
 		if (FuryHandler.InFury) return;
 		if (i == 1)
 		{
-			TriggerPull(-3f, 10f);
+			TriggerPull(-5f, 5f); // smaller = faster
 			TriggerShake(.5f, 15f);
 		}
 		else
 		{
-			TriggerPull(0, 30f);
+			TriggerPull(0, 20f);
 		}
 	}
 
@@ -165,6 +164,7 @@ public class CameraController : MonoBehaviour {
 	void OnShowcaseEnable()
 	{
 		sectionContainer.gameObject.SetActive(false);
+
 	}
 
 	void OnHitObject()
@@ -211,7 +211,7 @@ public class CameraController : MonoBehaviour {
 
 				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
-				continuousShakeIntensity = (FuryHandler.InFury) ? .25f : 0f;
+				continuousShakeIntensity = (FuryHandler.InFury) ? .15f : 0f;
 
 				Vector3 target =  player.transform.position +  heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 

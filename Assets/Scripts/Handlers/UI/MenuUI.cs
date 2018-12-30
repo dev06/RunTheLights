@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MenuUI : UserInterface {
 
 
-	public CanvasGroup regularUI, showcaseUI;
+	public CanvasGroup regularUI, showcaseUI, helpUI;
 
 	public Image vibrationImage;
 
@@ -39,6 +39,18 @@ public class MenuUI : UserInterface {
 
 	void OnButtonClick(ButtonID buttonID)
 	{
+		if (buttonID == ButtonID.MoreInfo)
+		{
+			helpUI.alpha = 1;
+			helpUI.blocksRaycasts = true;
+			helpUI.transform.GetComponent<Animation>().Play();
+		}
+		else
+		{
+			helpUI.alpha = 0;
+			helpUI.blocksRaycasts = false;
+		}
+
 		if (buttonID == ButtonID.Showcase)
 		{
 			EnableShowcase();

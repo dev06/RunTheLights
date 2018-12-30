@@ -105,7 +105,7 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 				GameController.Instance.damageDone = (int)GameController.ActiveModel.durability.value - (int)player.VehicleDurability;
 
-				if (player.VehicleDurability <= 0)
+				if (player.VehicleDurability < 0)
 				{
 					if (GameController.Instance.CanDie)
 					{

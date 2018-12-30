@@ -15,6 +15,7 @@ public class GameUI : UserInterface {
 	private bool isToggled;
 	private bool disableAdditionalTexts;
 	private Animation furyPopAnim;
+	private Animation HUDAnim;
 	private GameInput player;
 	private CameraController camera;
 
@@ -26,6 +27,7 @@ public class GameUI : UserInterface {
 		furyPopAnim = furyPop.transform.GetComponent<Animation>();
 		player = FindObjectOfType<GameInput>();
 		camera = Camera.main.GetComponent<CameraController>();
+		HUDAnim = GetComponent<Animation>();
 	}
 
 	void OnEnable()
@@ -170,44 +172,27 @@ public class GameUI : UserInterface {
 					EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.RanLights, 1);
 				}
 
-				if (!active && !FuryHandler.InFury)
-				{
-					if (EventManager.OnMiniBoost != null)
-					{
-						EventManager.OnMiniBoost(1);
-					}
-
-
-
-					StopCoroutine("IStopMiniBoost");
-
-					StartCoroutine("IStopMiniBoost");
-					active = true;
-				}
-
+				//FindObjectOfType<FuryHandler>().TriggerMiniboost();
 
 				break;
 			}
 		}
 	}
 
-	IEnumerator IStopMiniBoost()
-	{
-		yield return new WaitForSeconds(.5f);
 
-		if (EventManager.OnMiniBoost != null)
-		{
-			EventManager.OnMiniBoost(0);
-		}
 
-		active = false;
-	}
+
 
 	public override void Toggle(bool b)
 	{
 		if (GameController.TutorialEnabled) { return; }
 		base.Toggle(b);
+
 		isToggled = b;
+		if (isToggled)
+		{
+			HUDAnim.Play();
+		}
 	}
 
 	IEnumerator ITriggerDamageOverlay()

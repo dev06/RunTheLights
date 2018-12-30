@@ -33,4 +33,9 @@ public class VehicleAttributeButton : MonoBehaviour {
 		set {targetFillAmount = value; }
 		get {return fillImage.fillAmount; }
 	}
+
+	public void TriggerPop()
+	{
+		GetComponent<Animation>().Play();
+	}
 }

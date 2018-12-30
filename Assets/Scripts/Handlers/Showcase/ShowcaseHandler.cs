@@ -29,7 +29,7 @@ public class ShowcaseHandler : MonoBehaviour {
 	private int lastSelectedIndex;
 
 	private CameraController cameraController;
-
+	bool dragging = false;
 	void OnEnable()
 	{
 		EventManager.OnButtonClick += OnButtonClick;
@@ -51,6 +51,7 @@ public class ShowcaseHandler : MonoBehaviour {
 	void OnShowcaseEnable()
 	{
 		cameraController.transform.position = snapPos + offset + new Vector3(0, 0, -50);
+
 		cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
 	}
 
@@ -81,7 +82,7 @@ public class ShowcaseHandler : MonoBehaviour {
 	}
 
 
-	bool dragging = false;
+
 	void Update()
 	{
 		if (!GameController.INSHOWCASE) return;
@@ -92,6 +93,7 @@ public class ShowcaseHandler : MonoBehaviour {
 			Control();
 
 			float x = (snapPos + offset).x;
+
 			float y = (snapPos + offset).y;
 
 			cameraController.SetTargetPosition(new Vector3(x, y, rot * distanceOffset));
@@ -111,10 +113,15 @@ public class ShowcaseHandler : MonoBehaviour {
 					selectedShowcaseModel.ResetTransform();
 				}
 
+
 				rot = Mathf.Round(rot);
+
 				snapPos = transform.GetChild((int)rot).position;
+
 				cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
+
 				selectedShowcaseModel = transform.GetChild((int)rot).GetComponent<ShowcaseModel>();
+
 				selectingIndex = (int)rot;
 
 				if (lastSelectedIndex != selectingIndex)
@@ -123,6 +130,7 @@ public class ShowcaseHandler : MonoBehaviour {
 				}
 
 				lastSelectedIndex = selectingIndex;
+
 				selectedShowcaseModel.Select();
 
 				if (EventManager.OnShowcaseModelHover != null)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour {
 
+
 	public static LevelController Instance;
 
 	public static int LEVEL = 2;
@@ -23,7 +24,7 @@ public class LevelController : MonoBehaviour {
 
 	public void Init()
 	{
-		CHANGE_LEVEL_EVERY = 10;
+		CHANGE_LEVEL_EVERY = GameController.Instance.ShortLevels ? 3 : 10;
 
 		current_exp = PlayerPrefs.HasKey("current_exp") ? PlayerPrefs.GetFloat("current_exp") : 0f;
 
@@ -50,22 +51,41 @@ public class LevelController : MonoBehaviour {
 	{
 		current_exp += exp;
 
+
+	}
+
+
+
+	public bool CheckForLevelIncrement()
+	{
 		if (current_exp >= target_exp)
 		{
 			float difference = current_exp - target_exp;
 			LEVEL++;
-			target_exp += 10;
+			target_exp += 5;
 			current_exp = difference;
+
+			return true;
 		}
 
-		PlayerPrefs.SetFloat("current_exp", current_exp);
-		PlayerPrefs.SetFloat("target_exp", target_exp);
-		PlayerPrefs.SetInt("LEVEL", LEVEL);
+		return false;
 	}
 
 	public float GetProgress()
 	{
 		return current_exp / target_exp;
+	}
+
+	public float CurrentExp
+	{
+		get {return current_exp; }
+		set { this.current_exp = value; }
+	}
+
+	public float TargetExp
+	{
+		get {return target_exp; }
+		set {this.target_exp = value; }
 	}
 
 

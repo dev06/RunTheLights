@@ -59,6 +59,10 @@ public class EventManager : MonoBehaviour {
 	public delegate void UpgradeVehicle(Attribute a);
 	public static UpgradeVehicle OnVehicleUpgrade;
 
+
+	public delegate void TogglePause(bool b);
+	public static TogglePause OnPauseStatus;
+
 }
 
 

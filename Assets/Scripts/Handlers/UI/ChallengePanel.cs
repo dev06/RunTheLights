@@ -22,5 +22,6 @@ public class ChallengePanel : LevelCompletePanel {
 		if (MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock == null) return;
 		MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock.UpdateToggleValues(challengeToggles);
 		MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock.UpdateTextValues(challengeLabels, MapSelectUI.SelectedMap.mapUnlockConditions.targetMapToUnlock.GetDisplayName());
+		animation.Play();
 	}
 }

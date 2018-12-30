@@ -37,6 +37,7 @@ public class Car : MonoBehaviour {
 
 		transform.Translate(direction * Vector3.right * Time.deltaTime * CarSpeed, Space.World);
 
+		transform.position += new Vector3(0, Mathf.PingPong(Time.realtimeSinceStartup * 1f, .06f) - .03f, 0);
 	}
 
 	public void Move(Vector3 startingPos, Vector3 target, int direction)

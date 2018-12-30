@@ -206,6 +206,12 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 				break;
 			}
 
+			case MapUnlockConditions.SpecialConditionType.ZeroDamage:
+			{
+				mapStats.NumberOfZeroDamage += value;
+				break;
+			}
+
 		}
 	}
 }
@@ -220,6 +226,7 @@ public class MapStatistics
 	public int NumberOfLightsRan;
 	public int NumberOfCarsCrashed;
 	public int NumberOfFuryAchieved;
+	public int NumberOfZeroDamage;
 
 	public void Save()
 	{
@@ -228,6 +235,7 @@ public class MapStatistics
 		PlayerPrefs.SetInt(map.GetDisplayName() + "_NumberOfLightsRan", NumberOfLightsRan);
 		PlayerPrefs.SetInt(map.GetDisplayName() + "_NumberOfCarsCrashed", NumberOfCarsCrashed);
 		PlayerPrefs.SetInt(map.GetDisplayName() + "_NumberOfFuryAchieved", NumberOfFuryAchieved);
+		PlayerPrefs.SetInt(map.GetDisplayName() + "_NumberOfZeroDamage", NumberOfZeroDamage);
 
 	}
 
@@ -238,6 +246,7 @@ public class MapStatistics
 		NumberOfLightsRan = PlayerPrefs.HasKey(map.GetDisplayName() + "_NumberOfLightsRan") ? PlayerPrefs.GetInt(map.GetDisplayName() + "_NumberOfLightsRan", NumberOfLightsRan) : 0;
 		NumberOfCarsCrashed = PlayerPrefs.HasKey(map.GetDisplayName() + "_NumberOfCarsCrashed") ? PlayerPrefs.GetInt(map.GetDisplayName() + "_NumberOfCarsCrashed", NumberOfCarsCrashed) : 0;
 		NumberOfFuryAchieved = PlayerPrefs.HasKey(map.GetDisplayName() + "_NumberOfFuryAchieved") ? PlayerPrefs.GetInt(map.GetDisplayName() + "_NumberOfFuryAchieved", NumberOfFuryAchieved) : 0;
+		NumberOfZeroDamage = PlayerPrefs.HasKey(map.GetDisplayName() + "_NumberOfZeroDamage") ? PlayerPrefs.GetInt(map.GetDisplayName() + "_NumberOfZeroDamage") : 0;
 	}
 }
 
@@ -275,6 +284,7 @@ public class MapUnlockConditions
 		RanLights,
 		CarsCrashed,
 		FuryAchieved,
+		ZeroDamage,
 	}
 
 	public bool canUnlockTargetMap()
@@ -311,6 +321,12 @@ public class MapUnlockConditions
 			case SpecialConditionType.FuryAchieved:
 			{
 				specialConditionProgress = map.mapStats.NumberOfFuryAchieved;
+				break;
+			}
+
+			case SpecialConditionType.ZeroDamage:
+			{
+				specialConditionProgress = map.mapStats.NumberOfZeroDamage;
 				break;
 			}
 		}
@@ -357,6 +373,12 @@ public class MapUnlockConditions
 			{
 				return "Achieve Fury " + specialConditionTarget + " times";
 			}
+
+			case SpecialConditionType.ZeroDamage:
+			{
+				return "Complete level with no vehicle damage.";
+			}
+
 		}
 
 		return "message not found";

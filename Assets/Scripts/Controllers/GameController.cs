@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
 
 	public bool CanDie = true;
 
+	public bool ShortLevels = false;
+
 	public static readonly float MAX_CAR_SPEED = 50f;
 
 	public static readonly float MAX_CAR_ACC = 50f;
@@ -211,6 +213,15 @@ public class GameController : MonoBehaviour {
 			{
 				EventManager.OnRestartGame();
 			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			if (EventManager.OnLevelComplete != null)
+			{
+				EventManager.OnLevelComplete();
+			}
+
 		}
 	}
 

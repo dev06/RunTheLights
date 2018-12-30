@@ -50,6 +50,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 				hoveringVehicle.speed.AddValue(2);
 				hoveringVehicle.speed.AddCost(20);
 				hoveringVehicle.speed.IncrementTier();
+				speed.TriggerPop();
 				break;
 			}
 
@@ -59,6 +60,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 				hoveringVehicle.durability.AddValue(1);
 				hoveringVehicle.durability.AddCost(20);
 				hoveringVehicle.durability.IncrementTier();
+				durability.TriggerPop();
 				break;
 			}
 			case ButtonID.UpgradeFuryTime:
@@ -67,6 +69,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 				hoveringVehicle.furyTime.AddValue(1);
 				hoveringVehicle.furyTime.AddCost(20);
 				hoveringVehicle.furyTime.IncrementTier();
+				furyTime.TriggerPop();
 				break;
 			}
 		}

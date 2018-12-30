@@ -12,6 +12,8 @@ public class MapSelectUI : MonoBehaviour {
 	public Toggle[] challengeToggles;
 	public Text[] challengeLabels;
 
+	private Animation animation;
+
 
 	void OnEnable()
 	{
@@ -30,6 +32,8 @@ public class MapSelectUI : MonoBehaviour {
 			m.Init();
 			m.CheckForMapUnlocks();
 		}
+
+		animation = GetComponent<Animation>();
 
 		ToggleMapSelectUI(false);
 		ToggleChallengePanelPopup(false);
@@ -58,12 +62,15 @@ public class MapSelectUI : MonoBehaviour {
 
 		regularUI.alpha = b ? 0 : 1;
 		regularUI.blocksRaycasts = !b;
+
+		if (b) animation.Play("MapSelect_main");
 	}
 
 	public void ToggleChallengePanelPopup(bool b)
 	{
 		challengePanelPopup.alpha = b ? 1 : 0;
 		challengePanelPopup.blocksRaycasts = b;
+		if (b) animation.Play("MapSelect_ChallengePopUI");
 
 	}
 

@@ -19,6 +19,10 @@ public enum ButtonID
 	ToMenu,
 	MapSelect,
 	Next_TutorialComplete,
+	MoreInfo,
+	Resume,
+	RestartGame,
+	Pause
 }
 public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 
@@ -27,6 +31,15 @@ public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 
 	public virtual void OnPointerClick(PointerEventData data)
 	{
+
+		if (buttonID == ButtonID.RestartGame)
+		{
+			Time.timeScale = 1;
+			if (EventManager.OnRestartGame != null)
+			{
+				EventManager.OnRestartGame();
+			}
+		}
 		if (EventManager.OnButtonClick != null)
 		{
 			EventManager.OnButtonClick(buttonID);

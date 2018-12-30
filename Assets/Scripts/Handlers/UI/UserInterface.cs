@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UserInterface : MonoBehaviour {
 
-	private CanvasGroup canvasGroup;
+	public  CanvasGroup canvasGroup;
 
 	public virtual void Init()
 	{

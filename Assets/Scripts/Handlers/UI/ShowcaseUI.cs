@@ -10,6 +10,7 @@ public class ShowcaseUI : MonoBehaviour {
 	public VehicleUpgradeHandler upgradeHandler;
 	public Transform selectedButton;
 	public Text totalGearsCollected;
+	private Animation animation;
 
 	void OnEnable()
 	{
@@ -35,6 +36,7 @@ public class ShowcaseUI : MonoBehaviour {
 	void OnShowcaseEnable()
 	{
 		totalGearsCollected.text = GameController.Instance.GearsRemaining.ToString();
+		GetComponent<Animation>().Play();
 	}
 
 	void OnVehicleUpgrade(Attribute a)

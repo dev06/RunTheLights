@@ -20,8 +20,9 @@ public class LevelCompletePanel : MonoBehaviour {
 	private CanvasGroup canvasGroup;
 
 
+	public  Animation animation;
 
-
+	public bool isOn;
 	public virtual void Toggle(bool b)
 	{
 		if (canvasGroup == null)
@@ -31,6 +32,13 @@ public class LevelCompletePanel : MonoBehaviour {
 		canvasGroup.alpha = b ? 1 : 0;
 		canvasGroup.blocksRaycasts = b;
 
+		if (animation == null)
+		{
+			animation = GetComponent<Animation>();
+		}
+
+
+		isOn = b;
 		if (b)
 			UpdateValues();
 	}

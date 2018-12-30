@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour {
 
-	private static float MIN_SPEED_DROPOFF = .7F;
+	private static float MIN_SPEED_DROPOFF = .8F;
 
 	public ParticleSystem zoomParticles;
+
+	public ParticleSystem[] left, right;
 
 	private float vel;
 
@@ -101,7 +103,7 @@ public class GameInput : MonoBehaviour {
 
 		if (i == 1)
 		{
-			miniBoostSpeed = 2.5f;
+			miniBoostSpeed = 3f;
 		}
 	}
 
@@ -133,6 +135,16 @@ public class GameInput : MonoBehaviour {
 		StopCoroutine("IEndLevelAnimation");
 
 		StartCoroutine("IEndLevelAnimation");
+
+		bool damageNotTaken = VehicleDurability == GameController.ActiveModel.durability.value;
+
+		if (damageNotTaken)
+		{
+			if (EventManager.OnLogMapStat != null)
+			{
+				EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.ZeroDamage, 1);
+			}
+		}
 	}
 
 	IEnumerator IEndLevelAnimation()
@@ -212,6 +224,10 @@ public class GameInput : MonoBehaviour {
 			velocity = Mathf.Clamp(velocity, 0, speedDropOff * selectedModel.Speed * (FuryHandler.InFury ? 1.5f : 1f) * miniBoostSpeed);
 		}
 
+		Vector3 addition = new Vector3(0, (velocity > 0 ? 1f : 0) * (Mathf.PingPong(Time.realtimeSinceStartup, .05f) - .025f), 0);
+		transform.position += addition;
+
+
 		Section.VELOCITY = velocity;
 	}
 
@@ -239,6 +255,23 @@ public class GameInput : MonoBehaviour {
 		}
 
 		float diff = (currentPosition.x - lastPosition.x) * 4f;
+
+		float m = .55f;
+		if (diff < -m)
+		{
+			for (int i = 0; i < left.Length; i++)
+			{
+				left[i].Play();
+			}
+
+		}
+		if (diff > m)
+		{
+			for (int i = 0; i < right.Length; i++)
+			{
+				right[i].Play();
+			}
+		}
 
 		rot += diff;
 

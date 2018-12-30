@@ -5,8 +5,11 @@ using UnityEngine.UI;
 public class TutorialCompletePanel : LevelCompletePanel {
 
 
+
 	public override void UpdateValues()
 	{
 		base.UpdateValues();
+		animation.Play();
+
 	}
 }

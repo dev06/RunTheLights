@@ -56,6 +56,8 @@ public class FuryHandler : MonoBehaviour {
 		EventManager.OnVehicleHit += OnVehicleHit;
 
 		EventManager.OnHitObject += OnHitObject;
+
+		EventManager.OnNearMiss += OnNearMiss;
 	}
 
 
@@ -75,6 +77,8 @@ public class FuryHandler : MonoBehaviour {
 		EventManager.OnVehicleHit -= OnVehicleHit;
 
 		EventManager.OnHitObject -= OnHitObject;
+
+		EventManager.OnNearMiss -= OnNearMiss;
 	}
 
 	void Start()
@@ -266,6 +270,10 @@ public class FuryHandler : MonoBehaviour {
 
 		holding = false;
 
+		holdingTimer = 0;
+
+		canRegisterFury = false;
+
 
 	}
 	void OnFingerDown()
@@ -276,6 +284,39 @@ public class FuryHandler : MonoBehaviour {
 		{
 			furyTime = furyStep;
 		}
+	}
+
+	void OnNearMiss()
+	{
+		TriggerMiniboost();
+	}
+
+	private bool miniBoostActive;
+	public void TriggerMiniboost()
+	{
+		if (miniBoostActive || InFury) return;
+
+		miniBoostActive = true;
+
+		if (EventManager.OnMiniBoost != null)
+		{
+			EventManager.OnMiniBoost(1);
+		}
+
+		StopCoroutine("IStopMiniBoost");
+		StartCoroutine("IStopMiniBoost");
+	}
+
+	IEnumerator IStopMiniBoost()
+	{
+		yield return new WaitForSeconds(.5f);
+
+		if (EventManager.OnMiniBoost != null)
+		{
+			EventManager.OnMiniBoost(0);
+		}
+
+		miniBoostActive = false;
 	}
 
 	public float FuryStep

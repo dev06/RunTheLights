@@ -7,6 +7,7 @@ public class LevelProgression : MonoBehaviour {
 	public Image foreground;
 	public Text currentLevelText;
 	public Text nextLevelText;
+	private float targetFill;
 
 
 	void OnEnable()
@@ -21,7 +22,6 @@ public class LevelProgression : MonoBehaviour {
 	void Start()
 	{
 		UpdateUI();
-		UpdateLevelProgressionTexts();
 	}
 
 	void OnProgressionColliderHit(ProgressionColliderType type)
@@ -33,14 +33,13 @@ public class LevelProgression : MonoBehaviour {
 		}
 	}
 
-	private void UpdateLevelProgressionTexts()
+	void Update()
 	{
-		//currentLevelText.text = LevelController.LEVEL.ToString();
-		//nextLevelText.text = (LevelController.LEVEL + 1).ToString();
+		foreground.fillAmount = Mathf.Lerp(foreground.fillAmount, targetFill, Time.deltaTime * 5f);
 	}
 
 	public void UpdateUI ()
 	{
-		foreground.fillAmount = ((float)GameController.Instance.LightsRanInLevel / (float)LevelController.CHANGE_LEVEL_EVERY);
+		targetFill = ((float)GameController.Instance.LightsRanInLevel / (float)LevelController.CHANGE_LEVEL_EVERY);
 	}
 }
