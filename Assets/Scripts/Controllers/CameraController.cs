@@ -211,7 +211,7 @@ public class CameraController : MonoBehaviour {
 
 				startIntensity = Mathf.SmoothDamp(startIntensity, 0, ref startIntensityVel, Time.deltaTime * 20f);
 
-				continuousShakeIntensity = (FuryHandler.InFury) ? .15f : 0f;
+				continuousShakeIntensity = (FuryHandler.InFury) ? .07f : 0f;
 
 				Vector3 target =  player.transform.position +  heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 

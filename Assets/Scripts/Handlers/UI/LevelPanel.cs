@@ -90,6 +90,9 @@ public class LevelPanel : LevelCompletePanel {
 
 	IEnumerator IAnim()
 	{
+
+		animation.Play("LevelPanel");
+
 		yield return new WaitForSeconds(.5f);
 
 
@@ -97,6 +100,6 @@ public class LevelPanel : LevelCompletePanel {
 
 		targetFill = LevelController.Instance.GetProgress();
 
-		animation.Play("LevelPanel");
+
 	}
 }

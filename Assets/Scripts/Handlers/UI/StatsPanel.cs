@@ -58,7 +58,7 @@ public class StatsPanel : LevelCompletePanel {
 		{
 			currentDamage++;
 			damageDealt.text = "- " + currentDamage.ToString("F0");
-			yield return new WaitForSeconds(Time.deltaTime);
+			yield return new WaitForSeconds(Time.fixedDeltaTime);
 		}
 		damageDealt.text = "- " + targetDamage.ToString("F0");
 
@@ -70,7 +70,7 @@ public class StatsPanel : LevelCompletePanel {
 		{
 			currentFuryBonus++;
 			furyBonus.text = "+ " + currentFuryBonus.ToString("F0");
-			yield return new WaitForSeconds(Time.deltaTime);
+			yield return new WaitForSeconds(Time.fixedDeltaTime);
 		}
 
 		furyBonus.text =  "+ " + targetFuryBonus.ToString("F0");
@@ -90,7 +90,7 @@ public class StatsPanel : LevelCompletePanel {
 			currentTotalGears += add;
 			totalGearsCollected.text =  prefix + Mathf.Abs(currentTotalGears).ToString("F0");
 			animation.Play("StatsPanel_TotalGearsPop");
-			yield return new WaitForSeconds(Time.deltaTime);
+			yield return new WaitForSeconds(Time.fixedDeltaTime);
 		}
 
 		totalGearsCollected.text =  prefix + Mathf.Abs(targetNet).ToString("F0");

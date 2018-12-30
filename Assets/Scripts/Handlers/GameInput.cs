@@ -224,8 +224,8 @@ public class GameInput : MonoBehaviour {
 			velocity = Mathf.Clamp(velocity, 0, speedDropOff * selectedModel.Speed * (FuryHandler.InFury ? 1.5f : 1f) * miniBoostSpeed);
 		}
 
-		Vector3 addition = new Vector3(0, (velocity > 0 ? 1f : 0) * (Mathf.PingPong(Time.realtimeSinceStartup, .05f) - .025f), 0);
-		transform.position += addition;
+		//Vector3 addition = new Vector3(0, (velocity > 0 ? 1f : 0) * (Mathf.PingPong(Time.realtimeSinceStartup, .05f) - .025f), 0);
+		//transform.position += addition;
 
 
 		Section.VELOCITY = velocity;
@@ -256,7 +256,13 @@ public class GameInput : MonoBehaviour {
 
 		float diff = (currentPosition.x - lastPosition.x) * 4f;
 
-		float m = .55f;
+
+
+		rot += diff;
+
+
+		float m = .35f;
+
 		if (diff < -m)
 		{
 			for (int i = 0; i < left.Length; i++)
@@ -272,8 +278,6 @@ public class GameInput : MonoBehaviour {
 				right[i].Play();
 			}
 		}
-
-		rot += diff;
 
 		rot = Mathf.Clamp(rot, -1f, 1f);
 

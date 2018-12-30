@@ -31,7 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -97,12 +97,12 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ea43770edf3611d4a8136f56f3220bba
     vertices: []
     indices: 
     edges: []
     weights: []
-  spritePackingTag: 
+  spritePackingTag: uipanel
   userData: 
   assetBundleName: 
   assetBundleVariant: 
