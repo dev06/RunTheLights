@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
 
 	public static readonly float MAX_CAR_ACC = 50f;
 
-	public static readonly float MAX_CAR_DEC = 50F;
+	public static readonly float MAX_CAR_DEC = 250F;
 
 	public static readonly float MAX_CAR_POWER = 10F;
 
@@ -187,6 +187,9 @@ public class GameController : MonoBehaviour {
 		Save();
 		StopCoroutine("IOnDeath");
 		StartCoroutine("IOnDeath");
+		GearsRemaining += gearsCollected;
+		PlayerPrefs.SetInt("GearsRemaining", GearsRemaining);
+		MapSelectUI.SelectedMap.UpdateValues();
 		SESSION_SCORE = 0;
 	}
 
@@ -269,13 +272,15 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.SetInt("GAMES_PLAYED", GAMES_PLAYED);
 
 		PlayerPrefs.SetInt("APP_OPENED_COUNT", APP_OPENED_COUNT);
+
+
 	}
 
 	void Load()
 	{
 		TutorialEnabled = PlayerPrefs.HasKey("TutorialEnabled") ?  bool.Parse(PlayerPrefs.GetString("TutorialEnabled")) : TriggerTutorial;
 
-		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 500;
+		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 200;
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
 

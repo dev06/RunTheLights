@@ -17,12 +17,12 @@ public class ShowcaseHandler : MonoBehaviour {
 
 	private bool selected;
 
-	private float distanceOffset = 6f;
+	private float distanceOffset = 7f;
 
 	private int selectingIndex;
 
 	//camera offset vehicle.
-	private Vector3 offset = new Vector3(9, 3, 0);
+	private Vector3 offset = new Vector3(15, 5, 0);
 
 	private Vector3 snapPos;
 

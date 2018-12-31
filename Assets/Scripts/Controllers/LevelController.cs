@@ -24,7 +24,8 @@ public class LevelController : MonoBehaviour {
 
 	public void Init()
 	{
-		CHANGE_LEVEL_EVERY = GameController.Instance.ShortLevels ? 3 : 10;
+
+		CHANGE_LEVEL_EVERY = GameController.Instance.ShortLevels ? 3 : MapSelectUI.SelectedMap.Length;
 
 		current_exp = PlayerPrefs.HasKey("current_exp") ? PlayerPrefs.GetFloat("current_exp") : 0f;
 
@@ -36,10 +37,19 @@ public class LevelController : MonoBehaviour {
 	void OnEnable()
 	{
 		EventManager.OnLevelComplete += OnLevelComplete;
+
+		EventManager.OnMapSelected += OnMapSelected;
 	}
 	void OnDisable()
 	{
 		EventManager.OnLevelComplete -= OnLevelComplete;
+
+		EventManager.OnMapSelected -= OnMapSelected;
+	}
+
+	void OnMapSelected(Map m)
+	{
+		CHANGE_LEVEL_EVERY = m.Length;
 	}
 
 	private void OnLevelComplete()
@@ -50,11 +60,7 @@ public class LevelController : MonoBehaviour {
 	public void AddExperience(float exp)
 	{
 		current_exp += exp;
-
-
 	}
-
-
 
 	public bool CheckForLevelIncrement()
 	{

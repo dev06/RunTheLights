@@ -140,7 +140,7 @@ public class TutorialHandler : MonoBehaviour {
 			{
 				tutorialText.text = "Hold to go!";
 
-				if (Section.VELOCITY > 15f)
+				if (Section.VELOCITY > 10f)
 				{
 					pointerDownTimer += Time.deltaTime;
 

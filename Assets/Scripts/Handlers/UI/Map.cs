@@ -9,6 +9,7 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 	public MapUnlockConditions mapUnlockConditions;
 	public MapStatistics mapStats;
 	public float carDelay;
+	public int Length = 10;
 	private Toggle toggle;
 
 	private MapSelectUI mapSelectUI;
@@ -59,8 +60,16 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 		{
 			if (type == (Type)PlayerPrefs.GetInt("SelectedMap"))
 			{
-				MapSelectUI.SelectedMap = this;
-				SetToggle(true);
+				if (this.isUnlocked)
+				{
+					MapSelectUI.SelectedMap = this;
+					SetToggle(true);
+				}
+				else
+				{
+					MapSelectUI.SelectedMap = mapSelectUI.DefaultMap;
+					MapSelectUI.SelectedMap.SetToggle(true);
+				}
 			}
 		}
 	}
@@ -97,6 +106,7 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 
 		if (GameController.SESSION_SCORE > mapStats.Score)
 		{
+
 			mapStats.Score = GameController.SESSION_SCORE;
 		}
 

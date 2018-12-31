@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour {
 	public static Gameplay OnVehicleHit;
 	public static Gameplay OnNearMiss;
 	public static Gameplay OnRestartGame;
+	public static Gameplay OnStartTriggerHit;
 
 
 	public delegate void Fury(int i);

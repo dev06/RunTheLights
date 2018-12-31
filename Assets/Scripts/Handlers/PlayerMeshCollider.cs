@@ -73,7 +73,7 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 	IEnumerator IWait()
 	{
-		yield return new WaitForSeconds(.25f);
+		yield return new WaitForSeconds(1f);
 
 		furyHitThresholdReach = true;
 	}
@@ -81,6 +81,15 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
+
+		if (col.gameObject.tag == "Trigger/StartGame")
+		{
+
+			if (EventManager.OnGameStart != null)
+			{
+				EventManager.OnGameStart();
+			}
+		}
 
 
 		if (col.gameObject.tag == "Trigger/StopProgressionCollider")
@@ -101,32 +110,33 @@ public class PlayerMeshCollider : MonoBehaviour {
 			}
 			else
 			{
-				player.VehicleDurability--;
-
-				GameController.Instance.damageDone = (int)GameController.ActiveModel.durability.value - (int)player.VehicleDurability;
-
-				if (player.VehicleDurability < 0)
+				if (furyHitThresholdReach)
 				{
-					if (GameController.Instance.CanDie)
+					player.VehicleDurability--;
+
+					GameController.Instance.damageDone = (int)GameController.ActiveModel.durability.value - (int)player.VehicleDurability;
+
+					if (player.VehicleDurability < 0)
 					{
-						if (furyHitThresholdReach)
+						if (GameController.Instance.CanDie)
 						{
 							Death(col);
 						}
+
+						player.VehicleDurability = 0;
 					}
-					player.VehicleDurability = 0;
-				}
-				else
-				{
-					TriggerVehicleCrash(col);
-				}
+					else
+					{
+						TriggerVehicleCrash(col);
+					}
 
-				if (EventManager.OnVehicleHit != null)
-				{
-					EventManager.OnVehicleHit();
-				}
+					if (EventManager.OnVehicleHit != null)
+					{
+						EventManager.OnVehicleHit();
+					}
 
-				col.gameObject.GetComponent<Car>().CarHit = true;
+					col.gameObject.GetComponent<Car>().CarHit = true;
+				}
 			}
 		}
 

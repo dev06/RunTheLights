@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MapSelectUI : MonoBehaviour {
 
 	public static Map SelectedMap;
-
+	public Map DefaultMap;
 	public CanvasGroup regularUI, mapSelectUI;
 	public CanvasGroup challengePanelPopup;
 	public Map[] maps;

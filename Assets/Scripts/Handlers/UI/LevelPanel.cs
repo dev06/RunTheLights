@@ -55,6 +55,7 @@ public class LevelPanel : LevelCompletePanel {
 	public override void UpdateValues()
 	{
 		base.UpdateValues();
+		animation.Play("LevelPanel");
 
 		StopCoroutine("IAnim");
 		StartCoroutine("IAnim");
@@ -81,7 +82,10 @@ public class LevelPanel : LevelCompletePanel {
 
 			levelText.text = "Level " + LevelController.LEVEL;
 
-			animation.Play("LevelPanel_NextLevelPop");
+			if (!animation.isPlaying)
+			{
+				animation.Play("LevelPanel_NextLevelPop");
+			}
 		}
 
 	}
@@ -91,7 +95,6 @@ public class LevelPanel : LevelCompletePanel {
 	IEnumerator IAnim()
 	{
 
-		animation.Play("LevelPanel");
 
 		yield return new WaitForSeconds(.5f);
 

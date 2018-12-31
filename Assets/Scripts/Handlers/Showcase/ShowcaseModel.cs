@@ -26,16 +26,18 @@ public class Attribute
 	}
 
 	public Type attributeType;
-	[Header("**********Current*********")]
 
+	[HideInInspector]
 	public float value;
+	[HideInInspector]
 	public int cost;
-
+	[HideInInspector]
 	public int tier;
 
 	[Header("**********Default*********")]
 	public float defaultValue;
 	public int defaultCost;
+	[HideInInspector]
 	public int defaultTier;
 
 	public void AddValue(float value)
@@ -116,10 +118,13 @@ public class ShowcaseModel : MonoBehaviour {
 	public bool forceUnlock;
 	public float acceleration;
 	public float deceleration;
+	public float gearMultiplier;
 
 	public Attribute speed;
 	public Attribute durability;
 	public Attribute furyTime;
+
+	public int totalUpgrades;
 
 	public UnlockConditions[] unlockConditions;
 
@@ -140,6 +145,8 @@ public class ShowcaseModel : MonoBehaviour {
 		speed.LoadValues();
 		durability.LoadValues();
 		furyTime.LoadValues();
+
+		totalUpgrades = speed.tier + durability.tier + furyTime.tier;
 
 		renderer = GetComponent<MeshRenderer>();
 

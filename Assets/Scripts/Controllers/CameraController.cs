@@ -137,7 +137,8 @@ public class CameraController : MonoBehaviour {
 		}
 		else
 		{
-			TriggerPull(0, 20f);
+			TriggerPull((pressed ? -2 : 0), 20f);
+
 		}
 	}
 

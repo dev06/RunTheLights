@@ -24,12 +24,12 @@ public class MenuUI : UserInterface {
 	void OnEnable()
 	{
 		EventManager.OnButtonClick += OnButtonClick;
-		EventManager.OnHitObject += OnHitObject;
+		EventManager.OnGameStart += OnGameStart;
 	}
 	void OnDisable()
 	{
 		EventManager.OnButtonClick -= OnButtonClick;
-		EventManager.OnHitObject -= OnHitObject;
+		EventManager.OnGameStart -= OnGameStart;
 	}
 
 	void Start()
@@ -104,7 +104,7 @@ public class MenuUI : UserInterface {
 		UpdateUI();
 	}
 
-	private void OnHitObject()
+	private void OnGameStart()
 	{
 		Toggle(false);
 	}

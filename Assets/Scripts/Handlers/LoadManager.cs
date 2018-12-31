@@ -34,7 +34,7 @@ public class LoadManager : MonoBehaviour {
 		while (!async.isDone)
 		{
 			float progress  = Mathf.Clamp01(async.progress / 0.9f);
-			loadingText.text = "Loading... " + (progress * 100f) + "%";
+			loadingText.text = "Loading... " + (progress * 100f).ToString("F0") + "%";
 			yield return null;
 		}
 	}

@@ -73,9 +73,9 @@ public class GameUI : UserInterface {
 
 	void OnNearMiss()
 	{
-		int multiplier = FuryHandler.InFury ? 2 : 1;
-		GameController.SetScore(1 * multiplier);
-		nearMisses.TriggerNextText("+" + (1 * multiplier) + " Near Miss!", Color.white) ;
+		int addition = 5;
+		GameController.SetScore(addition);
+		nearMisses.TriggerNextText("+" + (addition) + " Near Miss!", Color.white) ;
 	}
 
 	void OnGearTriggerHit()
@@ -87,6 +87,11 @@ public class GameUI : UserInterface {
 	{
 		durabilityText.text = player.VehicleDurability.ToString();
 
+		if (FuryHandler.InFury)
+		{
+			TriggerChaos();
+		}
+
 		StopCoroutine("ITriggerDamageOverlay");
 
 		StartCoroutine("ITriggerDamageOverlay");
@@ -94,27 +99,17 @@ public class GameUI : UserInterface {
 
 	void OnGameStart()
 	{
+		if (!isToggled)
+		{
+			Toggle(true);
+		}
 		durabilityText.text  = GameController.ActiveModel.durability.value.ToString();
 		gearsText.text = "" + 0;
 	}
 
 	void OnHitObject()
 	{
-		if (!isToggled)
-		{
-			Toggle(true);
-
-			if (EventManager.OnGameStart != null)
-			{
-				EventManager.OnGameStart();
-			}
-
-		}
-
-		if (FuryHandler.InFury)
-		{
-			Haptic.Vibrate(HapticIntensity.Medium);
-		}
+		TriggerChaos();
 	}
 
 	void OnFuryStatus(int i)
@@ -205,5 +200,12 @@ public class GameUI : UserInterface {
 			damageOverlay.color = new Color(red, 0, 0, .75F);
 			yield return null;
 		}
+	}
+
+	public void TriggerChaos()
+	{
+		Haptic.Vibrate(HapticIntensity.Medium);
+		additionText.TriggerNextText("+" + (5)  + " CHAOS!", new Color(1f, .9f, 0F, 1f));
+		GameController.SetScore(5);
 	}
 }
