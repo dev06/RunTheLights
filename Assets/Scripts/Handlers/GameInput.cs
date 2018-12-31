@@ -261,7 +261,7 @@ public class GameInput : MonoBehaviour {
 		rot += diff;
 
 
-		float m = .2f;
+		float m = .1f;
 
 		if (diff < -m)
 		{

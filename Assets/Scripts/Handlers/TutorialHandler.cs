@@ -22,6 +22,8 @@ public class TutorialHandler : MonoBehaviour {
 
 	private float dragTimer;
 
+	private int objectsHit;
+
 	private int gearCollected;
 
 	private CanvasGroup canvasGroup;
@@ -58,6 +60,7 @@ public class TutorialHandler : MonoBehaviour {
 		EventManager.OnFingerUp += OnFingerUp;
 		EventManager.OnFingerDown += OnFingerDown;
 		EventManager.OnLevelComplete += OnLevelComplete;
+		EventManager.OnHitObject += OnHitObject;
 
 	}
 	void OnDisable()
@@ -70,6 +73,7 @@ public class TutorialHandler : MonoBehaviour {
 		EventManager.OnFingerUp -= OnFingerUp;
 		EventManager.OnFingerDown -= OnFingerDown;
 		EventManager.OnLevelComplete -= OnLevelComplete;
+		EventManager.OnHitObject -= OnHitObject;
 
 	}
 
@@ -86,6 +90,11 @@ public class TutorialHandler : MonoBehaviour {
 	void OnGearTriggerHit()
 	{
 		gearCollected++;
+	}
+
+	void OnHitObject()
+	{
+		objectsHit++;
 	}
 	void OnFingerDown()
 	{
@@ -117,17 +126,27 @@ public class TutorialHandler : MonoBehaviour {
 
 		canvasGroup = GetComponent<CanvasGroup>();
 
-		Toggle(false);
+
+		Toggle(GameController.TutorialEnabled);
+		TutorialStatus = GameController.TutorialEnabled;
 
 		tutorialText.text = "Keep holding to go";
 	}
 
 	void OnGameStart()
 	{
-		Toggle(GameController.TutorialEnabled);
-		TutorialStatus = GameController.TutorialEnabled;
+
 	}
 	bool triggered;
+
+
+	public const  int STEP_GO = 0;
+	public const  int STEP_STEER = 1;
+	public const  int STEP_STOP = 2;
+	public const  int STEP_CLEAR = 3;
+	public const  int STEP_GEAR = 4;
+	public const  int STEP_AVOID = 5;
+	public const  int STEP_FINISH = 6;
 
 
 	void Update()
@@ -136,7 +155,7 @@ public class TutorialHandler : MonoBehaviour {
 
 		switch (currentStep)
 		{
-			case 0:
+			case STEP_GO:
 			{
 				tutorialText.text = "Hold to go!";
 
@@ -155,7 +174,7 @@ public class TutorialHandler : MonoBehaviour {
 				break;
 			}
 
-			case 1:
+			case STEP_STEER:
 			{
 				tutorialText.text = "Drag to steer";
 
@@ -173,7 +192,40 @@ public class TutorialHandler : MonoBehaviour {
 				break;
 			}
 
-			case 2:
+			case STEP_STOP:
+			{
+				tutorialText.text = "Let go to stop";
+
+				if (Section.VELOCITY <= 0)
+				{
+					pointerUpTimer += Time.deltaTime;
+
+					if (pointerUpTimer >= 3)
+					{
+						currentStep++;
+					}
+				}
+
+				stepProgress = pointerUpTimer / 3f;
+				break;
+			}
+
+			case STEP_CLEAR:
+			{
+				tutorialText.text = "Clear the road";
+
+				if (objectsHit >= 8)
+				{
+					currentStep++;
+				}
+
+				stepProgress = (float)objectsHit / 8f;
+
+				break;
+			}
+
+
+			case STEP_GEAR:
 			{
 				tutorialText.text = "Collect the gears";
 
@@ -194,35 +246,17 @@ public class TutorialHandler : MonoBehaviour {
 				break;
 			}
 
-			case 3:
-			{
-				tutorialText.text = "Let go to stop";
 
-				if (Section.VELOCITY <= 0)
-				{
-					pointerUpTimer += Time.deltaTime;
-
-					if (pointerUpTimer >= 3)
-					{
-						currentStep++;
-					}
-				}
-
-				stepProgress = pointerUpTimer / 3f;
-				break;
-			}
-
-			case 4:
+			case STEP_AVOID:
 			{
 				tutorialText.text = "Avoid cars at intersection";
-
 				TutorialHandler.ActivateTutorialCars = true;
 				TutorialStatus = false;
 				stepProgress = 1f;
 				break;
 			}
 
-			case 5:
+			case STEP_FINISH:
 			{
 				tutorialText.text = "Good Job!";
 				break;
@@ -237,5 +271,11 @@ public class TutorialHandler : MonoBehaviour {
 	{
 		get { return currentStep; }
 		set {this.currentStep = value; }
+	}
+
+	IEnumerator IStartCarStreams()
+	{
+		yield return new WaitForSeconds(1);
+
 	}
 }

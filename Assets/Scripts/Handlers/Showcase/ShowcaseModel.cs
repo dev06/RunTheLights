@@ -133,7 +133,7 @@ public class ShowcaseModel : MonoBehaviour {
 	public void Init ()
 	{
 		defaultRotation = transform.localRotation;
-		defaultScale = transform.localScale;
+		defaultScale = transform.localScale * .5f;
 
 		targetRotation = defaultRotation;
 		targetScale = defaultScale;
@@ -197,7 +197,7 @@ public class ShowcaseModel : MonoBehaviour {
 
 	public void ResetTransform()
 	{
-		targetScale = defaultScale;
+		targetScale = defaultScale ;
 		targetRotation = defaultRotation;
 		rotationSpeed = 0;
 		selected = false;
@@ -212,7 +212,7 @@ public class ShowcaseModel : MonoBehaviour {
 
 	public void Select()
 	{
-		targetScale = defaultScale * 1.7f;
+		targetScale = defaultScale * 4.5f;
 		rotationSpeed = 50f;
 		selected = true;
 	}
@@ -221,7 +221,7 @@ public class ShowcaseModel : MonoBehaviour {
 	{
 		bool unlocked = false;
 
-		if (unlockAll)
+		if (unlockAll || GameController.Instance.UnlockVehicles)
 		{
 			unlocked = true;
 			return unlocked;

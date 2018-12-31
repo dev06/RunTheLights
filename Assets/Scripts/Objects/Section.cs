@@ -195,10 +195,7 @@ public class Section : MonoBehaviour {
 		}
 		else
 		{
-			if (TutorialHandler.Instance.CurrentStep >= 2)
-			{
-				ToggleGears(true);
-			}
+			ToggleGears(TutorialHandler.Instance.CurrentStep == TutorialHandler.STEP_GEAR);
 		}
 
 
@@ -237,7 +234,11 @@ public class Section : MonoBehaviour {
 
 	private void ToggleGears(bool b)
 	{
-		if (gears == null) return;
+		if (gears == null)
+		{
+
+			return;
+		}
 
 		foreach (Transform t in gears)
 		{

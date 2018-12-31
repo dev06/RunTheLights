@@ -51,7 +51,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 			{
 				if (hoveringVehicle.speed.isMaxedOut() || !hoveringVehicle.speed.canPurchase()) break;
 				hoveringVehicle.speed.AddValue(1);
-				hoveringVehicle.speed.AddCost(5 * Mathf.RoundToInt(hoveringVehicle.gearMultiplier * 100));
+				hoveringVehicle.speed.AddCost(7 * Mathf.RoundToInt(hoveringVehicle.gearMultiplier * 100));
 				hoveringVehicle.speed.IncrementTier();
 				speed.TriggerPop();
 				break;
@@ -61,7 +61,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 			{
 				if (hoveringVehicle.durability.isMaxedOut()  || !hoveringVehicle.durability.canPurchase()) break;
 				hoveringVehicle.durability.AddValue(1);
-				hoveringVehicle.durability.AddCost(5 * Mathf.RoundToInt(hoveringVehicle.gearMultiplier * 100));
+				hoveringVehicle.durability.AddCost(7 * Mathf.RoundToInt(hoveringVehicle.gearMultiplier * 100));
 				hoveringVehicle.durability.IncrementTier();
 				durability.TriggerPop();
 				break;
@@ -70,7 +70,7 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 			{
 				if (hoveringVehicle.furyTime.isMaxedOut() || !hoveringVehicle.furyTime.canPurchase()) break;
 				hoveringVehicle.furyTime.AddValue(1);
-				hoveringVehicle.furyTime.AddCost(5 * Mathf.RoundToInt(hoveringVehicle.gearMultiplier * 100));
+				hoveringVehicle.furyTime.AddCost(7 * Mathf.RoundToInt(hoveringVehicle.gearMultiplier * 100));
 				hoveringVehicle.furyTime.IncrementTier();
 				furyTime.TriggerPop();
 				break;

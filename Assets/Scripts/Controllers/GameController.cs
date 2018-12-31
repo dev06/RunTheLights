@@ -15,6 +15,10 @@ public class GameController : MonoBehaviour {
 
 	public bool ShortLevels = false;
 
+	public bool UnlockVehicles = false;
+
+	public bool UnlockMaps = false;
+
 	public static readonly float MAX_CAR_SPEED = 50f;
 
 	public static readonly float MAX_CAR_ACC = 50f;
@@ -280,7 +284,7 @@ public class GameController : MonoBehaviour {
 	{
 		TutorialEnabled = PlayerPrefs.HasKey("TutorialEnabled") ?  bool.Parse(PlayerPrefs.GetString("TutorialEnabled")) : TriggerTutorial;
 
-		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 200;
+		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 0;
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
 

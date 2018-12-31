@@ -65,7 +65,16 @@ public class ResetGameObject : MonoBehaviour {
 		rb.Sleep();
 		rb.velocity = Vector3.zero;
 
+		if (GameController.TutorialEnabled)
+		{
+			bool b = (TutorialHandler.Instance.CurrentStep == TutorialHandler.STEP_CLEAR) ? (Random.Range(0f, 1f) < .4f) : false;
+			Toggle(b);
+		}
+		else
+		{
 
-		Toggle(Random.Range(0f, 1f) < (!isProp ? (spawningProb + ((FuryHandler.Instance.FuryTime > .5f) ? 1f : 0f)) : 1f));
+			float f = (FuryHandler.Instance.FuryTime > .7f) ? .7f : 0f;
+			Toggle(Random.Range(0f, 1f) < (!isProp ?  f : 1f));
+		}
 	}
 }

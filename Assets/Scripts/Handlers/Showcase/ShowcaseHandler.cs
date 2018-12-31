@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShowcaseHandler : MonoBehaviour {
 
+	public Color showcaseBackgroundColor;
 
 	public Transform showcaseTransform;
 
@@ -53,6 +54,8 @@ public class ShowcaseHandler : MonoBehaviour {
 		cameraController.transform.position = snapPos + offset + new Vector3(0, 0, -50);
 
 		cameraController.SetTransform(snapPos + offset, showcaseTransform.rotation);
+
+		cameraController.SetBackgroundColor(showcaseBackgroundColor);
 	}
 
 

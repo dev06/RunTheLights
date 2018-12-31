@@ -299,7 +299,7 @@ public class MapUnlockConditions
 
 	public bool canUnlockTargetMap()
 	{
-		if (forceUnlock) return true;
+		if (forceUnlock || GameController.Instance.UnlockMaps) return true;
 
 		if (map.mapStats.Score >= goldTarget && specialConditionProgress >= specialConditionTarget)
 		{

@@ -31,26 +31,23 @@ public class CameraController : MonoBehaviour {
 	private float targetFOV;
 	private float fovVel;
 	private float fovThreshold;
+	private float continuousShakeIntensity = .05f;
+	private float startIntensity, startIntensityVel;
 
 	private Vector3 targetPosition;
 
-	private float startIntensity, startIntensityVel;
 
 	private bool inStopZone;
 	private bool isCameraDetached;
 	private bool pressed;
 
 	public BloomOptimized bloom;
-
 	private ScreenOverlay screenOverlay;
-
-	private float continuousShakeIntensity = .05f;
-
 	private GameInput player;
 
 
 	private Animation animation;
-
+	private Color defaultSkyColor;
 
 
 	void Awake()
@@ -160,6 +157,7 @@ public class CameraController : MonoBehaviour {
 	{
 		SetTransform(defaultTransform.position, defaultTransform.rotation);
 		sectionContainer.gameObject.SetActive(true);
+		SetBackgroundColor(defaultSkyColor);
 	}
 
 	void OnShowcaseEnable()
@@ -186,7 +184,7 @@ public class CameraController : MonoBehaviour {
 		parent = transform.parent;
 		defaultPositon = transform.localPosition;
 		targetPosition = transform.position;
-
+		defaultSkyColor = Camera.main.backgroundColor;
 		defaultFOV = Camera.main.fieldOfView;
 		stopFOV = defaultFOV + 35f;
 		targetFOV = defaultFOV;
@@ -306,6 +304,11 @@ public class CameraController : MonoBehaviour {
 	{
 		targetPosition = position;
 		transform.rotation = rotation;
+	}
+
+	public void SetBackgroundColor(Color color)
+	{
+		Camera.main.backgroundColor = color;
 	}
 
 	public bool InStopZone

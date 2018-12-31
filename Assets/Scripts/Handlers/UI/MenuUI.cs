@@ -35,6 +35,10 @@ public class MenuUI : UserInterface {
 	void Start()
 	{
 		UpdateUI();
+
+
+		Toggle(!GameController.TutorialEnabled);
+
 	}
 
 	void OnButtonClick(ButtonID buttonID)
