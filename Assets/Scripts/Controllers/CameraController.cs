@@ -195,6 +195,7 @@ public class CameraController : MonoBehaviour {
 
 	float s = 0, vv;
 	Vector3 lerpVector;
+
 	void Update ()
 	{
 
@@ -214,7 +215,7 @@ public class CameraController : MonoBehaviour {
 
 				Vector3 target =  player.transform.position +  heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 
-				lerpVector = Vector3.Lerp(lerpVector, target, Time.deltaTime * 30f);
+				lerpVector = Vector3.Lerp(lerpVector, target, Time.deltaTime * 20f);
 
 				lerpVector.y = target.y;
 

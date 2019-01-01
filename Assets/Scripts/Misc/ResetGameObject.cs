@@ -73,7 +73,7 @@ public class ResetGameObject : MonoBehaviour {
 		else
 		{
 
-			float f = (FuryHandler.Instance.FuryTime > .7f) ? .7f : 0f;
+			float f = (FuryHandler.Instance.FuryTime > .45f) ? .7f : 0f;
 			Toggle(Random.Range(0f, 1f) < (!isProp ?  f : 1f));
 		}
 	}

@@ -35,6 +35,7 @@ public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 		if (buttonID == ButtonID.RestartGame)
 		{
 			Time.timeScale = 1;
+
 			if (EventManager.OnRestartGame != null)
 			{
 				EventManager.OnRestartGame();

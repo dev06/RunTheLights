@@ -119,7 +119,7 @@ public class FuryHandler : MonoBehaviour {
 		{
 			holdingTimer += Time.deltaTime;
 
-			if (holdingTimer > .5f)
+			if (holdingTimer > .35f)
 			{
 				canRegisterFury = true;
 			}
@@ -273,8 +273,6 @@ public class FuryHandler : MonoBehaviour {
 		holdingTimer = 0;
 
 		canRegisterFury = false;
-
-
 	}
 	void OnFingerDown()
 	{

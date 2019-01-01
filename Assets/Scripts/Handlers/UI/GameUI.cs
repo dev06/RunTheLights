@@ -19,6 +19,9 @@ public class GameUI : UserInterface {
 	private GameInput player;
 	private CameraController camera;
 
+
+	private string[] furyMessages = {" Wrecked! " , " Fatality! "};
+
 	public override void Init()
 	{
 		base.Init();
@@ -205,7 +208,8 @@ public class GameUI : UserInterface {
 	public void TriggerChaos()
 	{
 		Haptic.Vibrate(HapticIntensity.Medium);
-		additionText.TriggerNextText("+" + (5)  + " CHAOS!", new Color(1f, .9f, 0F, 1f));
+		string message = FuryHandler.InFury ? furyMessages[Random.Range(0, furyMessages.Length)] : " CHAOS! ";
+		additionText.TriggerNextText("+" + (5)  +  message, new Color(1f, .9f, 0F, 1f));
 		GameController.SetScore(5);
 	}
 }

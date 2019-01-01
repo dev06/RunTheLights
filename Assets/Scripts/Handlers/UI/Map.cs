@@ -340,6 +340,8 @@ public class MapUnlockConditions
 				break;
 			}
 		}
+
+		specialConditionProgress = Mathf.Clamp(specialConditionProgress, 0, specialConditionTarget);
 	}
 
 	public bool hasBronze()

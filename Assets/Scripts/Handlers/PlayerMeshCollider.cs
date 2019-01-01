@@ -165,7 +165,7 @@ public class PlayerMeshCollider : MonoBehaviour {
 		}
 
 
-		if (col.gameObject.tag == "Trigger/NearMiss" && !FuryHandler.InFury)
+		if (!FuryHandler.InFury && col.gameObject.tag == "Trigger/NearMiss")
 		{
 			if (col.gameObject.GetComponentInParent<Car>().CarHit == false)
 			{

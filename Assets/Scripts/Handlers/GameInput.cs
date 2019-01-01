@@ -210,8 +210,6 @@ public class GameInput : MonoBehaviour {
 
 				velocity += Time.deltaTime * selectedModel.acceleration;
 
-
-
 				Control();
 			}
 			else
@@ -226,7 +224,6 @@ public class GameInput : MonoBehaviour {
 
 		//Vector3 addition = new Vector3(0, (velocity > 0 ? 1f : 0) * (Mathf.PingPong(Time.realtimeSinceStartup, .05f) - .025f), 0);
 		//transform.position += addition;
-
 
 		Section.VELOCITY = velocity;
 	}
@@ -294,8 +291,6 @@ public class GameInput : MonoBehaviour {
 			transform.GetChild(0).transform.GetChild(i).gameObject.SetActive(false);
 		}
 
-
-
 		ShowcaseModel model = showcaseContainer.GetChild(index).GetComponent<ShowcaseModel>();
 
 		if (!model.isUnlocked())
@@ -315,11 +310,7 @@ public class GameInput : MonoBehaviour {
 
 		GameController.ActiveModel = model;
 
-
 		CameraController.Instance.SetCameraHeightOffset(model.cameraPositionOffset);
-
-
-
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)

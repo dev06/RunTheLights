@@ -65,6 +65,9 @@ public class ShowcaseHandler : MonoBehaviour {
 		{
 			GameController.SELECTED_MODEL_INDEX = selectingIndex;
 
+			PlayerPrefs.SetInt("SELECTED_MODEL_INDEX", GameController.SELECTED_MODEL_INDEX);
+
+
 			if (EventManager.OnShowcaseModelSelected != null)
 			{
 				EventManager.OnShowcaseModelSelected(selectedShowcaseModel);
