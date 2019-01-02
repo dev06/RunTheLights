@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour {
 
 	public static CameraController Instance;
 
+	public Light directionalLight;
 	public Transform sectionContainer;
 	public Transform showcaseTransform;
 	public Transform defaultTransform;
@@ -77,6 +78,8 @@ public class CameraController : MonoBehaviour {
 
 		EventManager.OnFuryStatus += OnFuryStatus;
 		EventManager.OnMiniBoost += OnMiniBoost;
+
+		EventManager.OnMapSelected += OnMapSelected;
 	}
 	void OnDisable()
 	{
@@ -90,6 +93,8 @@ public class CameraController : MonoBehaviour {
 		EventManager.OnShowcaseModelSelected -= OnShowcaseModelSelected;
 		EventManager.OnFuryStatus -= OnFuryStatus;
 		EventManager.OnMiniBoost -= OnMiniBoost;
+
+		EventManager.OnMapSelected -= OnMapSelected;
 	}
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
@@ -158,12 +163,18 @@ public class CameraController : MonoBehaviour {
 		SetTransform(defaultTransform.position, defaultTransform.rotation);
 		sectionContainer.gameObject.SetActive(true);
 		SetBackgroundColor(defaultSkyColor);
+		directionalLight.color = defaultSkyColor;
 	}
 
 	void OnShowcaseEnable()
 	{
 		sectionContainer.gameObject.SetActive(false);
+		directionalLight.color = Color.white;
+	}
 
+	void OnMapSelected(Map m)
+	{
+		UpdateSkyColor();
 	}
 
 	void OnHitObject()
@@ -176,6 +187,15 @@ public class CameraController : MonoBehaviour {
 		TriggerShake(1f, 10f);
 	}
 
+	public void UpdateSkyColor()
+	{
+		defaultSkyColor = MapSelectUI.SelectedMap.skyColor;
+		directionalLight.color = defaultSkyColor;
+		RenderSettings.fogColor = defaultSkyColor;
+		SetBackgroundColor(defaultSkyColor);
+
+	}
+
 	void Start ()
 	{
 		//UpdateTransform();
@@ -184,13 +204,13 @@ public class CameraController : MonoBehaviour {
 		parent = transform.parent;
 		defaultPositon = transform.localPosition;
 		targetPosition = transform.position;
-		defaultSkyColor = Camera.main.backgroundColor;
 		defaultFOV = Camera.main.fieldOfView;
 		stopFOV = defaultFOV + 35f;
 		targetFOV = defaultFOV;
 
 		player = FindObjectOfType<GameInput>();
 		animation = GetComponent<Animation>();
+
 	}
 
 	float s = 0, vv;

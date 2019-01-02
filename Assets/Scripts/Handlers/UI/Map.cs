@@ -11,6 +11,7 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 	public float carDelay;
 	public int Length = 10;
 	public float LevelExperienceMult = 1;
+	public Color skyColor;
 	private Toggle toggle;
 
 	private MapSelectUI mapSelectUI;
@@ -53,8 +54,8 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 			if (type == Type.Buildings && MapSelectUI.SelectedMap == null)
 			{
 				MapSelectUI.SelectedMap = this;
-
 				SetToggle(true);
+				CameraController.Instance.UpdateSkyColor();
 			}
 		}
 		else
@@ -65,11 +66,13 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 				{
 					MapSelectUI.SelectedMap = this;
 					SetToggle(true);
+					CameraController.Instance.UpdateSkyColor();
 				}
 				else
 				{
 					MapSelectUI.SelectedMap = mapSelectUI.DefaultMap;
 					MapSelectUI.SelectedMap.SetToggle(true);
+					CameraController.Instance.UpdateSkyColor();
 				}
 			}
 		}
