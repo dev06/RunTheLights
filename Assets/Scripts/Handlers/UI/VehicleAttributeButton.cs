@@ -6,7 +6,7 @@ public class VehicleAttributeButton : MonoBehaviour {
 
 	public Text costText;
 	public Text valueText;
-	public Image fillImage;
+	public Image fillImage, gearIcon;
 
 	private float targetFillAmount;
 	private float vel;
@@ -15,6 +15,7 @@ public class VehicleAttributeButton : MonoBehaviour {
 	{
 		fillImage.fillAmount = Mathf.SmoothDamp(fillImage.fillAmount, targetFillAmount, ref vel, Time.deltaTime * 10f);
 	}
+
 
 	public string CostText
 	{
@@ -37,5 +38,11 @@ public class VehicleAttributeButton : MonoBehaviour {
 	public void TriggerPop()
 	{
 		GetComponent<Animation>().Play();
+	}
+
+	public void SetCostTextColor(Color c)
+	{
+		gearIcon.color = c;
+		costText.color = c;
 	}
 }

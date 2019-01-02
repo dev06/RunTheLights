@@ -143,11 +143,14 @@ public class PlayerMeshCollider : MonoBehaviour {
 		if (col.gameObject.tag == "Objects/Gear")
 		{
 			int gearMult = FuryHandler.InFury ? 2 : 1;
+
 			GameController.Instance.gearsCollected += gearMult;
 
 			Gear gear = col.gameObject.transform.GetComponent<Gear>();
 
-			gear.Toggle(false);
+			//gear.Toggle(false);
+
+			gear.Animate();
 
 			if (EventManager.OnGearTriggerHit != null)
 			{

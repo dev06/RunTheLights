@@ -34,6 +34,12 @@ public class VehicleUpgradeHandler : MonoBehaviour {
 		durability.CostText = (model.durability.isMaxedOut()) ? "-" : model.durability.cost.ToString();
 		durability.FillAmount = model.durability.fill;
 
+
+		Color lockedColor = new Color(1f, .6f, .6f, 1f);
+		speed.SetCostTextColor((GameController.Instance.gearsRemaining >= model.speed.cost) ? Color.white : lockedColor);
+		durability.SetCostTextColor((GameController.Instance.gearsRemaining >= model.durability.cost) ? Color.white : lockedColor);
+		furyTime.SetCostTextColor((GameController.Instance.gearsRemaining >= model.furyTime.cost) ? Color.white : lockedColor);
+
 		vehicleGearMultiplier.text = "+" + (model.gearMultiplier * 100f) + "% more gears" ;
 
 		hoveringVehicle = model;
