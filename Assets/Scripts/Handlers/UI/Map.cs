@@ -134,6 +134,18 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 		}
 
 		toggle.interactable = isUnlocked;
+
+		if (isUnlocked)
+		{
+			if (!PlayerPrefs.HasKey("MapUnlockedEventSent_" + GetDisplayName()))
+			{
+				if (FacebookManager.instance.EventSent(GetDisplayName()))
+				{
+					PlayerPrefs.SetString("MapUnlockedEventSent_" + GetDisplayName(), "Sent");
+				}
+			}
+		}
+
 	}
 
 	public void SetToggle(bool b)

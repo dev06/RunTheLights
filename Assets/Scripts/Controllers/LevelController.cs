@@ -32,6 +32,25 @@ public class LevelController : MonoBehaviour {
 		target_exp = PlayerPrefs.HasKey("target_exp") ? PlayerPrefs.GetFloat("target_exp") : 10f;
 
 		LEVEL = PlayerPrefs.HasKey("LEVEL") ? PlayerPrefs.GetInt("LEVEL") : 0;
+
+
+		if (LEVEL > 25)
+		{
+			FacebookManager.instance.EventSent("LEVEL_25");
+		} else if (LEVEL > 20)
+		{
+			FacebookManager.instance.EventSent("LEVEL_20");
+		} else if (LEVEL > 15)
+		{
+			FacebookManager.instance.EventSent("LEVEL_15");
+
+		} else if (LEVEL > 10)
+		{
+			FacebookManager.instance.EventSent("LEVEL_10");
+		} else if (LEVEL > 5)
+		{
+			FacebookManager.instance.EventSent("LEVEL_5");
+		}
 	}
 
 	void OnEnable()

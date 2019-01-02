@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarStream : MonoBehaviour {
 
-	public static bool activateCars = true;
+	public static bool activateCars = false;
 	private Section parentSection;
 
 	public List<Transform> cars = new List<Transform>();

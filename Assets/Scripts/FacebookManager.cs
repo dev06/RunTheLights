@@ -4,27 +4,46 @@ using UnityEngine;
 using Facebook.Unity.Mobile;
 public class FacebookManager : MonoBehaviour {
 
-	public static FacebookManager instance; 
+	public static FacebookManager instance;
+	private static bool isInit;
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject); 
-		if(instance == null)
+		DontDestroyOnLoad(gameObject);
+		if (instance == null)
 		{
-			instance = this; 
+			instance = this;
 		}
 		else
 		{
-			Destroy(gameObject); 
+			Destroy(gameObject);
 		}
-#if !UNITY_EDITOR
+
+		Init();
+
+	}
+
+	public void Init()
+	{
 		if (!Facebook.Unity.FB.IsInitialized)
 		{
 			Facebook.Unity.FB.Init();
-		} 
+			isInit = true;
+		}
 		else
 		{
 			Facebook.Unity.FB.ActivateApp();
 		}
-#endif
+	}
+
+
+	public bool EventSent(string name)
+	{
+		if (!Facebook.Unity.FB.IsInitialized)
+		{
+			Facebook.Unity.FB.Init();
+			return false;
+		}
+		Facebook.Unity.FB.LogAppEvent(name, 1);
+		return true;
 	}
 }
