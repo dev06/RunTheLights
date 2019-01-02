@@ -139,7 +139,7 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 		{
 			if (!PlayerPrefs.HasKey("MapUnlockedEventSent_" + GetDisplayName()))
 			{
-				if (FacebookManager.instance.EventSent(GetDisplayName()))
+				if (FacebookManager.instance.EventSent("MAP_UNLOCKED_" + GetDisplayName()))
 				{
 					PlayerPrefs.SetString("MapUnlockedEventSent_" + GetDisplayName(), "Sent");
 				}

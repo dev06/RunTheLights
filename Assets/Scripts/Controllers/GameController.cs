@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
 
 	public static bool TutorialEnabled;
 
-	private int ShowRateDialogAtEvery = 5; //app starts
+	private int ShowRateDialogAtEvery = 2; //app starts
 
 	private static bool sdk_init;
 
@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour {
 		{
 			APP_OPENED_COUNT++;
 
-			if (APP_OPENED_COUNT % ShowRateDialogAtEvery == 0 && BEST_SCORE >= 50)
+			if (APP_OPENED_COUNT % ShowRateDialogAtEvery == 0)
 			{
 				if (Application.platform == RuntimePlatform.IPhonePlayer)
 				{
@@ -182,6 +182,12 @@ public class GameController : MonoBehaviour {
 	void OnGameStart()
 	{
 		GAMES_PLAYED++;
+
+		FacebookManager.instance.EventSent("MAP_PLAYED_" + MapSelectUI.SelectedMap.GetDisplayName());
+		FacebookManager.instance.EventSent("VEHICLE_USED_" + ActiveModel.modelType);
+
+		Debug.Log( MapSelectUI.SelectedMap.GetDisplayName() + " " + ActiveModel.modelType);
+
 	}
 
 
