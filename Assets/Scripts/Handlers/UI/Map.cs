@@ -10,6 +10,7 @@ public class Map : MonoBehaviour, IPointerClickHandler {
 	public MapStatistics mapStats;
 	public float carDelay;
 	public int Length = 10;
+	public float LevelExperienceMult = 1;
 	private Toggle toggle;
 
 	private MapSelectUI mapSelectUI;

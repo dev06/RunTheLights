@@ -99,7 +99,7 @@ public class LevelPanel : LevelCompletePanel {
 		yield return new WaitForSeconds(.5f);
 
 
-		LevelController.Instance.AddExperience(7);
+		LevelController.Instance.AddExperience(7 * MapSelectUI.SelectedMap.LevelExperienceMult);
 
 		targetFill = LevelController.Instance.GetProgress();
 

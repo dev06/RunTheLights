@@ -32,7 +32,7 @@ public class StatsPanel : LevelCompletePanel {
 		base.UpdateValues();
 		if (GameController.ActiveModel == null) return;
 		int total = GameController.Instance.furyBonus + GameController.Instance.gearsCollected;
-		int damage = Mathf.RoundToInt((total * .1f) * (GameController.Instance.damageDone));
+		int damage = Mathf.RoundToInt((total * .2f) * (GameController.Instance.damageDone));
 		int gross = total - damage;
 		int vehicleMult = Mathf.RoundToInt((total * GameController.ActiveModel.gearMultiplier));
 		int net = gross + vehicleMult;

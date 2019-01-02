@@ -218,6 +218,11 @@ public class FuryHandler : MonoBehaviour {
 		}
 		camera.BloomIntensity = camera.BloomIntensity + .7f;
 
+		if (EventManager.OnLogMapStat != null)
+		{
+			EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.FuryAchieved, 1);
+		}
+
 		furyStarted = true;
 	}
 

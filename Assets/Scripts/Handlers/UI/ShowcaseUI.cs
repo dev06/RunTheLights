@@ -12,6 +12,8 @@ public class ShowcaseUI : MonoBehaviour {
 	public Text totalGearsCollected;
 	private Animation animation;
 
+	private Text selectedButtonText;
+
 	void OnEnable()
 	{
 		EventManager.OnShowcaseModelHover += OnShowcaseModelHover;
@@ -31,6 +33,11 @@ public class ShowcaseUI : MonoBehaviour {
 		EventManager.OnShowcaseEnable -= OnShowcaseEnable;
 
 		EventManager.OnVehicleUpgrade -= OnVehicleUpgrade;
+	}
+
+	void Start()
+	{
+		selectedButtonText = selectedButton.GetComponentInChildren<Text>();
 	}
 
 	void OnShowcaseEnable()
@@ -65,6 +72,8 @@ public class ShowcaseUI : MonoBehaviour {
 
 	void OnShowcaseModelSelected(ShowcaseModel model)
 	{
+		if (selectedButtonText.text != "Active")
+			selectedButton.GetComponent<Animation>().Play();
 		ToggleActiveSelectButton((model.modelType == GameController.ActiveModel.modelType));
 
 	}
@@ -72,12 +81,12 @@ public class ShowcaseUI : MonoBehaviour {
 
 	void ToggleActiveSelectButton(bool b)
 	{
+
 		selectedButton.GetComponent<Image>().color = b ? new Color(0 / 255f, 154f / 255f, 255F / 255f, 1f) : new Color(1, 1, 1, 1);
 
 
-		Text text = selectedButton.GetComponentInChildren<Text>();
-		text.color = b ? Color.white : Color.black;
+		selectedButtonText.color = b ? Color.white : Color.black;
 
-		text.text = b ? "Active" : "Select";
+		selectedButtonText.text = b ? "Active" : "Select";
 	}
 }
