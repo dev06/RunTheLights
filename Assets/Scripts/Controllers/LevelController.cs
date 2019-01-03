@@ -36,20 +36,20 @@ public class LevelController : MonoBehaviour {
 
 		if (LEVEL > 25)
 		{
-			FacebookManager.instance.EventSent("LEVEL_25");
+			FacebookManager.instance.EventSent("LEVEL_25:");
 		} else if (LEVEL > 20)
 		{
-			FacebookManager.instance.EventSent("LEVEL_20");
+			FacebookManager.instance.EventSent("LEVEL_20:");
 		} else if (LEVEL > 15)
 		{
-			FacebookManager.instance.EventSent("LEVEL_15");
+			FacebookManager.instance.EventSent("LEVEL_15:");
 
 		} else if (LEVEL > 10)
 		{
-			FacebookManager.instance.EventSent("LEVEL_10");
+			FacebookManager.instance.EventSent("LEVEL_10:");
 		} else if (LEVEL > 5)
 		{
-			FacebookManager.instance.EventSent("LEVEL_5");
+			FacebookManager.instance.EventSent("LEVEL_5:");
 		}
 	}
 
@@ -73,6 +73,9 @@ public class LevelController : MonoBehaviour {
 
 	private void OnLevelComplete()
 	{
+
+		FacebookManager.instance.EventSent("LEVEL_COMPLETED:" + MapSelectUI.SelectedMap.GetDisplayName());
+
 		GameController.Instance.Save();
 	}
 

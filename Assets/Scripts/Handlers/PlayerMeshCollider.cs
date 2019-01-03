@@ -198,9 +198,15 @@ public class PlayerMeshCollider : MonoBehaviour {
 	{
 
 		GameController.GameOver = true;
+
 		explosion.Play();
+
 		col.transform.gameObject.SetActive(false);
+
 		Toggle(false);
+
+		FacebookManager.instance.EventSent("DEATH:" + MapSelectUI.SelectedMap.GetDisplayName());
+
 		if (EventManager.OnGameOver != null)
 		{
 			EventManager.OnGameOver();

@@ -80,8 +80,6 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-
-
 	void Awake()
 	{
 		if (Instance == null)
@@ -187,8 +185,8 @@ public class GameController : MonoBehaviour {
 	{
 		GAMES_PLAYED++;
 
-		FacebookManager.instance.EventSent("MAP_PLAYED_" + MapSelectUI.SelectedMap.GetDisplayName());
-		FacebookManager.instance.EventSent("VEHICLE_USED_" + ActiveModel.modelType);
+		FacebookManager.instance.EventSent("MAP_PLAYED:" + MapSelectUI.SelectedMap.GetDisplayName());
+		FacebookManager.instance.EventSent("VEHICLE_USED:" + ActiveModel.modelType);
 	}
 
 
