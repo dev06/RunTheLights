@@ -20,6 +20,8 @@ public class Car : MonoBehaviour {
 
 	private bool carHit;
 
+	private CarStream parentCarStream;
+
 
 	void Start ()
 	{
@@ -72,5 +74,11 @@ public class Car : MonoBehaviour {
 	{
 		get {return carHit;}
 		set { this.carHit = value; }
+	}
+
+	public CarStream ParentCarStream
+	{
+		get {return parentCarStream; }
+		set {this.parentCarStream = value;}
 	}
 }

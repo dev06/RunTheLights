@@ -136,6 +136,7 @@ public class PlayerMeshCollider : MonoBehaviour {
 					}
 
 					col.gameObject.GetComponent<Car>().CarHit = true;
+					col.gameObject.GetComponent<Car>().ParentCarStream.ParentSection.CarHitAtLight = true;
 				}
 			}
 		}

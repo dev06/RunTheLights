@@ -308,8 +308,6 @@ public class CameraController : MonoBehaviour {
 
 	public void TriggerJerk()
 	{
-
-
 		StopCoroutine("IStopJerk");
 		StartCoroutine("IStopJerk");
 	}
@@ -320,7 +318,7 @@ public class CameraController : MonoBehaviour {
 
 		if (!FuryHandler.InFury)
 		{
-			float multiplier = (FuryHandler.Instance.FuryStep == 1) ? 1f : ((FuryHandler.Instance.FuryStep == 2) ? 1.5f : 1f);
+			float multiplier = (FuryHandler.Instance.FuryStep == 1) ? 1f : ((FuryHandler.Instance.FuryStep == 2) ? 1.3f : 1f);
 			TriggerPull(-3f * multiplier, 6f);
 			TriggerShake(.3f * multiplier, 18f);
 			yield return new WaitForSeconds(.1f);

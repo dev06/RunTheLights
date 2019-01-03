@@ -23,17 +23,11 @@ public class CarStream : MonoBehaviour {
 
 	void OnEnable()
 	{
-		EventManager.OnSectionPool += OnSectionPool;
 	}
 	void OnDisable()
 	{
-		EventManager.OnSectionPool -= OnSectionPool;
 	}
 
-	void OnSectionPool(SectionType type)
-	{
-
-	}
 
 	void Start ()
 	{
@@ -55,6 +49,8 @@ public class CarStream : MonoBehaviour {
 			clone.SetActive(false);
 
 			clone.transform.rotation = Quaternion.Euler(new Vector3(0, direction * 90, 0));
+
+			clone.GetComponent<Car>().ParentCarStream = this;
 
 			cars.Add(clone.transform);
 		}
@@ -117,6 +113,12 @@ public class CarStream : MonoBehaviour {
 		{
 			currentCarIndex = 0;
 		}
+	}
+
+	public Section ParentSection
+	{
+		get {return parentSection; }
+		set {this.parentSection = value; }
 	}
 
 }

@@ -93,6 +93,7 @@ public class GameUI : UserInterface {
 	void OnGearTriggerHit()
 	{
 		gearsText.text = GameController.Instance.gearsCollected.ToString();
+		Haptic.Vibrate(HapticIntensity.Light);
 	}
 
 	void OnVehicleHit()
@@ -156,7 +157,6 @@ public class GameUI : UserInterface {
 	}
 
 	bool active;
-
 	void OnProgressionColliderHit(ProgressionColliderType type)
 	{
 		if (disableAdditionalTexts) { return; }

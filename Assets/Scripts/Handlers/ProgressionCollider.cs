@@ -12,12 +12,20 @@ public class ProgressionCollider : MonoBehaviour {
 
 	public ProgressionColliderType colliderType;
 
+	private Section parentSection;
+
 	void OnTriggerEnter(Collider col)
 	{
+		if (colliderType == ProgressionColliderType.Stop)
+		{
+			Section.ACTIVE_SECTION = ParentSection;
+		}
 		if (EventManager.OnProgressionColliderHit != null)
 		{
 			EventManager.OnProgressionColliderHit(colliderType);
 		}
+
+
 	}
 
 	void OnTriggerExit(Collider col)
@@ -25,6 +33,19 @@ public class ProgressionCollider : MonoBehaviour {
 		if (EventManager.OnProgressionColliderExit != null)
 		{
 			EventManager.OnProgressionColliderExit(colliderType);
+		}
+	}
+
+	public Section ParentSection
+	{
+		get
+		{
+			if (parentSection == null)
+			{
+				parentSection = transform.GetComponentInParent<Section>();
+			}
+
+			return parentSection;
 		}
 	}
 }

@@ -37,6 +37,8 @@ public class Section : MonoBehaviour {
 
 	public int ZoneID = -1;
 
+	public static Section ACTIVE_SECTION;
+
 	public SectionCategory category;
 
 	public GameObject prefab;
@@ -74,23 +76,27 @@ public class Section : MonoBehaviour {
 
 	private bool canPoolSection = true;
 
+	private bool carHitAtLight;
+
 
 	void OnEnable()
 	{
 		EventManager.OnLevelComplete += OnLevelComplete;
-
-		EventManager.OnTutorialStep += OnTutorialStep;
 	}
 
 	void OnDisable()
 	{
 		EventManager.OnLevelComplete -= OnLevelComplete;
-
-		EventManager.OnTutorialStep -= OnTutorialStep;
 	}
 
 	public void Init()
 	{
+
+		if (ACTIVE_SECTION == null && type == SectionType.Section_0)
+		{
+			ACTIVE_SECTION = this;
+		}
+
 		sectionContainer = FindObjectOfType<SectionContainer>();
 
 		move = true;
@@ -173,6 +179,8 @@ public class Section : MonoBehaviour {
 
 				connectedSection = null;
 			}
+
+
 		}
 	}
 
@@ -188,6 +196,8 @@ public class Section : MonoBehaviour {
 				}
 			}
 		}
+
+		CarHitAtLight = false;
 
 		if (GameController.TutorialEnabled == false)
 		{
@@ -221,15 +231,16 @@ public class Section : MonoBehaviour {
 		}
 	}
 
+	public bool CarHitAtLight
+	{
+		get { return carHitAtLight; }
+		set {this.carHitAtLight = value; }
+	}
+
 
 	private void OnLevelComplete()
 	{
 		canPoolSection = false;
-	}
-
-	void OnTutorialStep(int step)
-	{
-
 	}
 
 	private void ToggleGears(bool b)
