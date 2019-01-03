@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour {
 
 	public bool ShortLevels = false;
 
+	public bool GodMode = false;
+
 	public bool UnlockVehicles = false;
 
 	public bool UnlockMaps = false;
@@ -82,8 +84,6 @@ public class GameController : MonoBehaviour {
 
 	void Awake()
 	{
-
-
 		if (Instance == null)
 		{
 			Instance = this;
@@ -96,6 +96,10 @@ public class GameController : MonoBehaviour {
 			GameAnalytics.Initialize();
 			sdk_init = true;
 		}
+
+		GodMode = PlayerPrefs.HasKey("GodModeEnabled") ? true : false;
+
+		UnlockVehicles = UnlockMaps = GodMode;
 
 		Dummy.SetActive(false);
 
@@ -185,9 +189,6 @@ public class GameController : MonoBehaviour {
 
 		FacebookManager.instance.EventSent("MAP_PLAYED_" + MapSelectUI.SelectedMap.GetDisplayName());
 		FacebookManager.instance.EventSent("VEHICLE_USED_" + ActiveModel.modelType);
-
-		Debug.Log( MapSelectUI.SelectedMap.GetDisplayName() + " " + ActiveModel.modelType);
-
 	}
 
 
@@ -290,7 +291,7 @@ public class GameController : MonoBehaviour {
 	{
 		TutorialEnabled = PlayerPrefs.HasKey("TutorialEnabled") ?  bool.Parse(PlayerPrefs.GetString("TutorialEnabled")) : TriggerTutorial;
 
-		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 0;
+		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : (GodMode ? 99999999 : 0);
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
 
@@ -312,6 +313,16 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.SetString("Vibration", Haptic.Enabled.ToString());
 
 		Haptic.Vibrate(HapticIntensity.Medium);
+	}
+
+	public void ActivateGodMode()
+	{
+		PlayerPrefs.SetInt("GodModeEnabled", 1);
+		Application.Quit();
+
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+#endif
 	}
 }
 

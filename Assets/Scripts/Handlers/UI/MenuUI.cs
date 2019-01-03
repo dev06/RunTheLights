@@ -12,7 +12,10 @@ public class MenuUI : UserInterface {
 	public Sprite vibrateOn, vibrateOff;
 
 	public Text levelText, totalGearsText;
+
 	public Image fill;
+
+	private int helpHitCount;
 
 	public override void Init()
 	{
@@ -43,32 +46,57 @@ public class MenuUI : UserInterface {
 
 	void OnButtonClick(ButtonID buttonID)
 	{
-		if (buttonID == ButtonID.MoreInfo)
-		{
-			helpUI.alpha = 1;
-			helpUI.blocksRaycasts = true;
-			helpUI.transform.GetComponent<Animation>().Play();
-		}
-		else
-		{
-			helpUI.alpha = 0;
-			helpUI.blocksRaycasts = false;
-		}
 
-		if (buttonID == ButtonID.Showcase)
+		switch (buttonID)
 		{
-			EnableShowcase();
-		}
+			case ButtonID.Showcase:
+			{
+				EnableShowcase();
+				break;
+			}
 
-		if (buttonID == ButtonID.Back)
-		{
-			DisableShowcase();
-		}
+			case ButtonID.VibrateToggle:
+			{
+				GameController.Instance.ToggleVibration(!Haptic.Enabled);
+				vibrationImage.sprite = Haptic.Enabled ? vibrateOn : vibrateOff;
+				break;
+			}
+			case ButtonID.MoreInfo:
+			{
+				helpUI.alpha = 1;
+				helpUI.blocksRaycasts = true;
+				helpUI.transform.GetComponent<Animation>().Play();
+				break;
+			}
 
-		if (buttonID == ButtonID.VibrateToggle)
-		{
-			GameController.Instance.ToggleVibration(!Haptic.Enabled);
-			vibrationImage.sprite = Haptic.Enabled ? vibrateOn : vibrateOff;
+			case ButtonID.HelpMe:
+			{
+				if (GameController.Instance.GodMode) break;
+
+				helpHitCount++;
+
+				if (helpHitCount > 15)
+				{
+					GameController.Instance.ActivateGodMode();
+				}
+
+				break;
+			}
+
+			case ButtonID.Back:
+			{
+				if (helpUI.alpha == 1)
+				{
+					helpUI.alpha = 0;
+					helpUI.blocksRaycasts = false;
+				}
+				else
+				{
+					DisableShowcase();
+				}
+				break;
+			}
+
 		}
 	}
 

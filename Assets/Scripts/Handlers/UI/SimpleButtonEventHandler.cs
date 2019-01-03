@@ -22,7 +22,8 @@ public enum ButtonID
 	MoreInfo,
 	Resume,
 	RestartGame,
-	Pause
+	Pause,
+	HelpMe,
 }
 public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 
@@ -31,7 +32,6 @@ public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 
 	public virtual void OnPointerClick(PointerEventData data)
 	{
-
 		if (buttonID == ButtonID.RestartGame)
 		{
 			Time.timeScale = 1;
