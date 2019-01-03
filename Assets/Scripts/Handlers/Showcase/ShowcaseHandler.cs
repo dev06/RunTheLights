@@ -132,7 +132,7 @@ public class ShowcaseHandler : MonoBehaviour {
 
 				if (lastSelectedIndex != selectingIndex)
 				{
-					Haptic.Vibrate(HapticIntensity.Medium);
+					Haptic.Vibrate(HapticIntensity.Light);
 				}
 
 				lastSelectedIndex = selectingIndex;

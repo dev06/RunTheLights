@@ -235,7 +235,7 @@ public class CameraController : MonoBehaviour {
 
 				Vector3 target =  player.transform.position +  heightOffset + defaultPositon + Shake() + ContinuousShake() + new Vector3(0, 0, pullAmount) + (Vector3)(Random.insideUnitCircle * startIntensity);
 
-				lerpVector = Vector3.Lerp(lerpVector, target, Time.deltaTime * 20f);
+				lerpVector = Vector3.Lerp(lerpVector, target, Time.deltaTime * 16f);
 
 				lerpVector.y = target.y;
 
@@ -320,8 +320,9 @@ public class CameraController : MonoBehaviour {
 
 		if (!FuryHandler.InFury)
 		{
-			TriggerPull(-3f, 6f);
-			TriggerShake(.3f, 18f);
+			float multiplier = (FuryHandler.Instance.FuryStep == 1) ? 1f : ((FuryHandler.Instance.FuryStep == 2) ? 1.5f : 1f);
+			TriggerPull(-3f * multiplier, 6f);
+			TriggerShake(.3f * multiplier, 18f);
 			yield return new WaitForSeconds(.1f);
 			TriggerPull((pressed ? -2 : 0), 25f);
 		}
