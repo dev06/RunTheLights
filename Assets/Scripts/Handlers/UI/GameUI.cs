@@ -16,6 +16,7 @@ public class GameUI : UserInterface {
 	private bool disableAdditionalTexts;
 	private Animation furyPopAnim;
 	private Animation HUDAnim;
+	private Animation scoreTextAnim;
 	private GameInput player;
 	private CameraController camera;
 
@@ -31,6 +32,7 @@ public class GameUI : UserInterface {
 		player = FindObjectOfType<GameInput>();
 		camera = Camera.main.GetComponent<CameraController>();
 		HUDAnim = GetComponent<Animation>();
+		scoreTextAnim = scoreText.transform.GetComponent<Animation>();
 	}
 
 	void OnEnable()
@@ -40,6 +42,8 @@ public class GameUI : UserInterface {
 		EventManager.OnHitObject += OnHitObject;
 
 		EventManager.OnProgressionColliderHit += OnProgressionColliderHit;
+
+		EventManager.OnProgressionColliderExit += OnProgressionColliderExit;
 
 		EventManager.OnLevelComplete += OnLevelComplete;
 
@@ -61,6 +65,8 @@ public class GameUI : UserInterface {
 
 		EventManager.OnProgressionColliderHit -= OnProgressionColliderHit;
 
+		EventManager.OnProgressionColliderExit -= OnProgressionColliderExit;
+
 		EventManager.OnLevelComplete -= OnLevelComplete;
 
 		EventManager.OnFuryStatus -= OnFuryStatus;
@@ -74,11 +80,14 @@ public class GameUI : UserInterface {
 		EventManager.OnNearMiss -= OnNearMiss;
 	}
 
+	bool wasNearMiss;
+
 	void OnNearMiss()
 	{
 		int addition = 5;
 		GameController.SetScore(addition);
 		nearMisses.TriggerNextText("+" + (addition) + " Near Miss!", Color.white) ;
+		wasNearMiss = true;
 	}
 
 	void OnGearTriggerHit()
@@ -93,7 +102,10 @@ public class GameUI : UserInterface {
 		if (FuryHandler.InFury)
 		{
 			TriggerChaos();
+
 		}
+
+
 
 		StopCoroutine("ITriggerDamageOverlay");
 
@@ -132,7 +144,7 @@ public class GameUI : UserInterface {
 	void OnUpdateUI()
 	{
 		scoreText.text = GameController.SESSION_SCORE.ToString();
-		scoreText.transform.GetComponent<Animation>().Play();
+		scoreTextAnim.Play();
 
 	}
 
@@ -170,12 +182,31 @@ public class GameUI : UserInterface {
 					EventManager.OnLogMapStat(MapUnlockConditions.SpecialConditionType.RanLights, 1);
 				}
 
-				//FindObjectOfType<FuryHandler>().TriggerMiniboost();
+				if (!wasNearMiss && !FuryHandler.InFury)
+				{
+					CameraController.Instance.TriggerJerk();
+				}
 
 				break;
 			}
 		}
 	}
+
+	void OnProgressionColliderExit(ProgressionColliderType type)
+	{
+		if (GameController.TutorialEnabled) { return; }
+
+		switch (type)
+		{
+			case ProgressionColliderType.Intersection:
+			{
+				wasNearMiss = false;
+				break;
+			}
+		}
+	}
+
+
 
 
 
@@ -207,9 +238,10 @@ public class GameUI : UserInterface {
 
 	public void TriggerChaos()
 	{
-		Haptic.Vibrate(HapticIntensity.Medium);
+		Haptic.Vibrate(HapticIntensity.Light);
 		string message = FuryHandler.InFury ? furyMessages[Random.Range(0, furyMessages.Length)] : " CHAOS! ";
 		additionText.TriggerNextText("+" + (5)  +  message, new Color(1f, .9f, 0F, 1f));
 		GameController.SetScore(5);
+		OnUpdateUI();
 	}
 }

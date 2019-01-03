@@ -306,6 +306,27 @@ public class CameraController : MonoBehaviour {
 		shakeDuration = duration;
 	}
 
+	public void TriggerJerk()
+	{
+
+
+		StopCoroutine("IStopJerk");
+		StartCoroutine("IStopJerk");
+	}
+
+	IEnumerator IStopJerk()
+	{
+		yield return new WaitForEndOfFrame();
+
+		if (!FuryHandler.InFury)
+		{
+			TriggerPull(-3f, 6f);
+			TriggerShake(.3f, 18f);
+			yield return new WaitForSeconds(.1f);
+			TriggerPull((pressed ? -2 : 0), 25f);
+		}
+	}
+
 	Vector3 ContinuousShake()
 	{
 		return Random.insideUnitCircle * continuousShakeIntensity;

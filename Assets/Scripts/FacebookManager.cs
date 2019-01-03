@@ -24,6 +24,8 @@ public class FacebookManager : MonoBehaviour {
 
 	public void Init()
 	{
+
+#if !UNITY_EDITOR
 		if (!Facebook.Unity.FB.IsInitialized)
 		{
 			Facebook.Unity.FB.Init();
@@ -33,17 +35,20 @@ public class FacebookManager : MonoBehaviour {
 		{
 			Facebook.Unity.FB.ActivateApp();
 		}
+#endif
 	}
 
 
 	public bool EventSent(string name)
 	{
+#if !UNITY_EDITOR
 		if (!Facebook.Unity.FB.IsInitialized)
 		{
 			Facebook.Unity.FB.Init();
 			return false;
 		}
 		Facebook.Unity.FB.LogAppEvent(name, 1);
+#endif
 		return true;
 	}
 }

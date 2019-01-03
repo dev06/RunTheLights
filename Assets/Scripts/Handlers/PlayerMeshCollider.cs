@@ -191,7 +191,7 @@ public class PlayerMeshCollider : MonoBehaviour {
 		col.transform.GetComponent<Car>().Toggle(false);
 		col.transform.GetComponentInChildren<ParticleSystem>().Play();
 		cameraController.TriggerShake(.75f, 15f);
-		Haptic.Vibrate(HapticIntensity.Medium);
+		Haptic.Vibrate(HapticIntensity.Light);
 	}
 
 	void Death(Collider col)
@@ -205,7 +205,7 @@ public class PlayerMeshCollider : MonoBehaviour {
 
 		Toggle(false);
 
-		FacebookManager.instance.EventSent("DEATH:" + MapSelectUI.SelectedMap.GetDisplayName());
+		FacebookManager.instance.EventSent("DEATH_" + MapSelectUI.SelectedMap.GetDisplayName());
 
 		if (EventManager.OnGameOver != null)
 		{
