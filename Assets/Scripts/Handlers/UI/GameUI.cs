@@ -206,12 +206,6 @@ public class GameUI : UserInterface {
 		}
 	}
 
-
-
-
-
-
-
 	public override void Toggle(bool b)
 	{
 		if (GameController.TutorialEnabled) { return; }

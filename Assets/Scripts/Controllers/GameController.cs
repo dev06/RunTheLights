@@ -184,7 +184,7 @@ public class GameController : MonoBehaviour {
 	void OnGameStart()
 	{
 		GAMES_PLAYED++;
-
+		FacebookManager.instance.EventSent("GAME_START");
 		FacebookManager.instance.EventSent("MAP_PLAYED_" + MapSelectUI.SelectedMap.GetDisplayName());
 		FacebookManager.instance.EventSent("VEHICLE_USED_" + ActiveModel.modelType);
 	}

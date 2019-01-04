@@ -58,6 +58,7 @@ public class LevelController : MonoBehaviour {
 	private void OnLevelComplete()
 	{
 
+		FacebookManager.instance.EventSent("LEVEL_COMPLETE");
 		FacebookManager.instance.EventSent("LEVEL_COMPLETED_" + MapSelectUI.SelectedMap.GetDisplayName());
 
 		GameController.Instance.Save();
