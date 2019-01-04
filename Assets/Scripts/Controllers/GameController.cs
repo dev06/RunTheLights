@@ -295,7 +295,7 @@ public class GameController : MonoBehaviour {
 	{
 		TutorialEnabled = PlayerPrefs.HasKey("TutorialEnabled") ?  bool.Parse(PlayerPrefs.GetString("TutorialEnabled")) : TriggerTutorial;
 
-		GearsRemaining = PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : (GodMode ? 99999999 : 0);
+		GearsRemaining =  GodMode ? 999999 :  (PlayerPrefs.HasKey("GearsRemaining") ? PlayerPrefs.GetInt("GearsRemaining") : 0);
 
 		BEST_SCORE = PlayerPrefs.GetInt("BEST_SCORE");
 

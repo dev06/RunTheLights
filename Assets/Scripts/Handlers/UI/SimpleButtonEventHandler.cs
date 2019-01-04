@@ -36,6 +36,8 @@ public class SimpleButtonEventHandler : MonoBehaviour, IPointerClickHandler {
 		{
 			Time.timeScale = 1;
 
+			FacebookManager.instance.EventSent("GAME_RESTART");
+
 			if (EventManager.OnRestartGame != null)
 			{
 				EventManager.OnRestartGame();

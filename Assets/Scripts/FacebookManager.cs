@@ -51,4 +51,17 @@ public class FacebookManager : MonoBehaviour {
 #endif
 		return true;
 	}
+
+	public bool EventSent(string name, int value)
+	{
+#if !UNITY_EDITOR
+		if (!Facebook.Unity.FB.IsInitialized)
+		{
+			Facebook.Unity.FB.Init();
+			return false;
+		}
+		Facebook.Unity.FB.LogAppEvent(name, value);
+#endif
+		return true;
+	}
 }
